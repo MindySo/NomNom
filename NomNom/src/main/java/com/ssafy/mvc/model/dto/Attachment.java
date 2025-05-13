@@ -2,7 +2,7 @@ package com.ssafy.mvc.model.dto;
 
 import java.time.LocalDate;
 
-public class File {
+public class Attachment {
 	private Integer fileNo;
     private String fileTarget;
     private Integer targetNo;
@@ -11,11 +11,11 @@ public class File {
     private LocalDate fileRegDate;
     
     
-	public File() {
+	public Attachment() {
 	}
 	
 	
-	public File(Integer fileNo, String fileTarget, Integer targetNo, String fileName, String filePath,
+	public Attachment(Integer fileNo, String fileTarget, Integer targetNo, String fileName, String filePath,
 			LocalDate fileRegDate) {
 		this.fileNo = fileNo;
 		this.fileTarget = fileTarget;

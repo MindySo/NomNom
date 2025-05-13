@@ -4,50 +4,69 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssafy.mvc.model.dao.MealDao">
 
-	<!-- 식단 조회(사용자별/오늘) -->
-	<select id="selectMealByUserToday">
-		select m.meal_no, meal_title, meal_time,
-		(select
-		sum(calories) from meal_food where meal_no = m.meal_no) as cal_sum,
-		(select sum(carbohydrates) from meal_food where meal_no = m.meal_no)
-		as carb_sum,
-		(select sum(protein) from meal_food where meal_no =
-		m.meal_no) as pro_sum,
-		(select sum(fat) from meal_food where meal_no =
-		m.meal_no) as fat_sum
-		from meal m
-		where meal_reg_date = #{regDate}
+	<!-- 식단 조회(사용자별/일자) -->
+	<select id="selectMealByUserAndRegDate" parameterType="Meal"
+		resultType="MealResponse">
+		SELECT m.meal_no as mealNo, meal_title as mealTitle,
+		meal_time as mealTime,
+		(SELECT
+		sum(calories) from meal_food where
+		meal_no = m.meal_no) as calSum,
+		(SELECT sum(carbohydrates) from
+		meal_food where meal_no = m.meal_no)
+		as carbSum,
+		(SELECT sum(protein)
+		from meal_food where meal_no =
+		m.meal_no) as proSum,
+		(SELECT sum(fat)
+		from meal_food where meal_no =
+		m.meal_no) as fatSum
+		FROM meal m
+		WHERE
+		meal_reg_date = #{regDate}
+		AND user_no = #{userNo}
 	</select>
 
+
 	<!-- 식단 조회(단일) -->
-	<select id="selectFoodByMealFoodNo">
-		select meal_food_no, meal_no, food_no, food_amount,
-		food_title, food_category
+	<select id="selectFoodByMealFoodNo" parameterType="int"
+		resultType="MealFood">
+		SELECT meal_food_no as mealFoodNo, meal_no as mealNo,
+		food_no as foodNo, food_amount as foodAmount,
+		food_title as foodTitle,
+		food_category as foodCategory
 		calories, carbohydrates, protein, fat,
-		saturated_fat, unsaturated_fat,
+		saturated_fat as saturatedFat, unsaturated_fat as unsaturatedFat,
 		cholesterol,
 		sodium, sugar, calcium,
 		vitamin, iron, mineral
-		from meal_food
-		WHERE meal_food_no = #{mealFoodNo}
+		FROM
+		meal_food
+		WHERE meal_no = #{mealNo}
 	</select>
 
+
 	<!-- 식단 등록 -->
-	<insert id="insertMeal">
+	<insert id="insertMeal" parameterType="Meal"
+		useGeneratedKeys="true" keyProperty="mealNo">
 		INSERT INTO meal
-		(user_no, meal_reg_date, meal_time,
+		(user_no,
+		meal_reg_date, meal_time,
 		meal_title, meal_content)
-		VALUES (#{user_no}, #{meal_reg_date},
+		VALUES (#{user_no},
+		#{meal_reg_date},
 		#{meal_time}, #{meal_title}, #{meal_content})
 	</insert>
 
 
 	<!-- 식단_음식 등록 -->
-	<insert id="insertMealFood">
-		INSERT INTO meal_food (
+	<insert id="insertMealFood" parameterType="MealFood">
+		INSERT INTO meal_food
+		(
 		meal_no, food_no, food_amount,
 		food_title, food_category
-		calories, carbohydrates, protein, fat,
+		calories,
+		carbohydrates, protein, fat,
 		saturated_fat, unsaturated_fat,
 		cholesterol,
 		sodium, sugar, calcium,
@@ -58,22 +77,33 @@
 		#{mealTitle}, #{mealCategory},
 		#{calories}, #{carbohydrates},
 		#{protein}, #{fat},
-		#{saturatedFat}, #{unsaturatedFat}, #{cholesterol},
+		#{saturatedFat},
+		#{unsaturatedFat}, #{cholesterol},
 		#{sodium},
-		#{sugar}, #{calcium}, #{vitamin}, #{iron}, #{mineral}
+		#{sugar}, #{calcium},
+		#{vitamin}, #{iron}, #{mineral}
 		)
 	</insert>
 
 	<!-- 식단 삭제 -->
-	<delete id="deleteMeal">
-		delete from meal
-		where meal_no = #{meal_no}
+	<delete id="deleteMeal" parameterType="int">
+		DELETE FROM meal
+		WHERE
+		meal_no = #{meal_no}
 	</delete>
 
-	<!-- 식단_음식 삭제 -->
-	<delete id="deleteMealFood">
-		delete from meal_food
-		where meal_food_no =
+	<!-- 식단_음식 삭제(식단별) -->
+	<delete id="deleteMealFoodByMealNo" parameterType="int">
+		DELETE FROM
+		meal_food
+		WHERE meal_no = #{meal_no}
+	</delete>
+
+	<!-- 식단_음식 삭제(단일) -->
+	<delete id="deleteMealFoodByMealFoodNo" parameterType="int">
+		DELETE
+		FROM meal_food
+		WHERE meal_food_no =
 		#{meal_food_no}
 	</delete>
 
