@@ -7,17 +7,21 @@ public class Meal {
 	private Integer userNo;
 	private LocalDate mealRegDate;
 	private String mealTime;
+	private String mealTitle;
+	private String mealContent;
 	
 	
 	public Meal() {
 	}
 	
 	
-	public Meal(Integer mealNo, Integer userNo, LocalDate mealRegDate, String mealTime) {
+	public Meal(Integer mealNo, Integer userNo, LocalDate mealRegDate, String mealTime, String mealTitle, String mealContent) {
 		this.mealNo = mealNo;
 		this.userNo = userNo;
 		this.mealRegDate = mealRegDate;
 		this.mealTime = mealTime;
+		this.mealTitle = mealTitle;
+		this.mealContent = mealContent;
 	}
 	
 	
@@ -45,9 +49,21 @@ public class Meal {
 	public void setMealTime(String mealTime) {
 		this.mealTime = mealTime;
 	}
+	public String getMealTitle() {
+		return mealTitle;
+	}
+	public void setMealTitle(String mealTitle) {
+		this.mealTitle = mealTitle;
+	}
+	public String getMealContent() {
+		return mealContent;
+	}
+	public void setMealContent(String mealContent) {
+		this.mealContent = mealContent;
+	}
 	@Override
 	public String toString() {
 		return "Meal [mealNo=" + mealNo + ", userNo=" + userNo + ", mealRegDate=" + mealRegDate + ", mealTime="
-				+ mealTime + "]";
+				+ mealTime + ", mealTitle=" + mealTitle + ", mealContent=" + mealContent + "]";
 	}
 }
