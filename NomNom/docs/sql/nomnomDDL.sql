@@ -39,7 +39,7 @@ CREATE TABLE meal_food (
     mineral DOUBLE
 );
 
-CREATE TABLE file (
+CREATE TABLE attachment (
     file_no INT PRIMARY KEY AUTO_INCREMENT,
     file_target ENUM('MEAL', 'BOARD') NOT NULL,
     target_no INT NOT NULL,
