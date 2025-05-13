@@ -15,7 +15,7 @@ public class User {
     private Integer userWeight;
     private Integer userPoint;
     
-    
+     
 	public User() {
 	}
 	
