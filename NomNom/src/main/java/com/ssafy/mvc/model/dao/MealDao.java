@@ -1,4 +1,4 @@
-package com.ssafy.mvc.dao;
+package com.ssafy.mvc.model.dao;
 
 import java.sql.SQLException;
 import java.time.LocalDate;

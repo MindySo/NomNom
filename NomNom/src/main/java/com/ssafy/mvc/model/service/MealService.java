@@ -1,4 +1,4 @@
-package com.ssafy.mvc.service;
+package com.ssafy.mvc.model.service;
 
 import java.util.List;
 
