@@ -9,7 +9,7 @@ public class Meal {
 	private Integer mealNo;
 	private Integer userNo;
 	private LocalDate mealRegDate;
-	private String mealTime;
+	private MealTimeEnum mealTime;
 	private String mealTitle;
 	private String mealContent;
 	private List<MealFood> mealFoodList; 
@@ -19,7 +19,7 @@ public class Meal {
 	}
 	
 	
-	public Meal(Integer mealNo, Integer userNo, LocalDate mealRegDate, String mealTime, String mealTitle,
+	public Meal(Integer mealNo, Integer userNo, LocalDate mealRegDate, MealTimeEnum mealTime, String mealTitle,
 			String mealContent, List<MealFood> mealFoodList, List<MultipartFile> fileList) {
 		super();
 		this.mealNo = mealNo;
@@ -33,7 +33,7 @@ public class Meal {
 	}
 
 	
-	public Meal(Integer mealNo, Integer userNo, LocalDate mealRegDate, String mealTime, String mealTitle,
+	public Meal(Integer mealNo, Integer userNo, LocalDate mealRegDate, MealTimeEnum mealTime, String mealTitle,
 			String mealContent) {
 		super();
 		this.mealNo = mealNo;
@@ -70,10 +70,10 @@ public class Meal {
 	public void setMealRegDate(LocalDate mealRegDate) {
 		this.mealRegDate = mealRegDate;
 	}
-	public String getMealTime() {
+	public MealTimeEnum getMealTime() {
 		return mealTime;
 	}
-	public void setMealTime(String mealTime) {
+	public void setMealTime(MealTimeEnum mealTime) {
 		this.mealTime = mealTime;
 	}
 	public String getMealTitle() {
