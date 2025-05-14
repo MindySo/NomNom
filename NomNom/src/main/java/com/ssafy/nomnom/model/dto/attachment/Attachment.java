@@ -3,40 +3,38 @@ package com.ssafy.nomnom.model.dto.attachment;
 import java.time.LocalDate;
 
 public class Attachment {
-	private Integer fileNo;
-    private FileTargetEnum fileTarget;
+	private Integer attachmentNo;
+    private AttachmentTargetEnum attachmentTarget;
     private Integer targetNo;
-    private String fileName;
-    private String filePath;
-    private LocalDate fileRegDate;
+    private String attachmentName;
+    private LocalDate attachmentRegDate;
+
     
+    public Attachment() {
+    }
+
     
-	public Attachment() {
-	}
-	
-	
-	public Attachment(Integer fileNo, FileTargetEnum fileTarget, Integer targetNo, String fileName, String filePath,
-			LocalDate fileRegDate) {
-		this.fileNo = fileNo;
-		this.fileTarget = fileTarget;
+    public Attachment(Integer attachmentNo, AttachmentTargetEnum attachmentTarget, Integer targetNo, String attachmentName,
+			LocalDate attachmentRegDate) {
+		this.attachmentNo = attachmentNo;
+		this.attachmentTarget = attachmentTarget;
 		this.targetNo = targetNo;
-		this.fileName = fileName;
-		this.filePath = filePath;
-		this.fileRegDate = fileRegDate;
+		this.attachmentName = attachmentName;
+		this.attachmentRegDate = attachmentRegDate;
 	}
 	
-	
-	public Integer getFileNo() {
-		return fileNo;
+    
+    public Integer getAttachmentNo() {
+		return attachmentNo;
 	}
-	public void setFileNo(Integer fileNo) {
-		this.fileNo = fileNo;
+	public void setAttachmentNo(Integer attachmentNo) {
+		this.attachmentNo = attachmentNo;
 	}
-	public FileTargetEnum getFileTarget() {
-		return fileTarget;
+	public AttachmentTargetEnum getAttachmentTarget() {
+		return attachmentTarget;
 	}
-	public void setFileTarget(FileTargetEnum fileTarget) {
-		this.fileTarget = fileTarget;
+	public void setAttachmentTarget(AttachmentTargetEnum attachmentTarget) {
+		this.attachmentTarget = attachmentTarget;
 	}
 	public Integer getTargetNo() {
 		return targetNo;
@@ -44,27 +42,21 @@ public class Attachment {
 	public void setTargetNo(Integer targetNo) {
 		this.targetNo = targetNo;
 	}
-	public String getFileName() {
-		return fileName;
+	public String getAttachmentName() {
+		return attachmentName;
 	}
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
+	public void setAttachmentName(String attachmentName) {
+		this.attachmentName = attachmentName;
 	}
-	public String getFilePath() {
-		return filePath;
+	public LocalDate getAttachmentRegDate() {
+		return attachmentRegDate;
 	}
-	public void setFilePath(String filePath) {
-		this.filePath = filePath;
-	}
-	public LocalDate getFileRegDate() {
-		return fileRegDate;
-	}
-	public void setFileRegDate(LocalDate fileRegDate) {
-		this.fileRegDate = fileRegDate;
+	public void setAttachmentRegDate(LocalDate attachmentRegDate) {
+		this.attachmentRegDate = attachmentRegDate;
 	}
 	@Override
 	public String toString() {
-		return "File [fileNo=" + fileNo + ", fileTarget=" + fileTarget + ", targetNo=" + targetNo + ", fileName="
-				+ fileName + ", filePath=" + filePath + ", fileRegDate=" + fileRegDate + "]";
+		return "Attachment [attachmentNo=" + attachmentNo + ", attachmentTarget=" + attachmentTarget + ", targetNo="
+				+ targetNo + ", attachmentName=" + attachmentName + ", attachmentRegDate=" + attachmentRegDate + "]";
 	}
 }

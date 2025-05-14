@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ssafy.mvc.model.dao.MealDao">
+<mapper namespace="com.ssafy.nomnom.model.dao.MealDao">
 
 	<!-- 식단 조회(사용자별/일자) -->
 	<select id="selectMealByUserAndRegDate" parameterType="Meal"
