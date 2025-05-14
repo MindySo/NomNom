@@ -1,14 +1,14 @@
 package com.ssafy.nomnom.model.service;
 
-import java.io.File;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ssafy.nomnom.model.dao.MealDao;
-import com.ssafy.nomnom.model.dto.attachment.Attachment;
+import com.ssafy.nomnom.model.dto.attachment.AttachmentTargetEnum;
 import com.ssafy.nomnom.model.dto.meal.Meal;
 import com.ssafy.nomnom.model.dto.meal.MealFood;
 import com.ssafy.nomnom.model.dto.meal.MealResponse;
@@ -18,6 +18,12 @@ public class MealServiceImpl implements MealService {
 
 	@Autowired
 	private MealDao mealDao;
+
+	@Autowired
+	private AttachmentService attachmentService;
+
+	@Autowired
+	private AttachmentTargetEnum attachmentTargetEnum;
 
 	@Override
 	public List<MealResponse> mealList(Meal meal) throws Exception {
@@ -29,6 +35,7 @@ public class MealServiceImpl implements MealService {
 		return mealDao.selectFoodByMealFoodNo(mealNo);
 	}
 
+	@Transactional
 	@Override
 	public void writeMeal(Meal meal) throws Exception {
 		mealDao.insertMeal(meal);
@@ -37,30 +44,9 @@ public class MealServiceImpl implements MealService {
 		    food.setMealNo(meal.getMealNo());
 		    mealDao.insertMealFood(food);
 		}
-
-		for (MultipartFile attach : meal.getFileList()) {
-			// AttachService에서 작성할 것
-//			if (!attach.isEmpty()) {
-//				String originalName = attach.getOriginalFilename();
-//				long fileSize = attach.getSize();	// byte 크기
-//				String uploadName = generateUniqueName(originalName);
-//				File dirFile = new File(uploadDir);
-//				if (!dirFile.exists()) {
-//					dirFile.mkdirs();
-//				}
-//				File file = new File(dirFile, uploadName);
-//				// 1. 서버에 저장
-//				attach.transferTo(file);
-//				
-//				// 2. 디비에 저장
-//				Attachment boardFile = new BoardFile();
-//				// no, original_name, upload_name, file_size
-//				boardFile.setNo(board.getNo());
-//				boardFile.setOriginalName(originalName);
-//				boardFile.setUploadName(uploadName);
-//				boardFile.setFileSize(fileSize);
-//				boardDao.insertBoardFile(boardFile);
-//			}
+		
+		for (MultipartFile mpfile : meal.getFileList()) {
+			attachmentService.writeAttachment(mpfile, attachmentTargetEnum.BOARD, meal.getMealNo());
 		}
 	}
 
