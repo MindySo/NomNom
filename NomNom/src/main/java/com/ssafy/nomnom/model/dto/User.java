@@ -1,6 +1,7 @@
 package com.ssafy.nomnom.model.dto;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class User {
 	private Integer userNo;
@@ -14,6 +15,9 @@ public class User {
     private Integer userHeight;
     private Integer userWeight;
     private Integer userPoint;
+    private List<String> diseases;  
+    private List<String> allergies;
+    
     
      
 	public User() {
