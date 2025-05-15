@@ -7,9 +7,9 @@ import com.ssafy.nomnom.model.dto.meal.MealFood;
 import com.ssafy.nomnom.model.dto.meal.MealResponse;
 
 public interface MealService {
-	List<MealResponse> mealList(Meal meal) throws Exception;
-	List<MealFood> mealFoodList(int mealNo) throws Exception;
-	void writeMeal(Meal meal) throws Exception;
-	void removeMeal(int no) throws Exception;
-	void removeMealFood(int no) throws Exception;
+	List<MealResponse> getMealList(Meal meal);
+	List<MealFood> getMealFoodList(int mealNo);
+	void writeMeal(Meal meal);
+	void removeMeal(int no);
+	void removeMealFood(int no);
 }
