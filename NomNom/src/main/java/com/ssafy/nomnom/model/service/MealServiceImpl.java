@@ -22,22 +22,19 @@ public class MealServiceImpl implements MealService {
 	@Autowired
 	private AttachmentService attachmentService;
 
-	@Autowired
-	private AttachmentTargetEnum attachmentTargetEnum;
-
 	@Override
-	public List<MealResponse> mealList(Meal meal) throws Exception {
+	public List<MealResponse> getMealList(Meal meal) {
 		return mealDao.selectMealByUserAndRegDate(meal);
 	}
 
 	@Override
-	public List<MealFood> mealFoodList(int mealNo) throws Exception {
+	public List<MealFood> getMealFoodList(int mealNo) {
 		return mealDao.selectFoodByMealFoodNo(mealNo);
 	}
 
 	@Transactional
 	@Override
-	public void writeMeal(Meal meal) throws Exception {
+	public void writeMeal(Meal meal) {
 		mealDao.insertMeal(meal);
 		
 		for (MealFood food : meal.getMealFoodList()) {
@@ -46,18 +43,18 @@ public class MealServiceImpl implements MealService {
 		}
 		
 		for (MultipartFile mpfile : meal.getFileList()) {
-			attachmentService.writeAttachment(mpfile, attachmentTargetEnum.BOARD, meal.getMealNo());
+			attachmentService.writeAttachment(mpfile, AttachmentTargetEnum.BOARD, meal.getMealNo());
 		}
 	}
 
 	@Override
-	public void removeMeal(int mealNo) throws Exception {
+	public void removeMeal(int mealNo) {
 		mealDao.deleteMeal(mealNo);
 		mealDao.deleteMealFood(mealNo);
 	}
 
 	@Override
-	public void removeMealFood(int mealFoodNo) throws Exception {
+	public void removeMealFood(int mealFoodNo) {
 		mealDao.deleteMealFoodByMealFoodNo(mealFoodNo);
 	}
 }
