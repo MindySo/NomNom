@@ -48,7 +48,7 @@ public class AttachmentServiceImpl implements AttachmenetService {
 				attachment.setTargetNo(null);
 				attachment.setFileName(uploadName);
 				attachment.setFilePath(uploadName);
-				attachmentDao.insertBoardFile(boardFile);
+				//attachmentDao.insertBoardFile(boardFile);
 			}
 		}
 	}
