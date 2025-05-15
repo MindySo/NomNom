@@ -6,10 +6,10 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 public class Meal {
-	private Integer mealNo;
-	private Integer userNo;
+	private int mealNo;
+	private int userNo;
 	private LocalDate mealRegDate;
-	private String mealTime;
+	private MealTimeEnum mealTime;
 	private String mealTitle;
 	private String mealContent;
 	private List<MealFood> mealFoodList; 
@@ -19,9 +19,8 @@ public class Meal {
 	}
 	
 	
-	public Meal(Integer mealNo, Integer userNo, LocalDate mealRegDate, String mealTime, String mealTitle,
+	public Meal(int mealNo, Integer userNo, LocalDate mealRegDate, MealTimeEnum mealTime, String mealTitle,
 			String mealContent, List<MealFood> mealFoodList, List<MultipartFile> fileList) {
-		super();
 		this.mealNo = mealNo;
 		this.userNo = userNo;
 		this.mealRegDate = mealRegDate;
@@ -33,9 +32,8 @@ public class Meal {
 	}
 
 	
-	public Meal(Integer mealNo, Integer userNo, LocalDate mealRegDate, String mealTime, String mealTitle,
+	public Meal(int mealNo, Integer userNo, LocalDate mealRegDate, MealTimeEnum mealTime, String mealTitle,
 			String mealContent) {
-		super();
 		this.mealNo = mealNo;
 		this.userNo = userNo;
 		this.mealRegDate = mealRegDate;
@@ -45,23 +43,22 @@ public class Meal {
 	}
 
 
-	public Meal(Integer mealNo, Integer userNo) {
-		super();
+	public Meal(int mealNo, int userNo) {
 		this.mealNo = mealNo;
 		this.userNo = userNo;
 	}
 
 
-	public Integer getMealNo() {
+	public int getMealNo() {
 		return mealNo;
 	}
-	public void setMealNo(Integer mealNo) {
+	public void setMealNo(int mealNo) {
 		this.mealNo = mealNo;
 	}
-	public Integer getUserNo() {
+	public int getUserNo() {
 		return userNo;
 	}
-	public void setUserNo(Integer userNo) {
+	public void setUserNo(int userNo) {
 		this.userNo = userNo;
 	}
 	public LocalDate getMealRegDate() {
@@ -70,10 +67,10 @@ public class Meal {
 	public void setMealRegDate(LocalDate mealRegDate) {
 		this.mealRegDate = mealRegDate;
 	}
-	public String getMealTime() {
+	public MealTimeEnum getMealTime() {
 		return mealTime;
 	}
-	public void setMealTime(String mealTime) {
+	public void setMealTime(MealTimeEnum mealTime) {
 		this.mealTime = mealTime;
 	}
 	public String getMealTitle() {

@@ -44,7 +44,6 @@ CREATE TABLE attachment (
     file_target ENUM('MEAL', 'BOARD') NOT NULL,
     target_no INT NOT NULL,
     file_name VARCHAR(255) NOT NULL,
-    file_path VARCHAR(500) NOT NULL,
     file_reg_date DATE NOT NULL
 );
 

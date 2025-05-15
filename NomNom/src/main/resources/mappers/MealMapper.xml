@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ssafy.mvc.model.dao.MealDao">
+<mapper namespace="com.ssafy.nomnom.model.dao.MealDao">
 
 	<!-- 식단 조회(사용자별/일자) -->
 	<select id="selectMealByUserAndRegDate" parameterType="Meal"
@@ -23,7 +23,7 @@
 		m.meal_no) as fatSum
 		FROM meal m
 		WHERE
-		meal_reg_date = #{regDate}
+		meal_reg_date = #{mealRegDate}
 		AND user_no = #{userNo}
 	</select>
 
@@ -34,7 +34,7 @@
 		SELECT meal_food_no as mealFoodNo, meal_no as mealNo,
 		food_no as foodNo, food_amount as foodAmount,
 		food_title as foodTitle,
-		food_category as foodCategory
+		food_category as foodCategory,
 		calories, carbohydrates, protein, fat,
 		saturated_fat as saturatedFat, unsaturated_fat as unsaturatedFat,
 		cholesterol,
@@ -53,9 +53,9 @@
 		(user_no,
 		meal_reg_date, meal_time,
 		meal_title, meal_content)
-		VALUES (#{user_no},
-		#{meal_reg_date},
-		#{meal_time}, #{meal_title}, #{meal_content})
+		VALUES (#{userNo},
+		#{mealRegDate},
+		#{mealTime}, #{mealTitle}, #{mealContent})
 	</insert>
 
 
@@ -64,7 +64,7 @@
 		INSERT INTO meal_food
 		(
 		meal_no, food_no, food_amount,
-		food_title, food_category
+		food_title, food_category,
 		calories,
 		carbohydrates, protein, fat,
 		saturated_fat, unsaturated_fat,
@@ -74,7 +74,7 @@
 		) VALUES (
 		#{mealNo}, #{foodNo},
 		#{foodAmount},
-		#{mealTitle}, #{mealCategory},
+		#{foodTitle}, #{foodCategory},
 		#{calories}, #{carbohydrates},
 		#{protein}, #{fat},
 		#{saturatedFat},
@@ -89,14 +89,14 @@
 	<delete id="deleteMeal" parameterType="int">
 		DELETE FROM meal
 		WHERE
-		meal_no = #{meal_no}
+		meal_no = #{mealNo}
 	</delete>
 
 	<!-- 식단_음식 삭제(식단별) -->
 	<delete id="deleteMealFoodByMealNo" parameterType="int">
 		DELETE FROM
 		meal_food
-		WHERE meal_no = #{meal_no}
+		WHERE meal_no = #{mealNo}
 	</delete>
 
 	<!-- 식단_음식 삭제(단일) -->
@@ -104,7 +104,7 @@
 		DELETE
 		FROM meal_food
 		WHERE meal_food_no =
-		#{meal_food_no}
+		#{mealFoodNo}
 	</delete>
 
 
