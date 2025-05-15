@@ -35,6 +35,11 @@ public class AttachmentServiceImpl implements AttachmentService {
 			dirFile.mkdirs();
 		}
 		File file = new File(dirFile, uploadName);
+		 try {
+		        mpfile.transferTo(file);
+		    } catch (Exception e) {
+		        throw new RuntimeException("파일 저장 중 오류 발생", e);
+		    }
 
 		Attachment attachment = new Attachment();
 		attachment.setAttachmentTarget(target);
