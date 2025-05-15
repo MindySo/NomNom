@@ -1,12 +1,12 @@
 CREATE TABLE user (
     user_no INT PRIMARY KEY AUTO_INCREMENT,
-    user_id VARCHAR(50) NOT NULL,
-    user_email VARCHAR(100) NOT NULL,
+    user_id VARCHAR(50) UNIQUE NOT NULL,
+    user_email VARCHAR(100) UNIQUE NOT NULL,
     user_pw VARCHAR(255) NOT NULL,
-    user_reg_date DATE NOT NULL,
+    user_created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     user_birthday DATE,
     user_gender ENUM('MALE', 'FEMALE'),
-    user_role ENUM('USER', 'ADMIN'),
+    user_role ENUM('USER', 'ADMIN') NOT NULL DEFAULT 'USER',
     user_height INT,
     user_weight INT,
     user_point INT DEFAULT 0
@@ -64,7 +64,7 @@ CREATE TABLE reaction (
 );
 
 CREATE TABLE mission (
-    mission_id INT PRIMARY KEY AUTO_INCREMENT,
+    mission_no INT PRIMARY KEY AUTO_INCREMENT,
     mission_name VARCHAR(100) NOT NULL,
     mission_description TEXT,
     challenge_duration INT DEFAULT 30
@@ -72,19 +72,19 @@ CREATE TABLE mission (
 
 CREATE TABLE challenge (
     challenge_no INT PRIMARY KEY AUTO_INCREMENT,
-    user_id INT NOT NULL,
-    mission_id INT NOT NULL,
+    user_no INT NOT NULL,
+    mission_no INT NOT NULL,
     challenge_start_date DATE NOT NULL,
     challenge_current_streak INT DEFAULT 0,
     challenge_status ENUM('IN_PROGRESS', 'COMPLETED', 'FAILED', 'DROPPED')
 );
 
 CREATE TABLE badge (
-    badge_id INT PRIMARY KEY AUTO_INCREMENT,
-    user_id INT NOT NULL,
-    mission_id INT NOT NULL,
+    badge_no INT PRIMARY KEY AUTO_INCREMENT,
+    user_no INT NOT NULL,
+    mission_no INT NOT NULL,
     badge_reg_date DATE NOT NULL,
-    UNIQUE (user_id, mission_id, badge_reg_date)
+    UNIQUE (user_no, mission_no, badge_reg_date)
 );
 
 CREATE TABLE comment (
@@ -103,4 +103,30 @@ CREATE TABLE point_log (
     point_type ENUM('EARN', 'USE') NOT NULL,
     point_target ENUM('BADGE', 'CHALLENGE', 'MEAL_INSERT'),
     point_reg_date DATETIME NOT NULL
+);
+
+CREATE TABLE disease (
+    disease_no    INT PRIMARY KEY AUTO_INCREMENT,
+    name          VARCHAR(100) UNIQUE NOT NULL
+);
+
+CREATE TABLE allergy (
+    allergy_no    INT PRIMARY KEY AUTO_INCREMENT,
+    name          VARCHAR(100) UNIQUE NOT NULL
+);
+
+CREATE TABLE user_disease (
+    user_no       INT,
+    disease_no    INT,
+    PRIMARY KEY (user_no, disease_no),
+    FOREIGN KEY (user_no) REFERENCES user(user_no),
+    FOREIGN KEY (disease_no) REFERENCES disease(disease_no)
+);
+
+CREATE TABLE user_allergy (
+    user_no       INT,
+    allergy_no    INT,
+    PRIMARY KEY (user_no, allergy_no),
+    FOREIGN KEY (user_no) REFERENCES user(user_no),
+    FOREIGN KEY (allergy_no) REFERENCES allergy(allergy_no)
 );
