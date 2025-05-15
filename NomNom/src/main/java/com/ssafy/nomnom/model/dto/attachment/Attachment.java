@@ -1,0 +1,62 @@
+package com.ssafy.nomnom.model.dto.attachment;
+
+import java.time.LocalDate;
+
+public class Attachment {
+	private Integer attachmentNo;
+    private AttachmentTargetEnum attachmentTarget;
+    private Integer targetNo;
+    private String attachmentName;
+    private LocalDate attachmentRegDate;
+
+    
+    public Attachment() {
+    }
+
+    
+    public Attachment(Integer attachmentNo, AttachmentTargetEnum attachmentTarget, Integer targetNo, String attachmentName,
+			LocalDate attachmentRegDate) {
+		this.attachmentNo = attachmentNo;
+		this.attachmentTarget = attachmentTarget;
+		this.targetNo = targetNo;
+		this.attachmentName = attachmentName;
+		this.attachmentRegDate = attachmentRegDate;
+	}
+	
+    
+    public Integer getAttachmentNo() {
+		return attachmentNo;
+	}
+	public void setAttachmentNo(Integer attachmentNo) {
+		this.attachmentNo = attachmentNo;
+	}
+	public AttachmentTargetEnum getAttachmentTarget() {
+		return attachmentTarget;
+	}
+	public void setAttachmentTarget(AttachmentTargetEnum attachmentTarget) {
+		this.attachmentTarget = attachmentTarget;
+	}
+	public Integer getTargetNo() {
+		return targetNo;
+	}
+	public void setTargetNo(Integer targetNo) {
+		this.targetNo = targetNo;
+	}
+	public String getAttachmentName() {
+		return attachmentName;
+	}
+	public void setAttachmentName(String attachmentName) {
+		this.attachmentName = attachmentName;
+	}
+	public LocalDate getAttachmentRegDate() {
+		return attachmentRegDate;
+	}
+	public void setAttachmentRegDate(LocalDate attachmentRegDate) {
+		this.attachmentRegDate = attachmentRegDate;
+	}
+	@Override
+	public String toString() {
+		return "Attachment [attachmentNo=" + attachmentNo + ", attachmentTarget=" + attachmentTarget + ", targetNo="
+				+ targetNo + ", attachmentName=" + attachmentName + ", attachmentRegDate=" + attachmentRegDate + "]";
+	}
+}
