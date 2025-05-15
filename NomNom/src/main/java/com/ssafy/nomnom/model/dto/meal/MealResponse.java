@@ -1,7 +1,5 @@
 package com.ssafy.nomnom.model.dto.meal;
 
-import java.time.LocalDate;
-
 public class MealResponse {
 	private Integer mealNo;
 	private String mealTime;

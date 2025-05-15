@@ -67,19 +67,19 @@ public class MealFood {
 		return foodNo;
 	}
 
-	public String getfoodTitle() {
+	public String getFoodTitle() {
 		return foodTitle;
 	}
 
-	public void setfoodTitle(String foodTitle) {
+	public void setFoodTitle(String foodTitle) {
 		this.foodTitle = foodTitle;
 	}
 
-	public String getfoodCategory() {
+	public String getFoodCategory() {
 		return foodCategory;
 	}
 
-	public void setfoodCategory(String foodCategory) {
+	public void setFoodCategory(String foodCategory) {
 		this.foodCategory = foodCategory;
 	}
 
