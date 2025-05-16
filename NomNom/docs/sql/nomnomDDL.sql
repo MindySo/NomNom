@@ -1,3 +1,5 @@
+use nomnom_db;
+
 CREATE TABLE user (
     user_no INT PRIMARY KEY AUTO_INCREMENT,
     user_id VARCHAR(50) UNIQUE NOT NULL,
@@ -183,7 +185,7 @@ CREATE TABLE ingredient (
 -- 요리-재료 매핑
 CREATE TABLE food_ingredient (
     food_ingredient_no INT PRIMARY KEY AUTO_INCREMENT,
-    main_food_code VARCHAR(20),
+    food_code VARCHAR(20),
     ingredient_code VARCHAR(20),
     ingredient_weight DOUBLE,
     nutri_energy DOUBLE,
@@ -231,10 +233,10 @@ CREATE TABLE food_ingredient (
     nutri_cholesterol DOUBLE,
     nutri_salt_equivalent DOUBLE,
     nutri_refuse DOUBLE,
-    FOREIGN KEY (main_food_code) REFERENCES main_food(main_food_code),
-    FOREIGN KEY (food_code) REFERENCES food(food_code)
+    FOREIGN KEY (food_code) REFERENCES food(food_code),
+    FOREIGN KEY (ingredient_code) REFERENCES ingredient(ingredient_code)
 );
 
 
-ALTER TABLE main_food_detail
-ADD CONSTRAINT uq_mainfood_food UNIQUE (main_food_code, food_code);
+ALTER TABLE food_ingredient
+ADD CONSTRAINT uq_mainfood_food UNIQUE (food_code, ingredient_code);
