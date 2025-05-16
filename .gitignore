@@ -185,3 +185,6 @@ fabric.properties
 
 # Macbook
 .DS_Store
+
+# secretkey ignore
+application-secret.properties

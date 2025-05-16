@@ -23,20 +23,7 @@ CREATE TABLE meal_food (
     meal_food_no INT PRIMARY KEY AUTO_INCREMENT,
     meal_no INT NOT NULL,
     food_no INT NOT NULL,
-    food_amount INT NOT NULL,
-    calories DOUBLE,
-    carbohydrates DOUBLE,
-    protein DOUBLE,
-    fat DOUBLE,
-    saturated_fat DOUBLE,
-    unsaturated_fat DOUBLE,
-    cholesterol DOUBLE,
-    sodium DOUBLE,
-    sugar DOUBLE,
-    calcium DOUBLE,
-    vitamin DOUBLE,
-    iron DOUBLE,
-    mineral DOUBLE
+    food_amount INT NOT NULL
 );
 
 CREATE TABLE attachment (
@@ -130,3 +117,124 @@ CREATE TABLE user_allergy (
     FOREIGN KEY (user_no) REFERENCES user(user_no),
     FOREIGN KEY (allergy_no) REFERENCES allergy(allergy_no)
 );
+
+CREATE TABLE food (
+    food_code VARCHAR(20) PRIMARY KEY,   -- D015039
+    food_name VARCHAR(255) NOT NULL,      -- "짬뽕덮밥"
+    food_upper_group VARCHAR(100),
+	food_sub_group VARCHAR(100),
+	food_weight DOUBLE,
+    nutri_energy DOUBLE,
+    nutri_water DOUBLE,
+    nutri_protein DOUBLE,
+    nutri_nitrogen DOUBLE,
+    nutri_ash DOUBLE,
+    nutri_carbohydrate DOUBLE,
+    nutri_sugar DOUBLE,
+    nutri_dietary_fiber DOUBLE,
+    nutri_vitamin_a_carotene DOUBLE,
+    nutri_vitamin_a_retinol DOUBLE,
+    nutri_niacin_eq DOUBLE,
+    nutri_total_fatty_acids DOUBLE,
+    nutri_essential_fatty_acids DOUBLE,
+    nutri_saturated_fats DOUBLE,
+    nutri_monounsaturated_fats DOUBLE,
+    nutri_polyunsaturated_fats DOUBLE,
+    nutri_calcium DOUBLE,
+    nutri_iron DOUBLE,
+    nutri_magnesium DOUBLE,
+    nutri_phosphorus DOUBLE,
+    nutri_potassium DOUBLE,
+    nutri_sodium DOUBLE,
+    nutri_zinc DOUBLE,
+    nutri_copper DOUBLE,
+    nutri_manganese DOUBLE,
+    nutri_selenium DOUBLE,
+    nutri_molybdenum DOUBLE,
+    nutri_iodine DOUBLE,
+    nutri_retinol DOUBLE,
+    nutri_carotene DOUBLE,
+    nutri_vitamin_d DOUBLE,
+    nutri_vitamin_e DOUBLE,
+    nutri_vitamin_k1 DOUBLE,
+    nutri_vitamin_b1 DOUBLE,
+    nutri_vitamin_b2 DOUBLE,
+    nutri_niacin DOUBLE,
+    nutri_pantothenic_acid DOUBLE,
+    nutri_pyridoxine DOUBLE,
+    nutri_biotin DOUBLE,
+    nutri_folate DOUBLE,
+    nutri_vitamin_b12 DOUBLE,
+    nutri_vitamin_c DOUBLE,
+    nutri_cholesterol DOUBLE,
+    nutri_salt_equivalent DOUBLE,
+    nutri_refuse DOUBLE
+);
+
+-- 재료 테이블
+CREATE TABLE ingredient (
+    ingredient_code VARCHAR(20) PRIMARY KEY,       -- F00017, F02825 등
+    ingredient_name VARCHAR(255) NOT NULL,
+    ingredient_group_name VARCHAR(100),
+	allergy_info TEXT,
+	image_url TEXT
+);
+
+-- 요리-재료 매핑
+CREATE TABLE food_ingredient (
+    food_ingredient_no INT PRIMARY KEY AUTO_INCREMENT,
+    main_food_code VARCHAR(20),
+    ingredient_code VARCHAR(20),
+    ingredient_weight DOUBLE,
+    nutri_energy DOUBLE,
+    nutri_water DOUBLE,
+    nutri_protein DOUBLE,
+    nutri_nitrogen DOUBLE,
+    nutri_ash DOUBLE,
+    nutri_carbohydrate DOUBLE,
+    nutri_sugar DOUBLE,
+    nutri_dietary_fiber DOUBLE,
+    nutri_vitamin_a_carotene DOUBLE,
+    nutri_vitamin_a_retinol DOUBLE,
+    nutri_niacin_eq DOUBLE,
+    nutri_total_fatty_acids DOUBLE,
+    nutri_essential_fatty_acids DOUBLE,
+    nutri_saturated_fats DOUBLE,
+    nutri_monounsaturated_fats DOUBLE,
+    nutri_polyunsaturated_fats DOUBLE,
+    nutri_calcium DOUBLE,
+    nutri_iron DOUBLE,
+    nutri_magnesium DOUBLE,
+    nutri_phosphorus DOUBLE,
+    nutri_potassium DOUBLE,
+    nutri_sodium DOUBLE,
+    nutri_zinc DOUBLE,
+    nutri_copper DOUBLE,
+    nutri_manganese DOUBLE,
+    nutri_selenium DOUBLE,
+    nutri_molybdenum DOUBLE,
+    nutri_iodine DOUBLE,
+    nutri_retinol DOUBLE,
+    nutri_carotene DOUBLE,
+    nutri_vitamin_d DOUBLE,
+    nutri_vitamin_e DOUBLE,
+    nutri_vitamin_k1 DOUBLE,
+    nutri_vitamin_b1 DOUBLE,
+    nutri_vitamin_b2 DOUBLE,
+    nutri_niacin DOUBLE,
+    nutri_pantothenic_acid DOUBLE,
+    nutri_pyridoxine DOUBLE,
+    nutri_biotin DOUBLE,
+    nutri_folate DOUBLE,
+    nutri_vitamin_b12 DOUBLE,
+    nutri_vitamin_c DOUBLE,
+    nutri_cholesterol DOUBLE,
+    nutri_salt_equivalent DOUBLE,
+    nutri_refuse DOUBLE,
+    FOREIGN KEY (main_food_code) REFERENCES main_food(main_food_code),
+    FOREIGN KEY (food_code) REFERENCES food(food_code)
+);
+
+
+ALTER TABLE main_food_detail
+ADD CONSTRAINT uq_mainfood_food UNIQUE (main_food_code, food_code);
