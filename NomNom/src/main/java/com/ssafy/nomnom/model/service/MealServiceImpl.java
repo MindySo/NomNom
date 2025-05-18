@@ -50,7 +50,7 @@ public class MealServiceImpl implements MealService {
 	@Override
 	public void removeMeal(int mealNo) {
 		mealDao.deleteMeal(mealNo);
-		mealDao.deleteMealFood(mealNo);
+		mealDao.deleteMealFoodByMealNo(mealNo);
 	}
 
 	@Override

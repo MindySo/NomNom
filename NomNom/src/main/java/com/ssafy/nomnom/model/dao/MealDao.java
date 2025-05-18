@@ -15,6 +15,6 @@ public interface MealDao {
 	int insertMeal(Meal meal);
 	int insertMealFood(MealFood mealFood);
 	int deleteMeal(int mealNo);
-	int deleteMealFood(int mealNo);
+	int deleteMealFoodByMealNo(int mealNo);
 	int deleteMealFoodByMealFoodNo(int mealFoodNo);
 }
