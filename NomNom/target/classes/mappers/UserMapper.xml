@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.nonmom.model.dao.UserDao">
+<!--  회원가입  -->
+	<insert id="insertUser" parameterType="user">
+    INSERT INTO user (
+        user_id,
+        user_email,
+        user_pw
+        <if test="userBirthday != null">, user_birthday</if>
+        <if test="userGender != null">, user_gender</if>
+        <if test="userHeight != null">, user_height</if>
+        <if test="userWeight != null">, user_weight</if>
+    )
+    VALUES (
+        #{userId},
+        #{userEmail},
+        #{userPw}
+        <if test="userBirthday != null">, #{userBirthday}</if>
+        <if test="userGender != null">, #{userGender}</if>
+        <if test="userHeight != null">, #{userHeight}</if>
+        <if test="userWeight != null">, #{userWeight}</if>
+    )
+</insert>
+	
+<!-- 로그인 시 조회 -->
+
+<!-- 마이페이지 조회 -->
+<!-- 회원정보 수정 -->
+<!-- 회원탈퇴 -->
+<!-- 질병정보 입력 -->
+<!-- 알레르기정보 입력 -->
+
+</mapper>
