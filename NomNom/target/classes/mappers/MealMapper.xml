@@ -5,54 +5,51 @@
 <mapper namespace="com.ssafy.nomnom.model.dao.MealDao">
 
 	<!-- 식단 조회(사용자별/일자) -->
-	<select id="selectMealByUserAndRegDate" parameterType="Meal"
-		resultType="MealResponse">
-		SELECT m.meal_no as mealNo, meal_title as mealTitle,
-		meal_time as mealTime,
-		(SELECT
-		sum(calories) from meal_food where
-		meal_no = m.meal_no) as calSum,
-		(SELECT sum(carbohydrates) from
-		meal_food where meal_no = m.meal_no)
-		as carbSum,
-		(SELECT sum(protein)
-		from meal_food where meal_no =
-		m.meal_no) as proSum,
-		(SELECT sum(fat)
-		from meal_food where meal_no =
-		m.meal_no) as fatSum,
-		(SELECT sum(water)
-		from meal_food where meal_no =
-		m.meal_no) as waterSum
+	<select id="selectMealByUserAndRegDate" parameterType="Meal" resultType="MealResponse">
+		SELECT
+		m.meal_no as mealNo, meal_title as mealTitle, meal_time as mealTime,
+		nutri_energy as nutriEnergy,
+		nutri_carbohydrate as nutriCarbohydrate,
+		nutri_protein as nutriProtein,
+		nutri_total_fatty_acids as nutriTotalFattyAcids
 		FROM meal m
-		WHERE
-		meal_reg_date = #{mealRegDate}
+		JOIN meal_food mf ON m.meal_no = mf.meal_no
+		JOIN food f ON mf.food_code = f.food_code
+		WHERE meal_reg_date = #{mealRegDate}
 		AND user_no = #{userNo}
 		AND meal_time != 'WATER'
 	</select>
 
 
 	<!-- 식단 조회(단일) -->
-	<select id="selectFoodByMealFoodNo" parameterType="int"
-		resultType="MealFood">
-		SELECT meal_food_no as mealFoodNo, meal_no as mealNo,
-		food_no as foodNo, food_amount as foodAmount,
-		food_title as foodTitle,
-		food_category as foodCategory,
-		calories, carbohydrates, protein, fat,
-		saturated_fat as saturatedFat, unsaturated_fat as unsaturatedFat,
-		cholesterol,
-		sodium, sugar, calcium,
-		vitamin, iron, mineral
-		FROM
-		meal_food
-		WHERE meal_no = #{mealNo}
+	<select id="selectFoodByMealFoodNo" parameterType="int" resultType="MealFood">
+		SELECT 
+		m.meal_no AS mealNo, 
+		meal_reg_date AS mealRegDate, 
+		meal_time AS mealTime, 
+		meal_title AS mealTitle, 
+		meal_content AS mealContent,
+		
+		f.food_code AS foodCode, 
+		food_amount AS foodAmount,
+		
+		food_name AS foodName,
+		food_sub_group AS foodSubGroup,
+        (food_weight * food_amount) as foodWeight,
+        (nutri_energy * food_amount) as nutriEnergy,
+		(nutri_carbohydrate * food_amount) as nutriCarbohydrate,
+		(nutri_protein * food_amount) as nutriProtein,
+		(nutri_total_fatty_acids * food_amount) as nutriTotalFattyAcids
+     
+		FROM meal m
+		JOIN meal_food mf ON m.meal_no = mf.meal_no
+		JOIN food f ON mf.food_code = f.food_code
+        WHERE m.meal_no = #{mealNo}
 	</select>
 
 
 	<!-- 식단 등록 -->
-	<insert id="insertMeal" parameterType="Meal"
-		useGeneratedKeys="true" keyProperty="mealNo">
+	<insert id="insertMeal" parameterType="Meal" useGeneratedKeys="true" keyProperty="mealNo">
 		INSERT INTO meal
 		(user_no,
 		meal_reg_date, meal_time,
@@ -66,27 +63,9 @@
 	<!-- 식단_음식 등록 -->
 	<insert id="insertMealFood" parameterType="MealFood">
 		INSERT INTO meal_food
-		(
-		meal_no, food_no, food_amount,
-		food_title, food_category,
-		calories,
-		carbohydrates, protein, fat,
-		saturated_fat, unsaturated_fat,
-		cholesterol,
-		sodium, sugar, calcium,
-		vitamin, iron, mineral
-		) VALUES (
-		#{mealNo}, #{foodNo},
-		#{foodAmount},
-		#{foodTitle}, #{foodCategory},
-		#{calories}, #{carbohydrates},
-		#{protein}, #{fat},
-		#{saturatedFat},
-		#{unsaturatedFat}, #{cholesterol},
-		#{sodium},
-		#{sugar}, #{calcium},
-		#{vitamin}, #{iron}, #{mineral}
-		)
+		(meal_no, food_code, food_amount) 
+        VALUES (
+-- 		#{mealNo}, #{foodCode}, #{foodAmount})
 	</insert>
 
 	<!-- 식단 삭제 -->
@@ -112,14 +91,169 @@
 	</delete>
 	
 	<!-- 수분 총합 조회(사용자별/일자) -->
+	<select id="selectWaterSumByUserAndRegDate" parameterType = "Meal" resultType="int">
+		SELECT SUM(nutri_water)
+		FROM meal m
+		JOIN meal_food mf ON m.meal_no = mf.meal_no
+		JOIN food f ON mf.food_code = f.food_code
+		WHERE user_no = #{userNo}
+		AND meal_reg_date = #{mealRegDate}
+	</select>
+	
 	<!-- 물 섭취 목록 조회(enum='WATER')(사용자별/일자) -->
+	<select id="selectWaterListByUserAndRegDate" parameterType="Meal" resultType="Meal">
+		SELECT 
+		m.meal_no as mealNo,
+		meal_title as mealTitle,
+		(food_amount * food_weight) as foodAmount
+		FROM meal m
+		JOIN meal_food mf ON m.meal_no = mf.meal_no
+		JOIN food f ON mf.food_code = f.food_code
+		WHERE meal_time = 'WATER'
+		AND user_no = #{userNo}
+		AND meal_reg_date = #{mealRegDate}
+	</select>
+	
 	<!-- 날짜별 영양성분 총합 조회(사용자별/일자) : reportDayResponse 객체-->
+	<select id="selectNutriSumByUserAndRegDate" parameterType="Meal" resultType="reportDayResponse">
+		SELECT
+		meal_reg_date,
+		SUM(f.nutri_energy) AS energy,
+		SUM(f.nutri_carbohydrate) AS carbohydrate,
+		SUM(f.nutri_sugar) AS sugar,
+		SUM(f.nutri_dietary_fiber) AS dietaryFiber,
+		SUM(f.nutri_protein) AS protein,
+		SUM(f.nutri_ash) AS ash,
+		SUM(f.nutri_total_fatty_acids) AS totalFattyAcids,
+		SUM(f.nutri_saturated_fats) AS saturatedFats,
+		SUM(f.nutri_monounsaturated_fats + f.nutri_polyunsaturated_fats) AS unsaturatedFats,
+		SUM(f.nutri_water) AS water,
+		SUM(f.nutri_vitamin_a_carotene) AS vitaminACarotene,
+		SUM(f.nutri_vitamin_b1) AS vitaminB1,
+		SUM(f.nutri_vitamin_b2) AS vitaminB2,
+		SUM(f.nutri_niacin) AS niacin,
+		SUM(f.nutri_folate) AS folate,
+		SUM(f.nutri_vitamin_c) AS vitaminC,
+		SUM(f.nutri_vitamin_d) AS vitaminD,
+		SUM(f.nutri_cholesterol) AS cholesterol,
+		SUM(f.nutri_sodium) AS sodium,
+		SUM(f.nutri_calcium) AS calcium,
+		SUM(f.nutri_iron) AS iron,
+		SUM(f.nutri_phosphorus) AS phosphorus,
+		SUM(f.nutri_potassium) AS potassium
+		FROM meal m
+		JOIN meal_food mf ON m.meal_no = mf.meal_no
+		JOIN food f ON mf.food_code = f.food_code
+		WHERE user_no = #{userNo}
+		AND meal_reg_date = #{mealRegDate}
+		GROUP BY meal_reg_date
+
+	</select>
+	
+	<!-- 오늘 기준 일주일간 영양성분 평균 조회(사용자별) : reportDayResponse List-->
+	<select id="selectNutriSumByUserAndRegDate" parameterType="Meal" resultType="reportDayResponse">
+		SELECT
+		meal_reg_date,
+		SUM(f.nutri_energy) AS energy,
+		SUM(f.nutri_carbohydrate) AS carbohydrate,
+		SUM(f.nutri_sugar) AS sugar,
+		SUM(f.nutri_dietary_fiber) AS dietaryFiber,
+		SUM(f.nutri_protein) AS protein,
+		SUM(f.nutri_ash) AS ash,
+		SUM(f.nutri_total_fatty_acids) AS totalFattyAcids,
+		SUM(f.nutri_saturated_fats) AS saturatedFats,
+		SUM(f.nutri_monounsaturated_fats + f.nutri_polyunsaturated_fats) AS unsaturatedFats,
+		SUM(f.nutri_water) AS water,
+		SUM(f.nutri_vitamin_a_carotene) AS vitaminACarotene,
+		SUM(f.nutri_vitamin_b1) AS vitaminB1,
+		SUM(f.nutri_vitamin_b2) AS vitaminB2,
+		SUM(f.nutri_niacin) AS niacin,
+		SUM(f.nutri_folate) AS folate,
+		SUM(f.nutri_vitamin_c) AS vitaminC,
+		SUM(f.nutri_vitamin_d) AS vitaminD,
+		SUM(f.nutri_cholesterol) AS cholesterol,
+		SUM(f.nutri_sodium) AS sodium,
+		SUM(f.nutri_calcium) AS calcium,
+		SUM(f.nutri_iron) AS iron,
+		SUM(f.nutri_phosphorus) AS phosphorus,
+		SUM(f.nutri_potassium) AS potassium
+		FROM meal m
+		JOIN meal_food mf ON m.meal_no = mf.meal_no
+		JOIN food f ON mf.food_code = f.food_code
+		WHERE m.user_no = 1
+		AND m.meal_reg_date BETWEEN DATE_SUB(CURDATE(), INTERVAL 6 DAY) AND CURDATE()
+		GROUP BY meal_reg_date
+		ORDER BY meal_reg_date
+	</select>
+	
+	<!-- 오늘 기준 월간 요일별 영양성분 평균 조회(사용자별) : reportDayResponse List-->
+		SELECT
+	    weekday,
+	    AVG(energy) AS energy,
+	    AVG(carbohydrate) AS carbohydrate,
+	    AVG(sugar) AS sugar,
+	    AVG(dietaryFiber) AS dietaryFiber,
+	    AVG(protein) AS protein,
+	    AVG(ash) AS ash,
+	    AVG(totalFattyAcids) AS totalFattyAcids,
+	    AVG(saturatedFats) AS saturatedFats,
+	    AVG(unsaturatedFats) AS unsaturatedFats,
+	    AVG(water) AS water,
+	    AVG(vitaminACarotene) AS vitaminACarotene,
+	    AVG(vitaminB1) AS vitaminB1,
+	    AVG(vitaminB2) AS vitaminB2,
+	    AVG(niacin) AS niacin,
+	    AVG(folate) AS folate,
+	    AVG(vitaminC) AS vitaminC,
+	    AVG(vitaminD) AS vitaminD,
+	    AVG(cholesterol) AS cholesterol,
+	    AVG(sodium) AS sodium,
+	    AVG(calcium) AS calcium,
+	    AVG(iron) AS iron,
+	    AVG(phosphorus) AS phosphorus,
+	    AVG(potassium) AS potassium
+	FROM (
+	    SELECT
+	        DATE(m.meal_reg_date) AS date,
+	        DAYNAME(m.meal_reg_date) AS weekday,
+	        SUM(f.nutri_energy) AS energy,
+	        SUM(f.nutri_carbohydrate) AS carbohydrate,
+	        SUM(f.nutri_sugar) AS sugar,
+	        SUM(f.nutri_dietary_fiber) AS dietaryFiber,
+	        SUM(f.nutri_protein) AS protein,
+	        SUM(f.nutri_ash) AS ash,
+	        SUM(f.nutri_total_fatty_acids) AS totalFattyAcids,
+	        SUM(f.nutri_saturated_fats) AS saturatedFats,
+	        SUM(f.nutri_monounsaturated_fats + f.nutri_polyunsaturated_fats) AS unsaturatedFats,
+	        SUM(f.nutri_water) AS water,
+	        SUM(f.nutri_vitamin_a_carotene) AS vitaminACarotene,
+	        SUM(f.nutri_vitamin_b1) AS vitaminB1,
+	        SUM(f.nutri_vitamin_b2) AS vitaminB2,
+	        SUM(f.nutri_niacin) AS niacin,
+	        SUM(f.nutri_folate) AS folate,
+	        SUM(f.nutri_vitamin_c) AS vitaminC,
+	        SUM(f.nutri_vitamin_d) AS vitaminD,
+	        SUM(f.nutri_cholesterol) AS cholesterol,
+	        SUM(f.nutri_sodium) AS sodium,
+	        SUM(f.nutri_calcium) AS calcium,
+	        SUM(f.nutri_iron) AS iron,
+	        SUM(f.nutri_phosphorus) AS phosphorus,
+	        SUM(f.nutri_potassium) AS potassium
+	    FROM meal m
+	    JOIN meal_food mf ON m.meal_no = mf.meal_no
+	    JOIN food f ON mf.food_code = f.food_code
+	    WHERE m.user_no = 1
+	      AND m.meal_reg_date BETWEEN DATE_SUB(CURDATE(), INTERVAL 29 DAY) AND CURDATE()
+	    GROUP BY DATE(m.meal_reg_date)
+	) AS daily_totals
+	GROUP BY weekday
+	ORDER BY FIELD(weekday, 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday')
+	
+	
 	<!-- 주간 끼니(아침, 점심, 저녁)별 칼로리 평균 및 주요 영양성분별 평균 : reportWeeklyResponse 객체 -->
 	<!-- 월간 끼니(아침, 점심, 저녁)별 횟수 및 주요 영양성분별 평균 조회 : reportMonthlyResponse 객체 -->
 	<!-- 음식 조회(음식 이름) -->
-	<!--  -->
-	<!--  -->
-	<!--  -->
+	<!-- 식단 수정(제목, 메모, 식사시간) -->
 
 
 </mapper>

@@ -15,17 +15,19 @@ CREATE TABLE user (
 );
 
 CREATE TABLE meal (
-    meal_no INT PRIMARY KEY AUTO_INCREMENT,
+    meal_no INT AUTO_INCREMENT PRIMARY KEY,
     user_no INT NOT NULL,
     meal_reg_date DATE NOT NULL,
-    meal_time ENUM('BREAKFAST', 'LUNCH', 'DINNER', 'SNACK', 'WATER') NOT NULL
+    meal_time ENUM('BREAKFAST', 'LUNCH', 'DINNER', 'SNACK', 'WATER') NOT NULL,
+    meal_title VARCHAR(100),
+    meal_content TEXT
 );
 
 CREATE TABLE meal_food (
     meal_food_no INT PRIMARY KEY AUTO_INCREMENT,
     meal_no INT NOT NULL,
-    food_no INT NOT NULL,
-    food_amount INT NOT NULL
+    food_code VARCHAR(20) NOT NULL,
+    food_amount DOUBLE NOT NULL
 );
 
 CREATE TABLE attachment (

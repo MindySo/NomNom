@@ -3,17 +3,17 @@ package com.ssafy.nomnom.model.dto.meal;
 public class MealFood {
 	private Integer mealFoodNo;
 	private Integer mealNo;
-	private Integer foodNo;
+	private String foodCode;
 	private Integer foodAmount;
 
 	public MealFood() {
 	}
 
-	public MealFood(Integer mealFoodNo, Integer mealNo, Integer foodNo, Integer foodAmount) {
+	public MealFood(Integer mealFoodNo, Integer mealNo, String foodCode, Integer foodAmount) {
 		super();
 		this.mealFoodNo = mealFoodNo;
 		this.mealNo = mealNo;
-		this.foodNo = foodNo;
+		this.foodCode = foodCode;
 		this.foodAmount = foodAmount;
 	}
 
@@ -33,12 +33,12 @@ public class MealFood {
 		this.mealNo = mealNo;
 	}
 
-	public Integer getFoodNo() {
-		return foodNo;
+	public String getFoodCode() {
+		return foodCode;
 	}
 
-	public void setFoodNo(Integer foodNo) {
-		this.foodNo = foodNo;
+	public void setFoodNo(String foodCode) {
+		this.foodCode = foodCode;
 	}
 
 	public Integer getFoodAmount() {
@@ -51,7 +51,7 @@ public class MealFood {
 
 	@Override
 	public String toString() {
-		return "MealFood [mealFoodNo=" + mealFoodNo + ", mealNo=" + mealNo + ", foodNo=" + foodNo + ", foodAmount="
+		return "MealFood [mealFoodNo=" + mealFoodNo + ", mealNo=" + mealNo + ", foodCode=" + foodCode + ", foodAmount="
 				+ foodAmount + "]";
 	}
 
