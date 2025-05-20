@@ -1,4 +1,4 @@
-package com.ssafy.nomnom.model.service;
+package com.ssafy.nomnom.model.service.attachment;
 
 
 import org.springframework.web.multipart.MultipartFile;
