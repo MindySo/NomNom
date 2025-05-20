@@ -8,14 +8,14 @@ public class MealResponse {
 	private Double carbSum;
 	private Double proSum;
 	private Double fatSum;
+	private Double waterSum;
 	
 	
 	public MealResponse() {
 	}
 	
-	
 	public MealResponse(Integer mealNo, String mealTime, String mealTitle, Double calSum, Double carbSum, Double proSum,
-			Double fatSum) {
+			Double fatSum, Double waterSum) {
 		super();
 		this.mealNo = mealNo;
 		this.mealTime = mealTime;
@@ -24,54 +24,79 @@ public class MealResponse {
 		this.carbSum = carbSum;
 		this.proSum = proSum;
 		this.fatSum = fatSum;
+		this.waterSum = waterSum;
 	}
 
-	
 	public Integer getMealNo() {
 		return mealNo;
 	}
+
 	public void setMealNo(Integer mealNo) {
 		this.mealNo = mealNo;
 	}
+
 	public String getMealTime() {
 		return mealTime;
 	}
+
 	public void setMealTime(String mealTime) {
 		this.mealTime = mealTime;
 	}
+
 	public String getMealTitle() {
 		return mealTitle;
 	}
+
 	public void setMealTitle(String mealTitle) {
 		this.mealTitle = mealTitle;
 	}
-	public Double getcalSum() {
+
+	public Double getCalSum() {
 		return calSum;
 	}
-	public void setcalSum(Double calSum) {
+
+	public void setCalSum(Double calSum) {
 		this.calSum = calSum;
 	}
-	public Double getcarbSum() {
+
+	public Double getCarbSum() {
 		return carbSum;
 	}
-	public void setcarbSum(Double carbSum) {
+
+	public void setCarbSum(Double carbSum) {
 		this.carbSum = carbSum;
 	}
-	public Double getproSum() {
+
+	public Double getProSum() {
 		return proSum;
 	}
-	public void setproSum(Double proSum) {
+
+	public void setProSum(Double proSum) {
 		this.proSum = proSum;
 	}
-	public Double getfatSum() {
+
+	public Double getFatSum() {
 		return fatSum;
 	}
-	public void setfatSum(Double fatSum) {
+
+	public void setFatSum(Double fatSum) {
 		this.fatSum = fatSum;
 	}
+
+	public Double getWaterSum() {
+		return waterSum;
+	}
+
+	public void setWaterSum(Double waterSum) {
+		this.waterSum = waterSum;
+	}
+
 	@Override
 	public String toString() {
-		return "MealResponse [mealNo=" + mealNo + ", mealTime="	+ mealTime + ", mealTitle=" + mealTitle + 
-				", calSum=" + calSum + ", carbSum=" + carbSum + ", proSum=" + proSum + ", fatSum=" + fatSum + "]";
+		return "MealRequest [mealNo=" + mealNo + ", mealTime=" + mealTime + ", mealTitle=" + mealTitle + ", calSum="
+				+ calSum + ", carbSum=" + carbSum + ", proSum=" + proSum + ", fatSum=" + fatSum + ", waterSum="
+				+ waterSum + "]";
 	}
+	
+	
 }

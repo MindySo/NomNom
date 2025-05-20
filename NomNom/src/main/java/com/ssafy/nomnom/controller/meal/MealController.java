@@ -1,4 +1,4 @@
-package com.ssafy.nomnom.controller;
+package com.ssafy.nomnom.controller.meal;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -20,7 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.ssafy.nomnom.model.dto.meal.Meal;
 import com.ssafy.nomnom.model.dto.meal.MealFood;
 import com.ssafy.nomnom.model.dto.meal.MealResponse;
-import com.ssafy.nomnom.model.service.MealService;
+import com.ssafy.nomnom.model.service.meal.MealService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;

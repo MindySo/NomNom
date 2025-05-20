@@ -1,4 +1,4 @@
-package com.ssafy.nomnom.model.service;
+package com.ssafy.nomnom.model.service.meal;
 
 import java.util.List;
 
@@ -12,6 +12,7 @@ import com.ssafy.nomnom.model.dto.attachment.AttachmentTargetEnum;
 import com.ssafy.nomnom.model.dto.meal.Meal;
 import com.ssafy.nomnom.model.dto.meal.MealFood;
 import com.ssafy.nomnom.model.dto.meal.MealResponse;
+import com.ssafy.nomnom.model.service.attachment.AttachmentService;
 
 @Service
 public class MealServiceImpl implements MealService {

@@ -18,7 +18,7 @@ CREATE TABLE meal (
     meal_no INT PRIMARY KEY AUTO_INCREMENT,
     user_no INT NOT NULL,
     meal_reg_date DATE NOT NULL,
-    meal_time ENUM('BREAKFAST', 'LUNCH', 'DINNER', 'SNACK') NOT NULL
+    meal_time ENUM('BREAKFAST', 'LUNCH', 'DINNER', 'SNACK', 'WATER') NOT NULL
 );
 
 CREATE TABLE meal_food (
