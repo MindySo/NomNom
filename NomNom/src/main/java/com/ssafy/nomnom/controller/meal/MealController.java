@@ -83,4 +83,6 @@ public class MealController {
 		mealservice.removeMeal(mealFoodNo);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
+	
+	// 물의 food_code = "WATER00"
 }
