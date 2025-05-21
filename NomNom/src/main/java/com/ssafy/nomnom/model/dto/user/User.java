@@ -1,10 +1,10 @@
-package com.ssafy.nomnom.model.dto;
+package com.ssafy.nomnom.model.dto.user;
 
 import java.time.LocalDate;
 import java.util.List;
 
 public class User {
-	private Integer userNo;
+	private int userNo;
     private String userId;
     private String userEmail;
     private String userPw;
@@ -14,14 +14,12 @@ public class User {
     private String userRole;
     private Integer userHeight;
     private Integer userWeight;
-    private Integer userPoint;
-    private List<String> diseases;  
-    private List<String> allergies;
+    private Integer userPoint;  
+    private List<Integer> allergyIds;
     
     
      
-	public User() {
-	}
+	public User() {}
 	
 	
 	public User(Integer userNo, String userId, String userEmail, String userPw, LocalDate userRegDate,
