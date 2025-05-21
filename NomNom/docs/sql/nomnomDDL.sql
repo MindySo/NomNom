@@ -6,7 +6,7 @@ CREATE TABLE user (
     user_email VARCHAR(100) UNIQUE NOT NULL,
     user_pw VARCHAR(255) NOT NULL,
     user_created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    user_birthday DATE,
+    user_birthday DATE NOT NULL,
     user_gender ENUM('MALE', 'FEMALE'),
     user_role ENUM('USER', 'ADMIN') NOT NULL DEFAULT 'USER',
     user_height INT,
