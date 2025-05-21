@@ -12,6 +12,7 @@ import com.ssafy.nomnom.model.dto.attachment.AttachmentTargetEnum;
 import com.ssafy.nomnom.model.dto.meal.Food;
 import com.ssafy.nomnom.model.dto.meal.Meal;
 import com.ssafy.nomnom.model.dto.meal.MealResponse;
+import com.ssafy.nomnom.model.dto.meal.SimpleFoodResponse;
 import com.ssafy.nomnom.model.dto.meal.MealFood;
 import com.ssafy.nomnom.model.dto.meal.MealRequest;
 import com.ssafy.nomnom.model.service.attachment.AttachmentService;
@@ -44,6 +45,7 @@ public class MealServiceImpl implements MealService {
 		mealDao.insertMeal(meal);
 
 		for (MealFood mealFood : meal.getMealFoodList()) {
+			mealFood.setMealNo(meal.getMealNo());
 			mealDao.insertMealFood(mealFood);
 		}
 
@@ -69,7 +71,7 @@ public class MealServiceImpl implements MealService {
 	}
 
 	@Override
-	public List<Food> searchFoodList(String foodName) {
+	public List<SimpleFoodResponse> searchFoodList(String foodName) {
 		return mealDao.selectFoodByFoodName(foodName);
 	}
 
