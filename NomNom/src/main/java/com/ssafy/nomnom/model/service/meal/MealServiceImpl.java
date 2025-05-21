@@ -44,6 +44,7 @@ public class MealServiceImpl implements MealService {
 		mealDao.insertMeal(meal);
 
 		for (MealFood mealFood : meal.getMealFoodList()) {
+			mealFood.setMealNo(meal.getMealNo());
 			mealDao.insertMealFood(mealFood);
 		}
 
