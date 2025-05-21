@@ -9,9 +9,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.ssafy.nomnom.model.dao.MealDao;
 import com.ssafy.nomnom.model.dto.attachment.AttachmentTargetEnum;
+import com.ssafy.nomnom.model.dto.meal.Food;
 import com.ssafy.nomnom.model.dto.meal.Meal;
-import com.ssafy.nomnom.model.dto.meal.MealFood;
 import com.ssafy.nomnom.model.dto.meal.MealResponse;
+import com.ssafy.nomnom.model.dto.meal.MealFood;
+import com.ssafy.nomnom.model.dto.meal.MealRequest;
 import com.ssafy.nomnom.model.service.attachment.AttachmentService;
 
 @Service
@@ -24,28 +26,35 @@ public class MealServiceImpl implements MealService {
 	private AttachmentService attachmentService;
 
 	@Override
-	public List<MealResponse> getMealList(Meal meal) {
+	public List<MealResponse> getMealList(MealRequest meal) {
 		return mealDao.selectMealByUserAndRegDate(meal);
 	}
 
 	@Override
-	public List<MealFood> getMealFoodList(int mealNo) {
-		return mealDao.selectFoodByMealFoodNo(mealNo);
+	public MealResponse getMeal(int mealNo) {
+		MealResponse MealResponse = mealDao.selectMealAndNutriSumByMealNo(mealNo);
+		MealResponse.setFoodList(mealDao.selectFoodsByMealNo(mealNo));
+
+		return MealResponse;
 	}
 
 	@Transactional
 	@Override
-	public void writeMeal(Meal meal) {
+	public void writeMeal(MealRequest meal) {
 		mealDao.insertMeal(meal);
-		
-		for (MealFood food : meal.getMealFoodList()) {
-		    food.setMealNo(meal.getMealNo());
-		    mealDao.insertMealFood(food);
+
+		for (MealFood mealFood : meal.getMealFoodList()) {
+			mealDao.insertMealFood(mealFood);
 		}
-		
+
 		for (MultipartFile mpfile : meal.getFileList()) {
 			attachmentService.writeAttachment(mpfile, AttachmentTargetEnum.BOARD, meal.getMealNo());
 		}
+	}
+
+	@Override
+	public void updateMeal(Meal meal) {
+		mealDao.updateMeal(meal);
 	}
 
 	@Override
@@ -58,4 +67,19 @@ public class MealServiceImpl implements MealService {
 	public void removeMealFood(int mealFoodNo) {
 		mealDao.deleteMealFoodByMealFoodNo(mealFoodNo);
 	}
+
+	@Override
+	public List<Food> searchFoodList(String foodName) {
+		return mealDao.selectFoodByFoodName(foodName);
+	}
+
+	@Override
+	public Food getFood(String foodCode) {
+		return mealDao.selectFoodByFoodCode(foodCode);
+	}
+
+	@Override
+	public List<MealResponse> getWaterListByUserAndRegDate(MealRequest meal){
+		return mealDao.selectWaterListByUserAndRegDate(meal);
+	};
 }

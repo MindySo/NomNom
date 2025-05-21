@@ -29,8 +29,6 @@ public class ReportDayResponse {
 	private double phosphorus;          // 인
 	private double potassium;           // 칼륨
 	public ReportDayResponse() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 	public ReportDayResponse(LocalDate reportDate, String reportWeekday, double energy, double carbohydrate,
 			double sugar, double dietaryFiber, double protein, double ash, double totalFattyAcids, double saturatedFats,

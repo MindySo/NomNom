@@ -32,7 +32,7 @@
 		#{attachmentTarget},
 		#{targetNo},
 		#{attachmentName},
-		DATE(NOW())
+		CURDATE()
 		)
 	</insert>
 
