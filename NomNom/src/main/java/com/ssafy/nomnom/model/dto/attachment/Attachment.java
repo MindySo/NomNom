@@ -3,9 +3,9 @@ package com.ssafy.nomnom.model.dto.attachment;
 import java.time.LocalDate;
 
 public class Attachment {
-	private Integer attachmentNo;
+	private int attachmentNo;
     private AttachmentTargetEnum attachmentTarget;
-    private Integer targetNo;
+    private int targetNo;
     private String attachmentName;
     private LocalDate attachmentRegDate;
 
@@ -14,7 +14,7 @@ public class Attachment {
     }
 
     
-    public Attachment(Integer attachmentNo, AttachmentTargetEnum attachmentTarget, Integer targetNo, String attachmentName,
+    public Attachment(int attachmentNo, AttachmentTargetEnum attachmentTarget, int targetNo, String attachmentName,
 			LocalDate attachmentRegDate) {
 		this.attachmentNo = attachmentNo;
 		this.attachmentTarget = attachmentTarget;
@@ -24,10 +24,10 @@ public class Attachment {
 	}
 	
     
-    public Integer getAttachmentNo() {
+    public int getAttachmentNo() {
 		return attachmentNo;
 	}
-	public void setAttachmentNo(Integer attachmentNo) {
+	public void setAttachmentNo(int attachmentNo) {
 		this.attachmentNo = attachmentNo;
 	}
 	public AttachmentTargetEnum getAttachmentTarget() {
@@ -36,10 +36,10 @@ public class Attachment {
 	public void setAttachmentTarget(AttachmentTargetEnum attachmentTarget) {
 		this.attachmentTarget = attachmentTarget;
 	}
-	public Integer getTargetNo() {
+	public int getTargetNo() {
 		return targetNo;
 	}
-	public void setTargetNo(Integer targetNo) {
+	public void setTargetNo(int targetNo) {
 		this.targetNo = targetNo;
 	}
 	public String getAttachmentName() {

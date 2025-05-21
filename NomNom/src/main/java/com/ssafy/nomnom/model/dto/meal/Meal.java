@@ -1,9 +1,6 @@
 package com.ssafy.nomnom.model.dto.meal;
 
 import java.time.LocalDate;
-import java.util.List;
-
-import org.springframework.web.multipart.MultipartFile;
 
 public class Meal {
 	private int mealNo;
@@ -11,44 +8,17 @@ public class Meal {
 	private LocalDate mealRegDate;
 	private MealTimeEnum mealTime;
 	private String mealTitle;
-	private String mealContent;
-	private List<MealFood> mealFoodList; 
-	private List<MultipartFile> fileList; 
 	
 	public Meal() {
 	}
-	
-	
-	public Meal(int mealNo, Integer userNo, LocalDate mealRegDate, MealTimeEnum mealTime, String mealTitle,
-			String mealContent, List<MealFood> mealFoodList, List<MultipartFile> fileList) {
+	public Meal(int mealNo, int userNo, LocalDate mealRegDate, MealTimeEnum mealTime, String mealTitle) {
+		super();
 		this.mealNo = mealNo;
 		this.userNo = userNo;
 		this.mealRegDate = mealRegDate;
 		this.mealTime = mealTime;
 		this.mealTitle = mealTitle;
-		this.mealContent = mealContent;
-		this.mealFoodList = mealFoodList;
-		this.fileList = fileList;
 	}
-
-	
-	public Meal(int mealNo, Integer userNo, LocalDate mealRegDate, MealTimeEnum mealTime, String mealTitle,
-			String mealContent) {
-		this.mealNo = mealNo;
-		this.userNo = userNo;
-		this.mealRegDate = mealRegDate;
-		this.mealTime = mealTime;
-		this.mealTitle = mealTitle;
-		this.mealContent = mealContent;
-	}
-
-
-	public Meal(int mealNo, int userNo) {
-		this.mealNo = mealNo;
-		this.userNo = userNo;
-	}
-
-
 	public int getMealNo() {
 		return mealNo;
 	}
@@ -79,29 +49,11 @@ public class Meal {
 	public void setMealTitle(String mealTitle) {
 		this.mealTitle = mealTitle;
 	}
-	public String getMealContent() {
-		return mealContent;
-	}
-	public void setMealContent(String mealContent) {
-		this.mealContent = mealContent;
-	}
-	public List<MealFood> getMealFoodList() {
-		return mealFoodList;
-	}
-
-	public void setMealFoodList(List<MealFood> mealFoodList) {
-		this.mealFoodList = mealFoodList;
-	}
-	public List<MultipartFile> getFileList() {
-		return fileList;
-	}
-	public void setFileList(List<MultipartFile> fileList) {
-		this.fileList = fileList;
-	}
 	@Override
 	public String toString() {
 		return "Meal [mealNo=" + mealNo + ", userNo=" + userNo + ", mealRegDate=" + mealRegDate + ", mealTime="
-				+ mealTime + ", mealTitle=" + mealTitle + ", mealContent=" + mealContent + ", mealFoodList="
-				+ mealFoodList + ", fileList=" + fileList + "]";
+				+ mealTime + ", mealTitle=" + mealTitle + "]";
 	}
+	
+	
 }

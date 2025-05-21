@@ -15,25 +15,27 @@ CREATE TABLE user (
 );
 
 CREATE TABLE meal (
-    meal_no INT PRIMARY KEY AUTO_INCREMENT,
+    meal_no INT AUTO_INCREMENT PRIMARY KEY,
     user_no INT NOT NULL,
     meal_reg_date DATE NOT NULL,
-    meal_time ENUM('BREAKFAST', 'LUNCH', 'DINNER', 'SNACK') NOT NULL
+    meal_time ENUM('BREAKFAST', 'LUNCH', 'DINNER', 'SNACK', 'WATER') NOT NULL,
+    meal_title VARCHAR(100),
+    meal_content TEXT
 );
 
 CREATE TABLE meal_food (
     meal_food_no INT PRIMARY KEY AUTO_INCREMENT,
     meal_no INT NOT NULL,
-    food_no INT NOT NULL,
-    food_amount INT NOT NULL
+    food_code VARCHAR(20) NOT NULL,
+    food_amount DOUBLE NOT NULL
 );
 
 CREATE TABLE attachment (
-    file_no INT PRIMARY KEY AUTO_INCREMENT,
-    file_target ENUM('MEAL', 'BOARD') NOT NULL,
+    attachment_no INT AUTO_INCREMENT PRIMARY KEY,
+    attachment_target VARCHAR(50) NOT NULL,
     target_no INT NOT NULL,
-    file_name VARCHAR(255) NOT NULL,
-    file_reg_date DATE NOT NULL
+    attachment_name VARCHAR(255) NOT NULL,
+    attachment_reg_date DATE NOT NULL
 );
 
 CREATE TABLE board (

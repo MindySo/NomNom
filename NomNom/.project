@@ -14,8 +14,12 @@
 <<<<<<< HEAD
 			<name>org.eclipse.m2e.core.maven2Builder</name>
 =======
+<<<<<<< HEAD
+			<name>org.eclipse.m2e.core.maven2Builder</name>
+=======
 			<name>org.springframework.ide.eclipse.boot.validation.springbootbuilder</name>
 >>>>>>> 8dec70f5a55c89072262c370a8f46d969623664d
+>>>>>>> a1436d5de01efcce547c30dad471513de91cb539
 			<arguments>
 			</arguments>
 		</buildCommand>
@@ -23,8 +27,12 @@
 <<<<<<< HEAD
 			<name>org.springframework.ide.eclipse.boot.validation.springbootbuilder</name>
 =======
+<<<<<<< HEAD
+			<name>org.springframework.ide.eclipse.boot.validation.springbootbuilder</name>
+=======
 			<name>org.eclipse.m2e.core.maven2Builder</name>
 >>>>>>> 8dec70f5a55c89072262c370a8f46d969623664d
+>>>>>>> a1436d5de01efcce547c30dad471513de91cb539
 			<arguments>
 			</arguments>
 		</buildCommand>
