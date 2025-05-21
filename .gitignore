@@ -188,3 +188,6 @@ fabric.properties
 
 # secretkey ignore
 application-secret.properties
+
+
+NomNom/target/

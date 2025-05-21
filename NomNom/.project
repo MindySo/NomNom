@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>NomNom</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+<<<<<<< HEAD
+			<name>org.eclipse.m2e.core.maven2Builder</name>
+=======
+			<name>org.springframework.ide.eclipse.boot.validation.springbootbuilder</name>
+>>>>>>> 8dec70f5a55c89072262c370a8f46d969623664d
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+<<<<<<< HEAD
+			<name>org.springframework.ide.eclipse.boot.validation.springbootbuilder</name>
+=======
+			<name>org.eclipse.m2e.core.maven2Builder</name>
+>>>>>>> 8dec70f5a55c89072262c370a8f46d969623664d
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+		<nature>org.eclipse.m2e.core.maven2Nature</nature>
+	</natures>
+</projectDescription>
