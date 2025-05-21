@@ -16,7 +16,6 @@ public class MealResponse {
 	
 	public MealResponse(Integer mealNo, String mealTime, String mealTitle, Double calSum, Double carbSum, Double proSum,
 			Double fatSum, Double waterSum) {
-		super();
 		this.mealNo = mealNo;
 		this.mealTime = mealTime;
 		this.mealTitle = mealTitle;
