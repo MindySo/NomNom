@@ -22,6 +22,7 @@ import com.ssafy.nomnom.model.dto.meal.MealResponse;
 import com.ssafy.nomnom.model.dto.meal.ReportDayResponse;
 import com.ssafy.nomnom.model.dto.meal.ReportMonthlyResponse;
 import com.ssafy.nomnom.model.dto.meal.ReportWeeklyResponse;
+import com.ssafy.nomnom.model.dto.meal.SimpleFoodResponse;
 import com.ssafy.nomnom.model.dto.meal.Food;
 import com.ssafy.nomnom.model.dto.meal.Meal;
 import com.ssafy.nomnom.model.dto.meal.MealRequest;
@@ -84,22 +85,22 @@ public class MealController {
 	
 	@Operation(summary = "식단 및 식단에 포함된 모든 음식 삭제")
 	@DeleteMapping("meal/{mealNo}")
-	public ResponseEntity<Void> deleteMeal(@PathVariable("mealNo") int mealNo){
+	public ResponseEntity<Void> deleteMeal(int mealNo){
 		mealservice.removeMeal(mealNo);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
 	@Operation(summary = "식단에 포함된 음식 삭제")
-	@DeleteMapping("food/{mealNo}")
-	public ResponseEntity<Void> deleteMealFood(@PathVariable("mealFoodNo") int mealFoodNo){
+	@DeleteMapping("food/{mealFoodNo}")
+	public ResponseEntity<Void> deleteMealFood(int mealFoodNo){
 		mealservice.removeMeal(mealFoodNo);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
 	@Operation(summary = "음식 검색")
 	@GetMapping("searchFood")
-	public ResponseEntity<List<Food>> searchFood(@RequestParam String foodName){
-		List<Food> list = mealservice.searchFoodList(foodName);
+	public ResponseEntity<List<SimpleFoodResponse>> searchFood(@RequestParam String foodName){
+		List<SimpleFoodResponse> list = mealservice.searchFoodList(foodName);
 		return ResponseEntity.ok(list);
 	}
 	
@@ -112,14 +113,14 @@ public class MealController {
 	
 	@Operation(summary = "물 기록 조회")
 	@GetMapping("water")
-	public ResponseEntity<Void> getWaterList(@RequestParam int userNo
+	public ResponseEntity<List<MealResponse>> getWaterList(@RequestParam int userNo
 			, @Parameter(example = "2025-05-14") @RequestParam String mealRegDate){
 		MealRequest meal = new MealRequest();
 		meal.setUserNo(userNo);
 		meal.setMealRegDate(LocalDate.parse(mealRegDate));
-		mealservice.getWaterListByUserAndRegDate(meal);
+		List<MealResponse> waterList = mealservice.getWaterListByUserAndRegDate(meal);
 		
-		return new ResponseEntity<Void>(HttpStatus.OK);
+		return ResponseEntity.ok(waterList);
 	}
 	
 	@Operation(summary = "일간 영양 분석")

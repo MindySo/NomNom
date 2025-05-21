@@ -1,54 +1,42 @@
 package com.ssafy.nomnom.model.dto.meal;
 
 public class MealFood {
-	private Integer mealFoodNo;
-	private Integer mealNo;
+	private int mealFoodNo;
+	private int mealNo;
 	private String foodCode;
-	private Integer foodAmount;
-
+	private double foodAmount;
 	public MealFood() {
 	}
-
-	public MealFood(Integer mealFoodNo, Integer mealNo, String foodCode, Integer foodAmount) {
-		super();
+	public MealFood(int mealFoodNo, int mealNo, String foodCode, double foodAmount) {
 		this.mealFoodNo = mealFoodNo;
 		this.mealNo = mealNo;
 		this.foodCode = foodCode;
 		this.foodAmount = foodAmount;
 	}
-
-	public Integer getMealFoodNo() {
+	public int getMealFoodNo() {
 		return mealFoodNo;
 	}
-
-	public void setMealFoodNo(Integer mealFoodNo) {
+	public void setMealFoodNo(int mealFoodNo) {
 		this.mealFoodNo = mealFoodNo;
 	}
-
-	public Integer getMealNo() {
+	public int getMealNo() {
 		return mealNo;
 	}
-
-	public void setMealNo(Integer mealNo) {
+	public void setMealNo(int mealNo) {
 		this.mealNo = mealNo;
 	}
-
 	public String getFoodCode() {
 		return foodCode;
 	}
-
-	public void setFoodNo(String foodCode) {
+	public void setFoodCode(String foodCode) {
 		this.foodCode = foodCode;
 	}
-
-	public Integer getFoodAmount() {
+	public double getFoodAmount() {
 		return foodAmount;
 	}
-
-	public void setFoodAmount(Integer foodAmount) {
+	public void setFoodAmount(double foodAmount) {
 		this.foodAmount = foodAmount;
 	}
-
 	@Override
 	public String toString() {
 		return "MealFood [mealFoodNo=" + mealFoodNo + ", mealNo=" + mealNo + ", foodCode=" + foodCode + ", foodAmount="
