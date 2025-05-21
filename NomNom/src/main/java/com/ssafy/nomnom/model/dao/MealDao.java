@@ -13,6 +13,7 @@ import com.ssafy.nomnom.model.dto.meal.MealResponse;
 import com.ssafy.nomnom.model.dto.meal.ReportDayResponse;
 import com.ssafy.nomnom.model.dto.meal.ReportMonthlyResponse;
 import com.ssafy.nomnom.model.dto.meal.ReportWeeklyResponse;
+import com.ssafy.nomnom.model.dto.meal.SimpleFoodResponse;
 
 @Repository
 public interface MealDao {
@@ -35,7 +36,7 @@ public interface MealDao {
 	int insertMealFood(MealFood mealFood);
 
 	// 음식 이름으로 음식 검색
-	List<Food> selectFoodByFoodName(String foodname);
+	List<SimpleFoodResponse> selectFoodByFoodName(String foodname);
 
 	// 음식 조회 (음식 이름)
 	Food selectFoodByFoodCode(String foodCode);
@@ -66,7 +67,7 @@ public interface MealDao {
 	// 오늘 기준 일주일간 끼니(아침, 점심, 저녁)별 칼로리 평균(끼니별 칼로리 분석) : reportWeeklyResponse 객체
 	ReportWeeklyResponse selectWeeklyMealTimeNutriAvg(int userNo);
 	
-	//오늘 기준 일주일간 영양성분별 일평균 조회(주간 영양소 평균) : reportDayResponse
+	// 오늘 기준 일주일간 영양성분별 일평균 조회(주간 영양소 평균) : reportDayResponse
 	ReportDayResponse selectWeeklyNutriAvg(int userNo);
 
 	// 오늘 기준 월간 요일별 영양성분 평균 조회(요일별 영양소 섭취 평균) : reportDayResponse List
