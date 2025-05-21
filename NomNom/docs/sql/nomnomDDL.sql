@@ -31,11 +31,11 @@ CREATE TABLE meal_food (
 );
 
 CREATE TABLE attachment (
-    file_no INT PRIMARY KEY AUTO_INCREMENT,
-    file_target ENUM('MEAL', 'BOARD') NOT NULL,
+    attachment_no INT AUTO_INCREMENT PRIMARY KEY,
+    attachment_target VARCHAR(50) NOT NULL,
     target_no INT NOT NULL,
-    file_name VARCHAR(255) NOT NULL,
-    file_reg_date DATE NOT NULL
+    attachment_name VARCHAR(255) NOT NULL,
+    attachment_reg_date DATE NOT NULL
 );
 
 CREATE TABLE board (
