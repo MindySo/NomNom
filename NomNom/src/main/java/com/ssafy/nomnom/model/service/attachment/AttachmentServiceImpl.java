@@ -1,4 +1,4 @@
-package com.ssafy.nomnom.model.service;
+package com.ssafy.nomnom.model.service.attachment;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
