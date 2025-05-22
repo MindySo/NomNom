@@ -1,62 +1,73 @@
 package com.ssafy.nomnom.model.service.attachment;
 
-import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ssafy.nomnom.model.dao.AttachmentDao;
 import com.ssafy.nomnom.model.dto.attachment.Attachment;
 import com.ssafy.nomnom.model.dto.attachment.AttachmentTargetEnum;
+import com.ssafy.nomnom.util.S3Uploader;
 
 @Service
 public class AttachmentServiceImpl implements AttachmentService {
-
-	@Value("${file.upload.directory}")
-	private String uploadDir;
-
+	
 	@Autowired
 	private AttachmentDao attachmentDao;
+
+	@Autowired
+	private S3Uploader s3Uploader;
 
 	@Override
 	public void writeAttachment(MultipartFile mpfile, AttachmentTargetEnum target, int targetNo) {
 		String originalName = mpfile.getOriginalFilename();
-		long fileSize = mpfile.getSize(); // byte 크기
-		String uploadName = generateUniqueName(originalName);
-		File dirFile = new File(uploadDir);
-		if (!dirFile.exists()) {
-			dirFile.mkdirs();
+		String imageUrl = "";
+		try {
+			imageUrl = s3Uploader.upload(mpfile, "images");
+		} catch (Exception e) {
+			throw new RuntimeException("파일 저장 중 오류 발생", e);
 		}
-		File file = new File(dirFile, uploadName);
-		 try {
-		        mpfile.transferTo(file);
-		    } catch (Exception e) {
-		        throw new RuntimeException("파일 저장 중 오류 발생", e);
-		    }
 
 		Attachment attachment = new Attachment();
 		attachment.setAttachmentTarget(target);
 		attachment.setTargetNo(targetNo);
-		attachment.setAttachmentName(uploadName);
+		attachment.setAttachmentOriginalName(originalName);
+		attachment.setAttachmentName(imageUrl);
 		attachmentDao.insertAttachment(attachment);
 	}
 
-	private String generateUniqueName(String originalName) {
-		String timeStr = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-		String uniqueStr = UUID.randomUUID().toString().substring(0, 8);
-		int index = originalName.lastIndexOf(".");
-		String extName = "";
-		if (index != -1) {
-			extName = originalName.substring(index);
+	
+
+	@Override
+	public List<Attachment> getAttachment(AttachmentTargetEnum target, int targetNo) {
+		Attachment attachment = new Attachment();
+		attachment.setAttachmentTarget(target);
+		attachment.setTargetNo(targetNo);
+		
+		List<Attachment> list = attachmentDao.selectAttachmentByTargetAndNo(attachment);
+		for(Attachment file : list) {
+			file.setAttachmentName(file.getAttachmentName());
 		}
-		return timeStr + "_" + uniqueStr + extName;
+		return list;
+	}
+
+	@Override
+	public void deleteAllAttachment(AttachmentTargetEnum target, int targetNo) {
+		Attachment attachment = new Attachment();
+		attachment.setAttachmentTarget(target);
+		attachment.setTargetNo(targetNo);
+
+		attachmentDao.deleteAttachmentByTargetAndNo(attachment);
+	}
+
+	@Override
+	public void deleteAttachment(int attachmentNo) {
+		attachmentDao.deleteAttachment(attachmentNo);
 	}
 
 }

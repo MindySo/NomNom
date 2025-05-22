@@ -1,8 +1,7 @@
 <template>
-  <main>
-    <h1>식단 화면</h1>
+  <div>
     <RouterView />
-  </main>
+  </div>
 </template>
 
 <script setup>
