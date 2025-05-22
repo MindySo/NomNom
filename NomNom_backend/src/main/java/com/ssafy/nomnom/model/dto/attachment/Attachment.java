@@ -7,24 +7,25 @@ public class Attachment {
     private AttachmentTargetEnum attachmentTarget;
     private int targetNo;
     private String attachmentName;
+    private String attachmentOriginalName;
     private LocalDate attachmentRegDate;
 
     
     public Attachment() {
     }
 
-    
     public Attachment(int attachmentNo, AttachmentTargetEnum attachmentTarget, int targetNo, String attachmentName,
-			LocalDate attachmentRegDate) {
+			String attachmentOriginalName, LocalDate attachmentRegDate) {
+		super();
 		this.attachmentNo = attachmentNo;
 		this.attachmentTarget = attachmentTarget;
 		this.targetNo = targetNo;
 		this.attachmentName = attachmentName;
+		this.attachmentOriginalName = attachmentOriginalName;
 		this.attachmentRegDate = attachmentRegDate;
 	}
-	
-    
-    public int getAttachmentNo() {
+
+	public int getAttachmentNo() {
 		return attachmentNo;
 	}
 	public void setAttachmentNo(int attachmentNo) {
@@ -54,9 +55,20 @@ public class Attachment {
 	public void setAttachmentRegDate(LocalDate attachmentRegDate) {
 		this.attachmentRegDate = attachmentRegDate;
 	}
+
+	public String getAttachmentOriginalName() {
+		return attachmentOriginalName;
+	}
+
+	public void setAttachmentOriginalName(String attachmentOriginalName) {
+		this.attachmentOriginalName = attachmentOriginalName;
+	}
+
 	@Override
 	public String toString() {
 		return "Attachment [attachmentNo=" + attachmentNo + ", attachmentTarget=" + attachmentTarget + ", targetNo="
-				+ targetNo + ", attachmentName=" + attachmentName + ", attachmentRegDate=" + attachmentRegDate + "]";
+				+ targetNo + ", attachmentName=" + attachmentName + ", attachmentOriginalName=" + attachmentOriginalName
+				+ ", attachmentRegDate=" + attachmentRegDate + "]";
 	}
+	
 }

@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.ssafy.nomnom.model.dto.attachment.Attachment;
+
 public class MealResponse {
 	private int mealNo;
 	private int userNo;
@@ -13,7 +15,7 @@ public class MealResponse {
 	private String mealTitle;
 	private String mealContent;
 	private List<Food> foodList; 
-	private List<MultipartFile> fileList; 
+	private List<Attachment> fileList; 
 	
 	private double energy;              // 칼로리 (Energy, kcal)
 	private double carbohydrate;        // 탄수화물
@@ -45,7 +47,7 @@ public class MealResponse {
 	
 
 	public MealResponse(int mealNo, int userNo, LocalDate mealRegDate, MealTimeEnum mealTime, String mealTitle,
-			String mealContent, List<Food> foodList, List<MultipartFile> fileList, double energy,
+			String mealContent, List<Food> foodList, List<Attachment> fileList, double energy,
 			double carbohydrate, double sugar, double dietaryFiber, double protein, double ash, double totalFattyAcids,
 			double saturatedFats, double unsaturatedFats, double water, double vitaminACarotene, double vitaminB1,
 			double vitaminB2, double niacin, double folate, double vitaminC, double vitaminD, double cholesterol,
@@ -140,12 +142,12 @@ public class MealResponse {
 		this.foodList = foodList;
 	}
 
-	public List<MultipartFile> getFileList() {
+	public List<Attachment> getFileList() {
 		return fileList;
 	}
 
-	public void setFileList(List<MultipartFile> fileList) {
-		this.fileList = fileList;
+	public void setFileList(List<Attachment> list) {
+		this.fileList = list;
 	}
 
 	public double getEnergy() {
