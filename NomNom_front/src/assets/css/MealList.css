@@ -828,7 +828,6 @@
   align-items: center;
   justify-content: flex-start;
   flex-shrink: 0;
-  width: 46px;
   position: relative;
 }
 .separator {

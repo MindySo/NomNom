@@ -8,16 +8,17 @@
 	<select id="selectMealByUserAndRegDate" parameterType="MealRequest" resultType="MealResponse">
 		SELECT
 		m.meal_no as mealNo, meal_title as mealTitle, meal_time as mealTime,
-		nutri_energy as nutriEnergy,
-		nutri_carbohydrate as nutriCarbohydrate,
-		nutri_protein as nutriProtein,
-		nutri_total_fatty_acids as nutriTotalFattyAcids
+		ROUND(SUM(nutri_energy), 1) AS energy,
+		ROUND(SUM(nutri_carbohydrate), 1) AS carbohydrate,
+		ROUND(SUM(nutri_protein), 1) AS protein,
+		ROUND(SUM(nutri_total_fatty_acids), 1) AS totalFattyAcids
 		FROM meal m
 		JOIN meal_food mf ON m.meal_no = mf.meal_no
 		JOIN food f ON mf.food_code = f.food_code
 		WHERE meal_reg_date = #{mealRegDate}
 		AND user_no = #{userNo}
 		AND meal_time != 'WATER'
+		GROUP BY m.meal_no
 	</select>
 
 
