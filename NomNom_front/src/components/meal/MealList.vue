@@ -6,7 +6,11 @@ import defaultImage from '@/assets/images/global/food_default.png'
 
 const router = useRouter();
 const meals = ref([]);
+const dayReport = ref([]);
+const weeklyReport = ref([]);
+const monthlyReport = ref([]);
 
+// 선택일자 식단 불러오기 ///////////////////////////////////////////////////////////////////
 async function requestMealList(userNo, mealRegDate) {
   const { data } = await axios.get("http://localhost:8080/api/meal", {
     params: { userNo, mealRegDate }
@@ -14,11 +18,6 @@ async function requestMealList(userNo, mealRegDate) {
   meals.value = data;
 }
 
-// 실행 (테스트용으로 userNo=1, date는 하드코딩)
-onMounted(() => {
-  requestMealList(1, '2025-05-21')
-  console.log(defaultImage);
-})
 
 // 식사 시간 한글 변환
 function convertMealTime(time) {
@@ -43,6 +42,49 @@ function getImagePath(index) {
 function getImage(meal) {
   return meal.fileList?.[0]?.attachmentName || defaultImage
 }
+////////////////////////////////////////////////////////////////////////
+
+
+// 일간 영양 분석 불러오기 //////////////////////////////////////////////////////////////////////
+async function requestDayReport(userNo, mealRegDate) {
+  const { data } = await axios.get("http://localhost:8080/api/meal/report/daily", {
+    params: { userNo, mealRegDate }
+  });
+  dayReport.value = data;
+}
+
+//////////////////////////////////////////////////////////////////////
+
+
+// 주간 리포트 불러오기 //////////////////////////////////////////////////////////////////////
+async function requestweeklyReport(userNo) {
+  const { data } = await axios.get("http://localhost:8080/api/meal/report/weekly", {
+    params: { userNo }
+  });
+  weeklyReport.value = data;
+}
+
+//////////////////////////////////////////////////////////////////////
+
+
+// 월간 리포트 불러오기 //////////////////////////////////////////////////////////////////////
+async function requestmonthlyReport(userNo) {
+  const { data } = await axios.get("http://localhost:8080/api/meal/report/monthly", {
+    params: { userNo }
+  });
+  monthlyReport.value = data;
+}
+
+//////////////////////////////////////////////////////////////////////
+
+
+// 실행 (테스트용으로 userNo=1, date는 하드코딩)
+onMounted(() => {
+  requestMealList(1, '2025-05-21');
+  requestDayReport(1, '2025-05-21');
+  requestweeklyReport(1);
+  requestmonthlyReport(1);
+})
 
 const requestMealDetail = (id) => {
 // detail 페이지의 라우터 정보를 줘야 함.
@@ -187,477 +229,250 @@ const requestMealDetail = (id) => {
             </div>
             <div class="frame-132">
             <div class="frame-172">
+
+                <!-- 오늘 식단 리스트 -->
                 <div class="list-menu">
-                <div class="card-list-all-menu">
-                    <div class="main-content">
-                    <div class="name">섭취한 수분 총량</div>
-                    <div class="nutrition-info">
-                        <div class="info-cal">
-                        <img
-                            class="icon-special-drop2"
-                            src="@/assets/images/mealList/icon-special-drop1.svg"
-                        />
-                        <div class="value">
-                            <div class="amount">350ml</div>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-
-                <!-- 식단 리스트 -->
-                <div v-for="(meal, index) in meals" :key="meal.mealNo" class="card-list-all-menu2">
-                    <div class="image">
-                        <img class="place-image-here" :src="meal.fileList[0] ? meal.fileList[0].attachmentName : defaultImage" />
-                    </div>
-                    <div class="main-content2">
-                        <div class="head-info">
-                        <div class="badges-info">
-                            <div class="badge-meal-category">
-                            <div class="category">{{ convertMealTime(meal.mealTime) }}</div>
-                            </div>
-                        </div>
-                        <div class="frame-1">
-                            <div class="action">
-                            <div class="button-picker">
-                                <div class="text5"><div class="label3">수정</div></div>
-                            </div>
-                            </div>
-                            <div class="action">
-                            <div class="button-picker2">
-                                <div class="text5"><div class="label3">삭제</div></div>
-                            </div>
-                            </div>
-                        </div>
-                        </div>
-
-                        <div class="name2">{{ meal.mealTitle }}</div>
-
-                        <div class="nutrition-info2">
-                        <div class="info-cal">
-                            <img class="icon-special-fire" src="@/assets/images/mealList/icon-special-fire0.svg" />
-                            <div class="value2"><div class="amount">{{ meal.energy }} kcal</div></div>
-                        </div>
-
-                        <img class="separator" src="@/assets/images/mealList/separator0.svg" />
-
-                        <div class="info-carbs">
-                            <img class="icon-special-bread" src="@/assets/images/mealList/icon-special-bread0.svg" />
+                    <!-- 섭취한 수분 총량 -->
+                    <div class="card-list-all-menu">
+                        <div class="main-content">
+                        <div class="name">섭취한 수분 총량</div>
+                        <div class="nutrition-info">
+                            <div class="info-cal">
+                            <img
+                                class="icon-special-drop2"
+                                src="@/assets/images/mealList/icon-special-drop1.svg"
+                            />
                             <div class="value">
-                            <div class="amount">탄수화물</div>
-                            <div class="unit">{{ meal.carbohydrate }}g</div>
+                                <div class="amount">{{dayReport.water}}ml</div>
+                            </div>
                             </div>
                         </div>
+                        </div>
+                    </div>
 
-                        <img class="separator2" src="@/assets/images/mealList/separator1.svg" />
+                    <!-- 식단 리스트 -->
+                    <div v-for="(meal, index) in meals" :key="meal.mealNo" class="card-list-all-menu2">
+                        <div class="image">
+                            <img class="place-image-here" :src="meal.fileList[0] ? meal.fileList[0].attachmentName : defaultImage" />
+                        </div>
+                        <div class="main-content2">
+                            <div class="head-info">
+                            <div class="badges-info">
+                                <div class="badge-meal-category">
+                                <div class="category">{{ convertMealTime(meal.mealTime) }}</div>
+                                </div>
+                            </div>
+                            <div class="frame-1">
+                                <div class="action">
+                                <div class="button-picker">
+                                    <div class="text5"><div class="label3">수정</div></div>
+                                </div>
+                                </div>
+                                <div class="action">
+                                <div class="button-picker2">
+                                    <div class="text5"><div class="label3">삭제</div></div>
+                                </div>
+                                </div>
+                            </div>
+                            </div>
 
-                        <div class="info-protein">
-                            <img class="icon-special-fish" src="@/assets/images/mealList/icon-special-fish0.svg" />
-                            <div class="value">
-                            <div class="amount">단백질</div>
-                            <div class="unit">{{ meal.protein }}g</div>
-                            </div>
-                        </div>
+                            <div class="name2">{{ meal.mealTitle }}</div>
 
-                        <img class="separator3" src="@/assets/images/mealList/separator2.svg" />
+                            <div class="nutrition-info2">
+                            <div class="info-cal">
+                                <img class="icon-special-fire" src="@/assets/images/mealList/icon-special-fire0.svg" />
+                                <div class="value2"><div class="amount">{{ meal.energy }} kcal</div></div>
+                            </div>
 
-                        <div class="info-fats">
-                            <img class="icon-special-drop3" src="@/assets/images/mealList/icon-special-drop2.svg" />
-                            <div class="value">
-                            <div class="amount">지방</div>
-                            <div class="unit">{{ meal.totalFattyAcids }}g</div>
+                            <img class="separator" src="@/assets/images/mealList/separator0.svg" />
+
+                            <div class="info-carbs">
+                                <img class="icon-special-bread" src="@/assets/images/mealList/icon-special-bread0.svg" />
+                                <div class="value">
+                                <div class="amount">탄수화물</div>
+                                <div class="unit">{{ meal.carbohydrate }}g</div>
+                                </div>
                             </div>
-                        </div>
+
+                            <img class="separator2" src="@/assets/images/mealList/separator1.svg" />
+
+                            <div class="info-protein">
+                                <img class="icon-special-fish" src="@/assets/images/mealList/icon-special-fish0.svg" />
+                                <div class="value">
+                                <div class="amount">단백질</div>
+                                <div class="unit">{{ meal.protein }}g</div>
+                                </div>
+                            </div>
+
+                            <img class="separator3" src="@/assets/images/mealList/separator2.svg" />
+
+                            <div class="info-fats">
+                                <img class="icon-special-drop3" src="@/assets/images/mealList/icon-special-drop2.svg" />
+                                <div class="value">
+                                <div class="amount">지방</div>
+                                <div class="unit">{{ meal.totalFattyAcids }}g</div>
+                                </div>
+                            </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="card-list-all-menu2">
-                    <div class="image">
-                    <img class="place-image-here" src="@/assets/images/mealList/place-image-here1.png" />
-                    </div>
-                    <div class="main-content3">
-                    <div class="head-info2">
-                        <div class="badges-info">
-                        <div class="badge-meal-category2">
-                            <div class="category">점심</div>
-                        </div>
-                        </div>
-                        <div class="frame-1">
-                        <div class="action">
-                            <div class="button-picker">
-                            <div class="text5">
-                                <div class="label3">수정</div>
-                            </div>
-                            </div>
-                        </div>
-                        <div class="action">
-                            <div class="button-picker2">
-                            <div class="text5">
-                                <div class="label3">삭제</div>
-                            </div>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                    <div class="name2">친구들이랑 같이 점심!!</div>
-                    <div class="nutrition-info2">
-                        <div class="info-cal">
-                        <img
-                            class="icon-special-fire2"
-                            src="@/assets/images/mealList/icon-special-fire1.svg"
-                        />
-                        <div class="value2">
-                            <div class="amount">400</div>
-                            <div class="unit">kcal</div>
-                        </div>
-                        </div>
-                        <img class="separator4" src="@/assets/images/mealList/separator3.svg" />
-                        <div class="info-carbs">
-                        <img
-                            class="icon-special-bread2"
-                            src="@/assets/images/mealList/icon-special-bread1.svg"
-                        />
-                        <div class="value">
-                            <div class="amount">탄수화물</div>
-                            <div class="unit">45g</div>
-                        </div>
-                        </div>
-                        <img class="separator5" src="@/assets/images/mealList/separator4.svg" />
-                        <div class="info-protein">
-                        <img
-                            class="icon-special-fish2"
-                            src="@/assets/images/mealList/icon-special-fish1.svg"
-                        />
-                        <div class="value">
-                            <div class="amount">단백질</div>
-                            <div class="unit">28g</div>
-                        </div>
-                        </div>
-                        <img class="separator6" src="@/assets/images/mealList/separator5.svg" />
-                        <div class="info-fats">
-                        <img
-                            class="icon-special-drop4"
-                            src="@/assets/images/mealList/icon-special-drop3.svg"
-                        />
-                        <div class="value">
-                            <div class="amount">지방</div>
-                            <div class="unit">14g</div>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                <div class="card-list-all-menu2">
-                    <div class="image">
-                    <img class="place-image-here" src="@/assets/images/mealList/place-image-here2.png" />
-                    </div>
-                    <div class="main-content2">
-                    <div class="head-info2">
-                        <div class="badges-info">
-                        <div class="badge-meal-category3">
-                            <div class="category">저녁</div>
-                        </div>
-                        </div>
-                        <div class="frame-1">
-                        <div class="action">
-                            <div class="button-picker">
-                            <div class="text5">
-                                <div class="label3">수정</div>
-                            </div>
-                            </div>
-                        </div>
-                        <div class="action">
-                            <div class="button-picker2">
-                            <div class="text5">
-                                <div class="label3">삭제</div>
-                            </div>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                    <div class="name2">6월 24일의 저녁</div>
-                    <div class="nutrition-info2">
-                        <div class="info-cal">
-                        <img
-                            class="icon-special-fire3"
-                            src="@/assets/images/mealList/icon-special-fire2.svg"
-                        />
-                        <div class="value2">
-                            <div class="amount">480</div>
-                            <div class="unit">kcal</div>
-                        </div>
-                        </div>
-                        <img class="separator7" src="@/assets/images/mealList/separator6.svg" />
-                        <div class="info-carbs">
-                        <img
-                            class="icon-special-bread3"
-                            src="@/assets/images/mealList/icon-special-bread2.svg"
-                        />
-                        <div class="value">
-                            <div class="amount">탄수화물</div>
-                            <div class="unit">50g</div>
-                        </div>
-                        </div>
-                        <img class="separator8" src="@/assets/images/mealList/separator7.svg" />
-                        <div class="info-protein">
-                        <img
-                            class="icon-special-fish3"
-                            src="@/assets/images/mealList/icon-special-fish2.svg"
-                        />
-                        <div class="value">
-                            <div class="amount">단백질</div>
-                            <div class="unit">40g</div>
-                        </div>
-                        </div>
-                        <img class="separator9" src="@/assets/images/mealList/separator8.svg" />
-                        <div class="info-fats">
-                        <img
-                            class="icon-special-drop5"
-                            src="@/assets/images/mealList/icon-special-drop4.svg"
-                        />
-                        <div class="value">
-                            <div class="amount">지방</div>
-                            <div class="unit">14g</div>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                <div class="card-list-all-menu2">
-                    <div class="image">
-                    <img class="place-image-here" src="@/assets/images/mealList/place-image-here3.png" />
-                    </div>
-                    <div class="main-content2">
-                    <div class="head-info2">
-                        <div class="badges-info">
-                        <div class="badge-meal-category4">
-                            <div class="category">간식</div>
-                        </div>
-                        </div>
-                        <div class="frame-1">
-                        <div class="action">
-                            <div class="button-picker">
-                            <div class="text5">
-                                <div class="label3">수정</div>
-                            </div>
-                            </div>
-                        </div>
-                        <div class="action">
-                            <div class="button-picker2">
-                            <div class="text5">
-                                <div class="label3">삭제</div>
-                            </div>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                    <div class="name2">6월 24일의 저녁</div>
-                    <div class="nutrition-info2">
-                        <div class="info-cal">
-                        <img
-                            class="icon-special-fire4"
-                            src="@/assets/images/mealList/icon-special-fire3.svg"
-                        />
-                        <div class="value2">
-                            <div class="amount">480</div>
-                            <div class="unit">kcal</div>
-                        </div>
-                        </div>
-                        <img class="separator10" src="@/assets/images/mealList/separator9.svg" />
-                        <div class="info-carbs">
-                        <img
-                            class="icon-special-bread4"
-                            src="@/assets/images/mealList/icon-special-bread3.svg"
-                        />
-                        <div class="value">
-                            <div class="amount">탄수화물</div>
-                            <div class="unit">50g</div>
-                        </div>
-                        </div>
-                        <img class="separator11" src="@/assets/images/mealList/separator10.svg" />
-                        <div class="info-protein">
-                        <img
-                            class="icon-special-fish4"
-                            src="@/assets/images/mealList/icon-special-fish3.svg"
-                        />
-                        <div class="value">
-                            <div class="amount">단백질</div>
-                            <div class="unit">40g</div>
-                        </div>
-                        </div>
-                        <img class="separator12" src="@/assets/images/mealList/separator11.svg" />
-                        <div class="info-fats">
-                        <img
-                            class="icon-special-drop6"
-                            src="@/assets/images/mealList/icon-special-drop5.svg"
-                        />
-                        <div class="value">
-                            <div class="amount">지방</div>
-                            <div class="unit">14g</div>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                </div>
-                <div class="menu-nav2">
-                <div class="button-nav4"></div>
-                <div class="button-nav5"></div>
-                </div>
+
             </div>
             <div class="day-frame">
+                <!-- 일간 영양 분석 -->
                 <div class="frame-173">
-                <div class="title2">영양 분석</div>
-                </div>
-                <div class="div3">
-                <div class="frame-16">
-                    <div class="group-18">
-                    <img class="v-2-2-1" src="@/assets/images/mealList/v-2-2-10.png" />
-                    <div class="title3">1242 Kcal</div>
+                    <div class="title2">영양 분석</div>
                     </div>
-                    <div class="group-17">
-                    <img class="v-2-2-2" src="@/assets/images/mealList/v-2-2-20.png" />
-                    <div class="title4">수분</div>
-                    </div>
-                </div>
-                <div class="frame-162">
-                    <div class="frame-133">
-                    <div class="frame-14">
-                        <div class="group-15">
-                        <div class="frame-142">
-                            <div class="title5">탄수화물</div>
-                            <div class="title6">13g</div>
-                        </div>
-                        <div class="menu-nav3">
-                            <div class="button-nav6"></div>
-                            <div class="button-nav5"></div>
-                        </div>
-                        </div>
-                        <div class="frame-134">
-                        <div class="frame-135">
-                            <div class="title7">당류</div>
-                            <div class="title7">13g</div>
-                        </div>
-                        <div class="frame-143">
-                            <div class="title7">식이섬유</div>
-                            <div class="title7">13g</div>
-                        </div>
-                        </div>
-                    </div>
-                    <div class="frame-15">
-                        <div class="group-15">
-                        <div class="frame-142">
-                            <div class="title5">단백질</div>
-                            <div class="title6">13g</div>
-                        </div>
-                        <div class="menu-nav3">
-                            <div class="button-nav7"></div>
-                            <div class="button-nav5"></div>
-                        </div>
-                        </div>
-                        <div class="frame-134">
-                        <div class="frame-135">
-                            <div class="title7">회분</div>
-                            <div class="title7">13g</div>
-                        </div>
-                        </div>
-                    </div>
-                    <div class="frame-163">
-                        <div class="group-15">
-                        <div class="frame-142">
-                            <div class="title5">지방</div>
-                            <div class="title6">13g</div>
-                        </div>
-                        <div class="menu-nav3">
-                            <div class="button-nav8"></div>
-                            <div class="button-nav5"></div>
-                        </div>
-                        </div>
-                        <div class="frame-134">
-                        <div class="frame-135">
-                            <div class="title7">포화지방</div>
-                            <div class="title7">13g</div>
-                        </div>
-                        <div class="frame-143">
-                            <div class="title7">불포화지방</div>
-                            <div class="title7">13g</div>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-                    <div class="frame-136">
-                    <div class="frame-19">
-                        <div class="title8">비타민</div>
-                        <div class="frame-137">
-                        <div class="frame-135">
-                            <div class="title7">비타민A</div>
-                            <div class="title7">13g</div>
-                        </div>
-                        <div class="frame-18">
-                            <div class="title7">비타민 B1 티아민</div>
-                            <div class="title7">13g</div>
-                        </div>
-                        <div class="frame-192">
-                            <div class="title7">비타민 B2 리보플라빈</div>
-                            <div class="title7">13g</div>
-                        </div>
-                        <div class="frame-20">
-                            <div class="title7">비타민 B3 니아신</div>
-                            <div class="title7">13g</div>
-                        </div>
-                        <div class="frame-143">
-                            <div class="title7">엽산</div>
-                            <div class="title7">13g</div>
-                        </div>
-                        <div class="frame-152">
-                            <div class="title7">비타민 C</div>
-                            <div class="title7">13g</div>
-                        </div>
-                        <div class="frame-164">
-                            <div class="title7">비타민 D</div>
-                            <div class="title7">13g</div>
-                        </div>
-                        </div>
-                    </div>
-                    <div class="frame-144">
-                        <div class="frame-174">
-                        <div class="title8">콜레스테롤</div>
-                        <div class="frame-137">
-                            <div class="frame-135">
-                            <div class="title7"></div>
-                            <div class="title7">13g</div>
+                    <div class="div3">
+                        <div class="frame-16">
+                            <div class="group-18">
+                            <img class="v-2-2-1" src="@/assets/images/mealList/v-2-2-10.png" />
+                            <div class="title3">{{ dayReport.energy }} Kcal</div>
+                            </div>
+                            <div class="group-17">
+                            <img class="v-2-2-2" src="@/assets/images/mealList/v-2-2-20.png" />
+                            <div class="title4">{{ dayReport.water }} g</div>
                             </div>
                         </div>
-                        </div>
-                        <div class="frame-182">
-                        <div class="title8">무기질</div>
-                        <div class="frame-137">
-                            <div class="frame-135">
-                            <div class="title7">나트륨</div>
-                            <div class="title7">13g</div>
+                        <div class="frame-162">
+                            <div class="frame-133">
+                            <div class="frame-14">
+                                <div class="group-15">
+                                <div class="frame-142">
+                                    <div class="title5">탄수화물</div>
+                                    <div class="title6">{{ dayReport.carbohydrate }} g</div>
+                                </div>
+                                <div class="menu-nav3">
+                                    <div class="button-nav6"></div>
+                                    <div class="button-nav5"></div>
+                                </div>
+                                </div>
+                                <div class="frame-134">
+                                <div class="frame-135">
+                                    <div class="title7">당류</div>
+                                    <div class="title7">{{ dayReport.sugar}} g</div>
+                                </div>
+                                <div class="frame-143">
+                                    <div class="title7">식이섬유</div>
+                                    <div class="title7">{{ dayReport.dietaryFiber}} g</div>
+                                </div>
+                                </div>
                             </div>
-                            <div class="frame-143">
-                            <div class="title7">칼슘</div>
-                            <div class="title7">13g</div>
+                            <div class="frame-15">
+                                <div class="group-15">
+                                <div class="frame-142">
+                                    <div class="title5">단백질</div>
+                                    <div class="title6">{{ dayReport.protein}} g</div>
+                                </div>
+                                <div class="menu-nav3">
+                                    <div class="button-nav7"></div>
+                                    <div class="button-nav5"></div>
+                                </div>
+                                </div>
+                                <div class="frame-134">
+                                <div class="frame-135">
+                                    <div class="title7">회분</div>
+                                    <div class="title7">{{ dayReport.ash}} g</div>
+                                </div>
+                                </div>
                             </div>
-                            <div class="frame-152">
-                            <div class="title7">철</div>
-                            <div class="title7">13g</div>
+                            <div class="frame-163">
+                                <div class="group-15">
+                                <div class="frame-142">
+                                    <div class="title5">지방</div>
+                                    <div class="title6">{{ dayReport.totalFattyAcids}} g</div>
+                                </div>
+                                <div class="menu-nav3">
+                                    <div class="button-nav8"></div>
+                                    <div class="button-nav5"></div>
+                                </div>
+                                </div>
+                                <div class="frame-134">
+                                <div class="frame-135">
+                                    <div class="title7">포화지방</div>
+                                    <div class="title7">{{ dayReport.saturatedFats}} g</div>
+                                </div>
+                                <div class="frame-143">
+                                    <div class="title7">불포화지방</div>
+                                    <div class="title7">{{ dayReport.unsaturatedFats}} g</div>
+                                </div>
+                                </div>
                             </div>
-                            <div class="frame-164">
-                            <div class="title7">인</div>
-                            <div class="title7">13g</div>
                             </div>
-                            <div class="frame-175">
-                            <div class="title7">칼륨</div>
-                            <div class="title7">13g</div>
+                            <div class="frame-136">
+                            <div class="frame-19">
+                                <div class="title8">비타민</div>
+                                <div class="frame-137">
+                                <div class="frame-135">
+                                    <div class="title7">비타민A</div>
+                                    <div class="title7">{{ dayReport.vitaminACarotene}} µg</div>
+                                </div>
+                                <div class="frame-18">
+                                    <div class="title7">비타민 B1 티아민</div>
+                                    <div class="title7">{{ dayReport.vitaminB1}} mg</div>
+                                </div>
+                                <div class="frame-192">
+                                    <div class="title7">비타민 B2 리보플라빈</div>
+                                    <div class="title7">{{ dayReport.vitaminB2}} mg</div>
+                                </div>
+                                <div class="frame-20">
+                                    <div class="title7">비타민 B3 니아신</div>
+                                    <div class="title7">{{ dayReport.niacin}} mg</div>
+                                </div>
+                                <div class="frame-143">
+                                    <div class="title7">엽산</div>
+                                    <div class="title7">{{ dayReport.folate}} µg</div>
+                                </div>
+                                <div class="frame-152">
+                                    <div class="title7">비타민 C</div>
+                                    <div class="title7">{{ dayReport.vitaminC}} mg</div>
+                                </div>
+                                <div class="frame-164">
+                                    <div class="title7">비타민 D</div>
+                                    <div class="title7">{{ dayReport.vitaminD}} µg</div>
+                                </div>
+                                </div>
                             </div>
-                        </div>
+                            <div class="frame-144">
+                                <div class="frame-174">
+                                <div class="title8">콜레스테롤</div>
+                                <div class="frame-137">
+                                    <div class="frame-135">
+                                    <div class="title7"></div>
+                                    <div class="title7">{{ dayReport.cholesterol}} mg</div>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="frame-182">
+                                <div class="title8">무기질</div>
+                                <div class="frame-137">
+                                    <div class="frame-135">
+                                    <div class="title7">나트륨</div>
+                                    <div class="title7">{{ dayReport.sodium}} mg</div>
+                                    </div>
+                                    <div class="frame-143">
+                                    <div class="title7">칼슘</div>
+                                    <div class="title7">{{ dayReport.calcium}} mg</div>
+                                    </div>
+                                    <div class="frame-152">
+                                    <div class="title7">철</div>
+                                    <div class="title7">{{ dayReport.iron}} mg</div>
+                                    </div>
+                                    <div class="frame-164">
+                                    <div class="title7">인</div>
+                                    <div class="title7">{{ dayReport.phosphorus}} mg</div>
+                                    </div>
+                                    <div class="frame-175">
+                                    <div class="title7">칼륨</div>
+                                    <div class="title7">{{ dayReport.potassium}} mg</div>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                            </div>
                         </div>
                     </div>
-                    </div>
-                </div>
-                </div>
             </div>
             </div>
         </div>
@@ -675,309 +490,316 @@ const requestMealDetail = (id) => {
                 <div class="calender-frame">
                 <div class="frame-164">
                     <div class="title2">최근 7일 주요 영양소 기록</div>
-                    <div class="frame-165">
-                    <div class="frame-166">
-                        <div class="button-nav10"></div>
-                        <div class="amount">탄수화물</div>
-                    </div>
-                    <div class="frame-176">
-                        <div class="button-nav11"></div>
-                        <div class="amount">단백질</div>
-                    </div>
-                    <div class="frame-183">
-                        <div class="button-nav12"></div>
-                        <div class="amount">지방</div>
-                    </div>
-                    <div class="frame-193">
-                        <div class="button-nav13"></div>
-                        <div class="amount">수분</div>
-                    </div>
-                    </div>
-                </div>
-                <div class="day-date">
-                    <div class="date-number-line-04">
-                    <div class="frame-194">
-                        <div class="frame-184">
-                        <div class="date">
-                            <div class="frame-21">
-                            <div class="frame-153">
-                                <div class="menu-nav5">
-                                <div class="button-nav5"></div>
-                                <div class="button-nav14"></div>
-                                </div>
-                            </div>
-                            </div>
-                            <div class="frame-153">
-                            <div class="menu-nav5">
-                                <div class="button-nav5"></div>
-                                <div class="button-nav15"></div>
-                            </div>
-                            </div>
-                            <div class="frame-177">
-                            <div class="frame-153">
-                                <div class="menu-nav5">
-                                <div class="button-nav5"></div>
-                                <div class="button-nav16"></div>
-                                </div>
-                            </div>
-                            </div>
-                            <div class="frame-177">
-                            <div class="frame-153">
-                                <div class="menu-nav5">
-                                <div class="button-nav5"></div>
-                                <div class="button-nav17"></div>
-                                </div>
-                            </div>
-                            </div>
+                        <div class="frame-165">
+                        <div class="frame-166">
+                            <div class="button-nav10"></div>
+                            <div class="amount">탄수화물</div>
+                        </div>
+                        <div class="frame-176">
+                            <div class="button-nav11"></div>
+                            <div class="amount">단백질</div>
+                        </div>
+                        <div class="frame-183">
+                            <div class="button-nav12"></div>
+                            <div class="amount">지방</div>
+                        </div>
+                        <div class="frame-193">
+                            <div class="button-nav13"></div>
+                            <div class="amount">수분</div>
                         </div>
                         </div>
                     </div>
-                    <div class="frame-202">
-                        <div class="frame-184">
-                        <div class="date">
-                            <div class="frame-21">
-                            <div class="frame-153">
+                    <div class="day-date">
+                        <div class="date-number-line-04">
+                        <div class="frame-194">
+                            <div class="frame-184">
+                            <div class="date">
+                                <div class="frame-21">
+                                <div class="frame-153">
+                                    <div class="menu-nav5">
+                                    <div class="button-nav5"></div>
+                                    <div class="button-nav14"></div>
+                                    </div>
+                                    
+                                </div>
+                                </div>
+                                <div class="frame-153">
                                 <div class="menu-nav5">
-                                <div class="button-nav5"></div>
-                                <div class="button-nav14"></div>
+                                    <div class="button-nav5"></div>
+                                    <div class="button-nav15"></div>
+                                </div>
+                                </div>
+                                <div class="frame-177">
+                                <div class="frame-153">
+                                    <div class="menu-nav5">
+                                    <div class="button-nav5"></div>
+                                    <div class="button-nav16"></div>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="frame-177">
+                                <div class="frame-153">
+                                    <div class="menu-nav5">
+                                    <div class="button-nav5"></div>
+                                    <div class="button-nav17"></div>
+                                    </div>
+                                </div>
                                 </div>
                             </div>
                             </div>
-                            <div class="frame-153">
-                            <div class="menu-nav5">
-                                <div class="button-nav5"></div>
-                                <div class="button-nav15"></div>
-                            </div>
-                            </div>
-                            <div class="frame-177">
-                            <div class="frame-153">
+                        </div>
+                        <div class="frame-202">
+                            <div class="frame-184">
+                            <div class="date">
+                                <div class="frame-21">
+                                <div class="frame-153">
+                                    <div class="menu-nav5">
+                                    <div class="button-nav5"></div>
+                                    <div class="button-nav14"></div>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="frame-153">
                                 <div class="menu-nav5">
-                                <div class="button-nav5"></div>
-                                <div class="button-nav16"></div>
+                                    <div class="button-nav5"></div>
+                                    <div class="button-nav15"></div>
+                                </div>
+                                </div>
+                                <div class="frame-177">
+                                <div class="frame-153">
+                                    <div class="menu-nav5">
+                                    <div class="button-nav5"></div>
+                                    <div class="button-nav16"></div>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="frame-177">
+                                <div class="frame-153">
+                                    <div class="menu-nav5">
+                                    <div class="button-nav5"></div>
+                                    <div class="button-nav17"></div>
+                                    </div>
+                                </div>
                                 </div>
                             </div>
                             </div>
-                            <div class="frame-177">
-                            <div class="frame-153">
+                        </div>
+                        <div class="frame-212">
+                            <div class="frame-184">
+                            <div class="date">
+                                <div class="frame-21">
+                                <div class="frame-153">
+                                    <div class="menu-nav5">
+                                    <div class="button-nav5"></div>
+                                    <div class="button-nav14"></div>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="frame-153">
                                 <div class="menu-nav5">
-                                <div class="button-nav5"></div>
-                                <div class="button-nav17"></div>
+                                    <div class="button-nav5"></div>
+                                    <div class="button-nav15"></div>
+                                </div>
+                                </div>
+                                <div class="frame-177">
+                                <div class="frame-153">
+                                    <div class="menu-nav5">
+                                    <div class="button-nav5"></div>
+                                    <div class="button-nav16"></div>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="frame-177">
+                                <div class="frame-153">
+                                    <div class="menu-nav5">
+                                    <div class="button-nav5"></div>
+                                    <div class="button-nav17"></div>
+                                    </div>
+                                </div>
                                 </div>
                             </div>
+                            </div>
+                        </div>
+                        <div class="frame-22">
+                            <div class="frame-184">
+                            <div class="date">
+                                <div class="frame-21">
+                                <div class="frame-153">
+                                    <div class="menu-nav5">
+                                    <div class="button-nav5"></div>
+                                    <div class="button-nav14"></div>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="frame-153">
+                                <div class="menu-nav5">
+                                    <div class="button-nav5"></div>
+                                    <div class="button-nav15"></div>
+                                </div>
+                                </div>
+                                <div class="frame-177">
+                                <div class="frame-153">
+                                    <div class="menu-nav5">
+                                    <div class="button-nav5"></div>
+                                    <div class="button-nav16"></div>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="frame-177">
+                                <div class="frame-153">
+                                    <div class="menu-nav5">
+                                    <div class="button-nav5"></div>
+                                    <div class="button-nav17"></div>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="frame-23">
+                            <div class="frame-184">
+                            <div class="date">
+                                <div class="frame-21">
+                                <div class="frame-153">
+                                    <div class="menu-nav5">
+                                    <div class="button-nav5"></div>
+                                    <div class="button-nav14"></div>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="frame-153">
+                                <div class="menu-nav5">
+                                    <div class="button-nav5"></div>
+                                    <div class="button-nav15"></div>
+                                </div>
+                                </div>
+                                <div class="frame-177">
+                                <div class="frame-153">
+                                    <div class="menu-nav5">
+                                    <div class="button-nav5"></div>
+                                    <div class="button-nav16"></div>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="frame-177">
+                                <div class="frame-153">
+                                    <div class="menu-nav5">
+                                    <div class="button-nav5"></div>
+                                    <div class="button-nav17"></div>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="frame-24">
+                            <div class="frame-184">
+                            <div class="date">
+                                <div class="frame-21">
+                                <div class="frame-153">
+                                    <div class="menu-nav5">
+                                    <div class="button-nav5"></div>
+                                    <div class="button-nav14"></div>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="frame-153">
+                                <div class="menu-nav5">
+                                    <div class="button-nav5"></div>
+                                    <div class="button-nav15"></div>
+                                </div>
+                                </div>
+                                <div class="frame-177">
+                                <div class="frame-153">
+                                    <div class="menu-nav5">
+                                    <div class="button-nav5"></div>
+                                    <div class="button-nav16"></div>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="frame-177">
+                                <div class="frame-153">
+                                    <div class="menu-nav5">
+                                    <div class="button-nav5"></div>
+                                    <div class="button-nav17"></div>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="frame-25">
+                            <div class="frame-184">
+                            <div class="date">
+                                <div class="frame-21">
+                                <div class="frame-153">
+                                    <div class="menu-nav5">
+                                    <div class="button-nav5"></div>
+                                    <div class="button-nav14"></div>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="frame-153">
+                                <div class="menu-nav5">
+                                    <div class="button-nav5"></div>
+                                    <div class="button-nav15"></div>
+                                </div>
+                                </div>
+                                <div class="frame-177">
+                                <div class="frame-153">
+                                    <div class="menu-nav5">
+                                    <div class="button-nav5"></div>
+                                    <div class="button-nav16"></div>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="frame-177">
+                                <div class="frame-153">
+                                    <div class="menu-nav5">
+                                    <div class="button-nav5"></div>
+                                    <div class="button-nav17"></div>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="line"></div>
+                        <div class="day-line">
+                        <div class="frame-178">
+                            <div class="day4">
+                            <div class="_25-06-18">25.06.18</div>
+                            </div>
+                            <div class="day4">
+                            <div class="_25-06-19">25.06.19</div>
+                            </div>
+                            <div class="day4">
+                            <div class="_25-06-20">25.06.20</div>
+                            </div>
+                            <div class="day4">
+                            <div class="_25-06-21">25.06.21</div>
+                            </div>
+                            <div class="day4">
+                            <div class="_25-06-22">25.06.22</div>
+                            </div>
+                            <div class="day4">
+                            <div class="_25-06-23">25.06.23</div>
+                            </div>
+                            <div class="day4">
+                            <div class="_25-06-24">25.06.24</div>
                             </div>
                         </div>
                         </div>
                     </div>
-                    <div class="frame-212">
-                        <div class="frame-184">
-                        <div class="date">
-                            <div class="frame-21">
-                            <div class="frame-153">
-                                <div class="menu-nav5">
-                                <div class="button-nav5"></div>
-                                <div class="button-nav14"></div>
-                                </div>
-                            </div>
-                            </div>
-                            <div class="frame-153">
-                            <div class="menu-nav5">
-                                <div class="button-nav5"></div>
-                                <div class="button-nav15"></div>
-                            </div>
-                            </div>
-                            <div class="frame-177">
-                            <div class="frame-153">
-                                <div class="menu-nav5">
-                                <div class="button-nav5"></div>
-                                <div class="button-nav16"></div>
-                                </div>
-                            </div>
-                            </div>
-                            <div class="frame-177">
-                            <div class="frame-153">
-                                <div class="menu-nav5">
-                                <div class="button-nav5"></div>
-                                <div class="button-nav17"></div>
-                                </div>
-                            </div>
-                            </div>
-                        </div>
-                        </div>
+
+                    <!-- 주간 통계 찍어보기 -->
+                    <div v-for="(day, index) in weeklyReport.dailySumList" :key="index">
+                        <p>{{ day.reportDate }} : {{ day.carbohydrate }}g, {{ day.protein }}g</p>
                     </div>
-                    <div class="frame-22">
-                        <div class="frame-184">
-                        <div class="date">
-                            <div class="frame-21">
-                            <div class="frame-153">
-                                <div class="menu-nav5">
-                                <div class="button-nav5"></div>
-                                <div class="button-nav14"></div>
-                                </div>
-                            </div>
-                            </div>
-                            <div class="frame-153">
-                            <div class="menu-nav5">
-                                <div class="button-nav5"></div>
-                                <div class="button-nav15"></div>
-                            </div>
-                            </div>
-                            <div class="frame-177">
-                            <div class="frame-153">
-                                <div class="menu-nav5">
-                                <div class="button-nav5"></div>
-                                <div class="button-nav16"></div>
-                                </div>
-                            </div>
-                            </div>
-                            <div class="frame-177">
-                            <div class="frame-153">
-                                <div class="menu-nav5">
-                                <div class="button-nav5"></div>
-                                <div class="button-nav17"></div>
-                                </div>
-                            </div>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                    <div class="frame-23">
-                        <div class="frame-184">
-                        <div class="date">
-                            <div class="frame-21">
-                            <div class="frame-153">
-                                <div class="menu-nav5">
-                                <div class="button-nav5"></div>
-                                <div class="button-nav14"></div>
-                                </div>
-                            </div>
-                            </div>
-                            <div class="frame-153">
-                            <div class="menu-nav5">
-                                <div class="button-nav5"></div>
-                                <div class="button-nav15"></div>
-                            </div>
-                            </div>
-                            <div class="frame-177">
-                            <div class="frame-153">
-                                <div class="menu-nav5">
-                                <div class="button-nav5"></div>
-                                <div class="button-nav16"></div>
-                                </div>
-                            </div>
-                            </div>
-                            <div class="frame-177">
-                            <div class="frame-153">
-                                <div class="menu-nav5">
-                                <div class="button-nav5"></div>
-                                <div class="button-nav17"></div>
-                                </div>
-                            </div>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                    <div class="frame-24">
-                        <div class="frame-184">
-                        <div class="date">
-                            <div class="frame-21">
-                            <div class="frame-153">
-                                <div class="menu-nav5">
-                                <div class="button-nav5"></div>
-                                <div class="button-nav14"></div>
-                                </div>
-                            </div>
-                            </div>
-                            <div class="frame-153">
-                            <div class="menu-nav5">
-                                <div class="button-nav5"></div>
-                                <div class="button-nav15"></div>
-                            </div>
-                            </div>
-                            <div class="frame-177">
-                            <div class="frame-153">
-                                <div class="menu-nav5">
-                                <div class="button-nav5"></div>
-                                <div class="button-nav16"></div>
-                                </div>
-                            </div>
-                            </div>
-                            <div class="frame-177">
-                            <div class="frame-153">
-                                <div class="menu-nav5">
-                                <div class="button-nav5"></div>
-                                <div class="button-nav17"></div>
-                                </div>
-                            </div>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                    <div class="frame-25">
-                        <div class="frame-184">
-                        <div class="date">
-                            <div class="frame-21">
-                            <div class="frame-153">
-                                <div class="menu-nav5">
-                                <div class="button-nav5"></div>
-                                <div class="button-nav14"></div>
-                                </div>
-                            </div>
-                            </div>
-                            <div class="frame-153">
-                            <div class="menu-nav5">
-                                <div class="button-nav5"></div>
-                                <div class="button-nav15"></div>
-                            </div>
-                            </div>
-                            <div class="frame-177">
-                            <div class="frame-153">
-                                <div class="menu-nav5">
-                                <div class="button-nav5"></div>
-                                <div class="button-nav16"></div>
-                                </div>
-                            </div>
-                            </div>
-                            <div class="frame-177">
-                            <div class="frame-153">
-                                <div class="menu-nav5">
-                                <div class="button-nav5"></div>
-                                <div class="button-nav17"></div>
-                                </div>
-                            </div>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-                    <div class="line"></div>
-                    <div class="day-line">
-                    <div class="frame-178">
-                        <div class="day4">
-                        <div class="_25-06-18">25.06.18</div>
-                        </div>
-                        <div class="day4">
-                        <div class="_25-06-19">25.06.19</div>
-                        </div>
-                        <div class="day4">
-                        <div class="_25-06-20">25.06.20</div>
-                        </div>
-                        <div class="day4">
-                        <div class="_25-06-21">25.06.21</div>
-                        </div>
-                        <div class="day4">
-                        <div class="_25-06-22">25.06.22</div>
-                        </div>
-                        <div class="day4">
-                        <div class="_25-06-23">25.06.23</div>
-                        </div>
-                        <div class="day4">
-                        <div class="_25-06-24">25.06.24</div>
-                        </div>
-                    </div>
-                    </div>
-                </div>
                 </div>
                 <div class="frame-167">
+                <!-- 끼니별 칼로리 분석 -->
                 <div class="frame-168">
                     <div class="title2">끼니별 칼로리 분석(웰스토리 카피)</div>
                     <div class="frame-169">
@@ -990,6 +812,9 @@ const requestMealDetail = (id) => {
                         "
                     >
                         <div class="title9">아침</div>
+                        <div>
+                            <p>{{ weeklyReport.avgBreakfastEnergy }}</p>
+                        </div>
                     </div>
                     <div
                         class="frame-185"
@@ -1000,6 +825,9 @@ const requestMealDetail = (id) => {
                         "
                     >
                         <div class="title10">점심</div>
+                        <div>
+                            <p>{{ weeklyReport.avgLunchEnergy }}</p>
+                        </div>
                     </div>
                     <div
                         class="frame-186"
@@ -1010,10 +838,14 @@ const requestMealDetail = (id) => {
                         "
                     >
                         <div class="title11">저녁</div>
+                        <div>
+                            <p>{{ weeklyReport.avgDinnerEnergy }}</p>
+                        </div>
                     </div>
                     </div>
                 </div>
                 <div class="frame-1610"></div>
+                <!-- 주간 영양소 평균 -->
                 <div class="frame-1710">
                     <div class="title2">주간 영양소 평균</div>
                     <div class="frame-1611">
@@ -1025,7 +857,7 @@ const requestMealDetail = (id) => {
                             <div class="button-nav5"></div>
                         </div>
                         <div class="frame-1612">
-                            <div class="title12">13g</div>
+                            <div class="title12">{{ weeklyReport.avgWeeklyEnergy }} g</div>
                             <div class="title13">/</div>
                             <div class="title13">13g</div>
                         </div>
@@ -1039,7 +871,7 @@ const requestMealDetail = (id) => {
                             <div class="button-nav5"></div>
                         </div>
                         <div class="frame-1612">
-                            <div class="title12">13g</div>
+                            <div class="title12">{{ weeklyReport.avgWeeklycarbohydrate }} g</div>
                             <div class="title13">/</div>
                             <div class="title13">13g</div>
                         </div>
@@ -1052,7 +884,7 @@ const requestMealDetail = (id) => {
                         <div class="button-nav5"></div>
                         </div>
                         <div class="frame-1612">
-                        <div class="title12">13g</div>
+                        <div class="title12">{{ weeklyReport.avgWeeklyProtein }} g</div>
                         <div class="title13">/</div>
                         <div class="title13">13g</div>
                         </div>
@@ -1064,7 +896,7 @@ const requestMealDetail = (id) => {
                         <div class="button-nav21"></div>
                         </div>
                         <div class="frame-1612">
-                        <div class="title12">13g</div>
+                        <div class="title12">{{ weeklyReport.avgWeeklyTotalFattyAcids }} g</div>
                         <div class="title13">/</div>
                         <div class="title13">13g</div>
                         </div>
@@ -1076,7 +908,7 @@ const requestMealDetail = (id) => {
                         <div class="button-nav5"></div>
                         </div>
                         <div class="frame-1612">
-                        <div class="title12">13g</div>
+                        <div class="title12">{{ weeklyReport.avgWeeklyWater }} g</div>
                         <div class="title13">/</div>
                         <div class="title13">13g</div>
                         </div>
@@ -1089,7 +921,7 @@ const requestMealDetail = (id) => {
                 <div class="calender-frame2">
                 <div class="frame-203">
                     <div class="title2">월간 식단 점수</div>
-                    <div class="title14">2025. 05. 25 ~ 2025. 06. 24</div>
+                    <div class="title14">{{monthlyReport.reportStartDate}} ~ {{monthlyReport.reportEndDate}}</div>
                     <div class="frame-204">
                     <div class="frame-205">
                         <div class="title15">89</div>
@@ -1121,286 +953,290 @@ const requestMealDetail = (id) => {
                     </div>
                     </div>
                     <div class="day-date">
-                    <div class="date-number-line-04">
-                        <div class="frame-194">
-                        <div class="frame-184">
-                            <div class="date">
-                            <div class="frame-21">
+                        <div class="date-number-line-04">
+                            <div class="frame-194">
+                            <div class="frame-184">
+                                <div class="date">
+                                <div class="frame-21">
+                                    <div class="frame-153">
+                                    <div class="menu-nav5">
+                                        <div class="button-nav5"></div>
+                                        <div class="button-nav14"></div>
+                                    </div>
+                                    </div>
+                                </div>
                                 <div class="frame-153">
-                                <div class="menu-nav5">
+                                    <div class="menu-nav5">
                                     <div class="button-nav5"></div>
-                                    <div class="button-nav14"></div>
+                                    <div class="button-nav15"></div>
+                                    </div>
+                                </div>
+                                <div class="frame-177">
+                                    <div class="frame-153">
+                                    <div class="menu-nav5">
+                                        <div class="button-nav5"></div>
+                                        <div class="button-nav16"></div>
+                                    </div>
+                                    </div>
+                                </div>
+                                <div class="frame-177">
+                                    <div class="frame-153">
+                                    <div class="menu-nav5">
+                                        <div class="button-nav5"></div>
+                                        <div class="button-nav17"></div>
+                                    </div>
+                                    </div>
                                 </div>
                                 </div>
                             </div>
-                            <div class="frame-153">
-                                <div class="menu-nav5">
-                                <div class="button-nav5"></div>
-                                <div class="button-nav15"></div>
-                                </div>
                             </div>
-                            <div class="frame-177">
+                            <div class="frame-202">
+                            <div class="frame-184">
+                                <div class="date">
+                                <div class="frame-21">
+                                    <div class="frame-153">
+                                    <div class="menu-nav5">
+                                        <div class="button-nav5"></div>
+                                        <div class="button-nav14"></div>
+                                    </div>
+                                    </div>
+                                </div>
                                 <div class="frame-153">
-                                <div class="menu-nav5">
+                                    <div class="menu-nav5">
                                     <div class="button-nav5"></div>
-                                    <div class="button-nav16"></div>
+                                    <div class="button-nav15"></div>
+                                    </div>
+                                </div>
+                                <div class="frame-177">
+                                    <div class="frame-153">
+                                    <div class="menu-nav5">
+                                        <div class="button-nav5"></div>
+                                        <div class="button-nav16"></div>
+                                    </div>
+                                    </div>
+                                </div>
+                                <div class="frame-177">
+                                    <div class="frame-153">
+                                    <div class="menu-nav5">
+                                        <div class="button-nav5"></div>
+                                        <div class="button-nav17"></div>
+                                    </div>
+                                    </div>
                                 </div>
                                 </div>
                             </div>
-                            <div class="frame-177">
+                            </div>
+                            <div class="frame-212">
+                            <div class="frame-184">
+                                <div class="date">
+                                <div class="frame-21">
+                                    <div class="frame-153">
+                                    <div class="menu-nav5">
+                                        <div class="button-nav5"></div>
+                                        <div class="button-nav14"></div>
+                                    </div>
+                                    </div>
+                                </div>
                                 <div class="frame-153">
-                                <div class="menu-nav5">
+                                    <div class="menu-nav5">
                                     <div class="button-nav5"></div>
-                                    <div class="button-nav17"></div>
+                                    <div class="button-nav15"></div>
+                                    </div>
+                                </div>
+                                <div class="frame-177">
+                                    <div class="frame-153">
+                                    <div class="menu-nav5">
+                                        <div class="button-nav5"></div>
+                                        <div class="button-nav16"></div>
+                                    </div>
+                                    </div>
+                                </div>
+                                <div class="frame-177">
+                                    <div class="frame-153">
+                                    <div class="menu-nav5">
+                                        <div class="button-nav5"></div>
+                                        <div class="button-nav17"></div>
+                                    </div>
+                                    </div>
                                 </div>
                                 </div>
                             </div>
                             </div>
-                        </div>
-                        </div>
-                        <div class="frame-202">
-                        <div class="frame-184">
-                            <div class="date">
-                            <div class="frame-21">
+                            <div class="frame-22">
+                            <div class="frame-184">
+                                <div class="date">
+                                <div class="frame-21">
+                                    <div class="frame-153">
+                                    <div class="menu-nav5">
+                                        <div class="button-nav5"></div>
+                                        <div class="button-nav14"></div>
+                                    </div>
+                                    </div>
+                                </div>
                                 <div class="frame-153">
-                                <div class="menu-nav5">
+                                    <div class="menu-nav5">
                                     <div class="button-nav5"></div>
-                                    <div class="button-nav14"></div>
+                                    <div class="button-nav15"></div>
+                                    </div>
+                                </div>
+                                <div class="frame-177">
+                                    <div class="frame-153">
+                                    <div class="menu-nav5">
+                                        <div class="button-nav5"></div>
+                                        <div class="button-nav16"></div>
+                                    </div>
+                                    </div>
+                                </div>
+                                <div class="frame-177">
+                                    <div class="frame-153">
+                                    <div class="menu-nav5">
+                                        <div class="button-nav5"></div>
+                                        <div class="button-nav17"></div>
+                                    </div>
+                                    </div>
                                 </div>
                                 </div>
                             </div>
-                            <div class="frame-153">
-                                <div class="menu-nav5">
-                                <div class="button-nav5"></div>
-                                <div class="button-nav15"></div>
-                                </div>
                             </div>
-                            <div class="frame-177">
+                            <div class="frame-23">
+                            <div class="frame-184">
+                                <div class="date">
+                                <div class="frame-21">
+                                    <div class="frame-153">
+                                    <div class="menu-nav5">
+                                        <div class="button-nav5"></div>
+                                        <div class="button-nav14"></div>
+                                    </div>
+                                    </div>
+                                </div>
                                 <div class="frame-153">
-                                <div class="menu-nav5">
+                                    <div class="menu-nav5">
                                     <div class="button-nav5"></div>
-                                    <div class="button-nav16"></div>
+                                    <div class="button-nav15"></div>
+                                    </div>
+                                </div>
+                                <div class="frame-177">
+                                    <div class="frame-153">
+                                    <div class="menu-nav5">
+                                        <div class="button-nav5"></div>
+                                        <div class="button-nav16"></div>
+                                    </div>
+                                    </div>
+                                </div>
+                                <div class="frame-177">
+                                    <div class="frame-153">
+                                    <div class="menu-nav5">
+                                        <div class="button-nav5"></div>
+                                        <div class="button-nav17"></div>
+                                    </div>
+                                    </div>
                                 </div>
                                 </div>
                             </div>
-                            <div class="frame-177">
+                            </div>
+                            <div class="frame-24">
+                            <div class="frame-184">
+                                <div class="date">
+                                <div class="frame-21">
+                                    <div class="frame-153">
+                                    <div class="menu-nav5">
+                                        <div class="button-nav5"></div>
+                                        <div class="button-nav14"></div>
+                                    </div>
+                                    </div>
+                                </div>
                                 <div class="frame-153">
-                                <div class="menu-nav5">
+                                    <div class="menu-nav5">
                                     <div class="button-nav5"></div>
-                                    <div class="button-nav17"></div>
+                                    <div class="button-nav15"></div>
+                                    </div>
+                                </div>
+                                <div class="frame-177">
+                                    <div class="frame-153">
+                                    <div class="menu-nav5">
+                                        <div class="button-nav5"></div>
+                                        <div class="button-nav16"></div>
+                                    </div>
+                                    </div>
+                                </div>
+                                <div class="frame-177">
+                                    <div class="frame-153">
+                                    <div class="menu-nav5">
+                                        <div class="button-nav5"></div>
+                                        <div class="button-nav17"></div>
+                                    </div>
+                                    </div>
                                 </div>
                                 </div>
                             </div>
                             </div>
-                        </div>
-                        </div>
-                        <div class="frame-212">
-                        <div class="frame-184">
-                            <div class="date">
-                            <div class="frame-21">
+                            <div class="frame-25">
+                            <div class="frame-184">
+                                <div class="date">
+                                <div class="frame-21">
+                                    <div class="frame-153">
+                                    <div class="menu-nav5">
+                                        <div class="button-nav5"></div>
+                                        <div class="button-nav14"></div>
+                                    </div>
+                                    </div>
+                                </div>
                                 <div class="frame-153">
-                                <div class="menu-nav5">
+                                    <div class="menu-nav5">
                                     <div class="button-nav5"></div>
-                                    <div class="button-nav14"></div>
+                                    <div class="button-nav15"></div>
+                                    </div>
                                 </div>
+                                <div class="frame-177">
+                                    <div class="frame-153">
+                                    <div class="menu-nav5">
+                                        <div class="button-nav5"></div>
+                                        <div class="button-nav16"></div>
+                                    </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="frame-153">
-                                <div class="menu-nav5">
-                                <div class="button-nav5"></div>
-                                <div class="button-nav15"></div>
-                                </div>
-                            </div>
-                            <div class="frame-177">
-                                <div class="frame-153">
-                                <div class="menu-nav5">
-                                    <div class="button-nav5"></div>
-                                    <div class="button-nav16"></div>
-                                </div>
-                                </div>
-                            </div>
-                            <div class="frame-177">
-                                <div class="frame-153">
-                                <div class="menu-nav5">
-                                    <div class="button-nav5"></div>
-                                    <div class="button-nav17"></div>
+                                <div class="frame-177">
+                                    <div class="frame-153">
+                                    <div class="menu-nav5">
+                                        <div class="button-nav5"></div>
+                                        <div class="button-nav17"></div>
+                                    </div>
+                                    </div>
                                 </div>
                                 </div>
                             </div>
                             </div>
                         </div>
-                        </div>
-                        <div class="frame-22">
-                        <div class="frame-184">
-                            <div class="date">
-                            <div class="frame-21">
-                                <div class="frame-153">
-                                <div class="menu-nav5">
-                                    <div class="button-nav5"></div>
-                                    <div class="button-nav14"></div>
-                                </div>
-                                </div>
+                        <div class="line"></div>
+                        <div class="day-line">
+                            <div class="frame-178">
+                            <div class="day4">
+                                <div class="div6">월</div>
                             </div>
-                            <div class="frame-153">
-                                <div class="menu-nav5">
-                                <div class="button-nav5"></div>
-                                <div class="button-nav15"></div>
-                                </div>
+                            <div class="day4">
+                                <div class="div7">화</div>
                             </div>
-                            <div class="frame-177">
-                                <div class="frame-153">
-                                <div class="menu-nav5">
-                                    <div class="button-nav5"></div>
-                                    <div class="button-nav16"></div>
-                                </div>
-                                </div>
+                            <div class="day4">
+                                <div class="div7">수</div>
                             </div>
-                            <div class="frame-177">
-                                <div class="frame-153">
-                                <div class="menu-nav5">
-                                    <div class="button-nav5"></div>
-                                    <div class="button-nav17"></div>
-                                </div>
-                                </div>
+                            <div class="day4">
+                                <div class="div7">목</div>
+                            </div>
+                            <div class="day4">
+                                <div class="div7">금</div>
+                            </div>
+                            <div class="day4">
+                                <div class="div7">토</div>
+                            </div>
+                            <div class="day4">
+                                <div class="div6">일</div>
                             </div>
                             </div>
                         </div>
+                        <!-- 주간 통계 찍어보기 -->
+                        <div v-for="(weekDay, index) in monthlyReport.weekdayReportList" :key="index">
+                            <p>{{ weekDay.reportWeekday }} : {{ weekDay.reportDate }}</p>
                         </div>
-                        <div class="frame-23">
-                        <div class="frame-184">
-                            <div class="date">
-                            <div class="frame-21">
-                                <div class="frame-153">
-                                <div class="menu-nav5">
-                                    <div class="button-nav5"></div>
-                                    <div class="button-nav14"></div>
-                                </div>
-                                </div>
-                            </div>
-                            <div class="frame-153">
-                                <div class="menu-nav5">
-                                <div class="button-nav5"></div>
-                                <div class="button-nav15"></div>
-                                </div>
-                            </div>
-                            <div class="frame-177">
-                                <div class="frame-153">
-                                <div class="menu-nav5">
-                                    <div class="button-nav5"></div>
-                                    <div class="button-nav16"></div>
-                                </div>
-                                </div>
-                            </div>
-                            <div class="frame-177">
-                                <div class="frame-153">
-                                <div class="menu-nav5">
-                                    <div class="button-nav5"></div>
-                                    <div class="button-nav17"></div>
-                                </div>
-                                </div>
-                            </div>
-                            </div>
-                        </div>
-                        </div>
-                        <div class="frame-24">
-                        <div class="frame-184">
-                            <div class="date">
-                            <div class="frame-21">
-                                <div class="frame-153">
-                                <div class="menu-nav5">
-                                    <div class="button-nav5"></div>
-                                    <div class="button-nav14"></div>
-                                </div>
-                                </div>
-                            </div>
-                            <div class="frame-153">
-                                <div class="menu-nav5">
-                                <div class="button-nav5"></div>
-                                <div class="button-nav15"></div>
-                                </div>
-                            </div>
-                            <div class="frame-177">
-                                <div class="frame-153">
-                                <div class="menu-nav5">
-                                    <div class="button-nav5"></div>
-                                    <div class="button-nav16"></div>
-                                </div>
-                                </div>
-                            </div>
-                            <div class="frame-177">
-                                <div class="frame-153">
-                                <div class="menu-nav5">
-                                    <div class="button-nav5"></div>
-                                    <div class="button-nav17"></div>
-                                </div>
-                                </div>
-                            </div>
-                            </div>
-                        </div>
-                        </div>
-                        <div class="frame-25">
-                        <div class="frame-184">
-                            <div class="date">
-                            <div class="frame-21">
-                                <div class="frame-153">
-                                <div class="menu-nav5">
-                                    <div class="button-nav5"></div>
-                                    <div class="button-nav14"></div>
-                                </div>
-                                </div>
-                            </div>
-                            <div class="frame-153">
-                                <div class="menu-nav5">
-                                <div class="button-nav5"></div>
-                                <div class="button-nav15"></div>
-                                </div>
-                            </div>
-                            <div class="frame-177">
-                                <div class="frame-153">
-                                <div class="menu-nav5">
-                                    <div class="button-nav5"></div>
-                                    <div class="button-nav16"></div>
-                                </div>
-                                </div>
-                            </div>
-                            <div class="frame-177">
-                                <div class="frame-153">
-                                <div class="menu-nav5">
-                                    <div class="button-nav5"></div>
-                                    <div class="button-nav17"></div>
-                                </div>
-                                </div>
-                            </div>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                    <div class="line"></div>
-                    <div class="day-line">
-                        <div class="frame-178">
-                        <div class="day4">
-                            <div class="div6">월</div>
-                        </div>
-                        <div class="day4">
-                            <div class="div7">화</div>
-                        </div>
-                        <div class="day4">
-                            <div class="div7">수</div>
-                        </div>
-                        <div class="day4">
-                            <div class="div7">목</div>
-                        </div>
-                        <div class="day4">
-                            <div class="div7">금</div>
-                        </div>
-                        <div class="day4">
-                            <div class="div7">토</div>
-                        </div>
-                        <div class="day4">
-                            <div class="div6">일</div>
-                        </div>
-                        </div>
-                    </div>
                     </div>
                 </div>
                 </div>
