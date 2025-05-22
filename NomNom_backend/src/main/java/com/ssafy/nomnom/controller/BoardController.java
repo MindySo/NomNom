@@ -21,7 +21,7 @@ import com.ssafy.nomnom.model.dto.community.BoardSearchCondition;
 import com.ssafy.nomnom.model.service.community.BoardService;
 
 @RestController
-@RequestMapping("/api/boars")
+@RequestMapping("/api/boards")
 public class BoardController {
 
 	private final BoardService boardService;

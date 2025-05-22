@@ -62,4 +62,8 @@
 		<nature>org.eclipse.m2e.core.maven2Nature</nature>
 	</natures>
 </projectDescription>
+<<<<<<< HEAD
 >>>>>>> 5d0cba438e4d553a22a612d21f410e30df93a851:NomNom_backend/.project
+=======
+>>>>>>> 9edb532d91a9b2141ec1378a6f70824fe4048b21:NomNom_backend/.project
+>>>>>>> ed6f369666736bf8e4fa417d400cd3353ec93187
