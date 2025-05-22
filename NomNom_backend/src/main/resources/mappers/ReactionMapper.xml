@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.nomnom.model.dao.ReactionDao">
+
+	<!-- 좋아요 등록 -->
+	<insert id="insertReaction" parameterType="Reaction">
+		INSERT INTO reaction (board_no, user_no)
+		VALUES (#{boardNo}, #{userNo})
+	</insert>
+
+	<!-- 좋아요 취소 -->
+	<delete id="deleteReaction">
+		DELETE FROM reaction
+		WHERE board_no = #{boardNo} AND user_no = #{userNo}
+	</delete>
+
+	<!-- 좋아요 카운트 -->
+	<select id="countReactionsByBoard" parameterType="int"
+		resultType="int">
+		SELECT COUNT(*) FROM reaction WHERE board_no = #{boardNo}
+	</select>
+
+	<!-- 유저가 좋아요 눌렀는지 확인 -->
+	<select id="hasUserReacted" resultType="boolean">
+		SELECT EXISTS(
+		SELECT 1 FROM reaction WHERE board_no = #{boardNo} AND user_no = #{userNo}
+		)
+	</select>
+</mapper>
