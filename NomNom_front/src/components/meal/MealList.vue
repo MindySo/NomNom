@@ -1,3 +1,71 @@
+<script setup>
+import {ref, onMounted } from 'vue';
+import axios from 'axios';
+import {useRouter} from 'vue-router';
+import defaultImage from '@/assets/images/global/food_default.png'
+
+const router = useRouter();
+const meals = ref([]);
+
+async function requestMealList(userNo, mealRegDate) {
+  const { data } = await axios.get("http://localhost:8080/api/meal", {
+    params: { userNo, mealRegDate }
+  });
+  meals.value = data;
+}
+
+// 실행 (테스트용으로 userNo=1, date는 하드코딩)
+onMounted(() => {
+  requestMealList(1, '2025-05-21')
+  console.log(defaultImage);
+})
+
+// 식사 시간 한글 변환
+function convertMealTime(time) {
+  if (time === 'BREAKFAST') return '아침'
+  if (time === 'LUNCH') return '점심'
+  if (time === 'DINNER') return '저녁'
+  return time
+}
+
+// 날짜 포맷 (YYYY-MM-DD -> M월 D일)
+function formatDate(date) {
+  if (!date) return ''
+  const d = new Date(date)
+  return `${d.getMonth() + 1}월 ${d.getDate()}일`
+}
+
+// 더미 이미지 경로 지정
+function getImagePath(index) {
+  return new URL(`@/assets/images/mealList/place-image-here${index % 3}.png`, import.meta.url).href
+}
+
+function getImage(meal) {
+  return meal.fileList?.[0]?.attachmentName || defaultImage
+}
+
+const requestMealDetail = (id) => {
+// detail 페이지의 라우터 정보를 줘야 함.
+// replace, push를 통해서 이동해야 함, 함수를 가지고 있는 객체를 얻어와야 함
+// router.push({path: '/board2/detail'});
+// router.push({name: 'boardDetail', query: {id} });
+// router.push({name: 'boardDetail', params: {id} });
+
+};
+
+
+</script>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+    @import '@/assets/css/vars.css';
+</style>
+
+<style scoped>
+    @import '@/assets/css/MealList.css';
+</style>
+
+
 <template>
     <div id="list">
         <div class="div">
@@ -136,79 +204,71 @@
                     </div>
                     </div>
                 </div>
-                <div class="card-list-all-menu2">
+
+                <!-- 식단 리스트 -->
+                <div v-for="(meal, index) in meals" :key="meal.mealNo" class="card-list-all-menu2">
                     <div class="image">
-                    <img class="place-image-here" src="@/assets/images/mealList/place-image-here0.png" />
+                        <img class="place-image-here" :src="meal.fileList[0] ? meal.fileList[0].attachmentName : defaultImage" />
                     </div>
                     <div class="main-content2">
-                    <div class="head-info">
+                        <div class="head-info">
                         <div class="badges-info">
-                        <div class="badge-meal-category">
-                            <div class="category">아침</div>
-                        </div>
+                            <div class="badge-meal-category">
+                            <div class="category">{{ convertMealTime(meal.mealTime) }}</div>
+                            </div>
                         </div>
                         <div class="frame-1">
-                        <div class="action">
+                            <div class="action">
                             <div class="button-picker">
-                            <div class="text5">
-                                <div class="label3">수정</div>
+                                <div class="text5"><div class="label3">수정</div></div>
                             </div>
                             </div>
-                        </div>
-                        <div class="action">
+                            <div class="action">
                             <div class="button-picker2">
-                            <div class="text5">
-                                <div class="label3">삭제</div>
+                                <div class="text5"><div class="label3">삭제</div></div>
                             </div>
                             </div>
                         </div>
                         </div>
-                    </div>
-                    <div class="name2">6월 24일의 아침</div>
-                    <div class="nutrition-info2">
+
+                        <div class="name2">{{ meal.mealTitle }}</div>
+
+                        <div class="nutrition-info2">
                         <div class="info-cal">
-                        <img
-                            class="icon-special-fire"
-                            src="@/assets/images/mealList/icon-special-fire0.svg"
-                        />
-                        <div class="value2">
-                            <div class="amount">320 kcal</div>
+                            <img class="icon-special-fire" src="@/assets/images/mealList/icon-special-fire0.svg" />
+                            <div class="value2"><div class="amount">{{ meal.energy }} kcal</div></div>
                         </div>
-                        </div>
+
                         <img class="separator" src="@/assets/images/mealList/separator0.svg" />
+
                         <div class="info-carbs">
-                        <img
-                            class="icon-special-bread"
-                            src="@/assets/images/mealList/icon-special-bread0.svg"
-                        />
-                        <div class="value">
+                            <img class="icon-special-bread" src="@/assets/images/mealList/icon-special-bread0.svg" />
+                            <div class="value">
                             <div class="amount">탄수화물</div>
-                            <div class="unit">30g</div>
+                            <div class="unit">{{ meal.carbohydrate }}g</div>
+                            </div>
                         </div>
-                        </div>
+
                         <img class="separator2" src="@/assets/images/mealList/separator1.svg" />
+
                         <div class="info-protein">
-                        <img
-                            class="icon-special-fish"
-                            src="@/assets/images/mealList/icon-special-fish0.svg"
-                        />
-                        <div class="value">
+                            <img class="icon-special-fish" src="@/assets/images/mealList/icon-special-fish0.svg" />
+                            <div class="value">
                             <div class="amount">단백질</div>
-                            <div class="unit">14g</div>
+                            <div class="unit">{{ meal.protein }}g</div>
+                            </div>
                         </div>
-                        </div>
+
                         <img class="separator3" src="@/assets/images/mealList/separator2.svg" />
+
                         <div class="info-fats">
-                        <img
-                            class="icon-special-drop3"
-                            src="@/assets/images/mealList/icon-special-drop2.svg"
-                        />
-                        <div class="value">
+                            <img class="icon-special-drop3" src="@/assets/images/mealList/icon-special-drop2.svg" />
+                            <div class="value">
                             <div class="amount">지방</div>
-                            <div class="unit">14g</div>
+                            <div class="unit">{{ meal.totalFattyAcids }}g</div>
+                            </div>
                         </div>
                         </div>
-                    </div>
                     </div>
                 </div>
                 <div class="card-list-all-menu2">
@@ -1493,19 +1553,3 @@
         
     </div>
 </template>
-
-<script setup>
-import {ref} from 'vue';
-import {useRouter} from 'vue-router';
-
-const router = useRouter();
-</script>
-
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
-    @import '@/assets/css/vars.css';
-</style>
-
-<style scoped>
-    @import '@/assets/css/MealList.css';
-</style>

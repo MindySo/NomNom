@@ -122,36 +122,5 @@ public class MealController {
 		
 		return ResponseEntity.ok(waterList);
 	}
-	
-	@Operation(summary = "일간 영양 분석")
-	@GetMapping("dailyReport")
-	public ResponseEntity<ReportDayResponse> getDailyReport(@RequestParam int userNo
-			, @Parameter(example = "2025-05-14") @RequestParam String mealRegDate){
-		MealRequest meal = new MealRequest();
-		meal.setUserNo(userNo);
-		meal.setMealRegDate(LocalDate.parse(mealRegDate));
-		ReportDayResponse reportDayResponse = mealReportService.getDayNutriSum(meal);
-		
-		return ResponseEntity.ok(reportDayResponse);
-	}
-	
-	@Operation(summary = "주간 영양 분석")
-	@GetMapping("weeklyReport")
-	public ResponseEntity<ReportWeeklyResponse> getWeeklyReport(@RequestParam int userNo){
-		MealResponse meal = new MealResponse();
-		meal.setUserNo(userNo);
-		ReportWeeklyResponse weeklyResponse = mealReportService.getWeeklyReport(userNo);
-		
-		return ResponseEntity.ok(weeklyResponse);
-	}
-	
-	@Operation(summary = "월간 영양 분석")
-	@GetMapping("monthlyReport")
-	public ResponseEntity<ReportMonthlyResponse> getMonthlyReport(@RequestParam int userNo){
-		MealResponse meal = new MealResponse();
-		meal.setUserNo(userNo);
-		ReportMonthlyResponse monthlyResponse = mealReportService.getMonthlyReport(userNo);
-		
-		return ResponseEntity.ok(monthlyResponse);
-	}
+
 }

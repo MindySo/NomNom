@@ -28,7 +28,13 @@ public class MealServiceImpl implements MealService {
 
 	@Override
 	public List<MealResponse> getMealList(MealRequest meal) {
-		return mealDao.selectMealByUserAndRegDate(meal);
+		List<MealResponse> list = mealDao.selectMealByUserAndRegDate(meal);
+		
+		for(MealResponse mealResponse : list) {
+			mealResponse.setFileList(attachmentService.getAttachment(AttachmentTargetEnum.MEAL, mealResponse.getMealNo()));
+		}
+		
+		return list;
 	}
 
 	@Override
@@ -50,7 +56,7 @@ public class MealServiceImpl implements MealService {
 		}
 
 		for (MultipartFile mpfile : meal.getFileList()) {
-			attachmentService.writeAttachment(mpfile, AttachmentTargetEnum.BOARD, meal.getMealNo());
+			attachmentService.writeAttachment(mpfile, AttachmentTargetEnum.MEAL, meal.getMealNo());
 		}
 	}
 
@@ -63,6 +69,7 @@ public class MealServiceImpl implements MealService {
 	public void removeMeal(int mealNo) {
 		mealDao.deleteMeal(mealNo);
 		mealDao.deleteMealFoodByMealNo(mealNo);
+		attachmentService.deleteAllAttachment(AttachmentTargetEnum.BOARD, mealNo);
 	}
 
 	@Override

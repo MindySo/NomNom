@@ -32,10 +32,10 @@ CREATE TABLE meal_food (
 
 CREATE TABLE attachment (
     attachment_no INT AUTO_INCREMENT PRIMARY KEY,
-    attachment_target VARCHAR(50) NOT NULL,
+    attachment_target ENUM('BOARD', 'MEAL') NOT NULL,
     target_no INT NOT NULL,
     attachment_name VARCHAR(255) NOT NULL,
-    attachment_reg_date DATE NOT NULL
+    attachment_reg_date DATE
 );
 
 CREATE TABLE board (

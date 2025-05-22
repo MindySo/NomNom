@@ -12,6 +12,7 @@
 		attachmentTarget,
 		target_no AS targetNo,
 		attachment_name AS attachmentName,
+		attachment_original_name AS attachmentOriginalName,
 		attachment_reg_date AS attachmentRegDate
 		FROM attachment
 		WHERE
@@ -26,12 +27,14 @@
 		attachment_target,
 		target_no,
 		attachment_name,
+		attachment_original_name,
 		attachment_reg_date
 		)
 		VALUES (
 		#{attachmentTarget},
 		#{targetNo},
 		#{attachmentName},
+		#{attachmentOriginalName},
 		CURDATE()
 		)
 	</insert>
