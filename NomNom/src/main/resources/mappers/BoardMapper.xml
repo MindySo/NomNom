@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.nomnom.model.dao.BoardDao">
+	<!-- 전체 게시글 조회 -->
+	<select id="selectAllBoards" resultType="board">
+		SELECT *
+		FROM board
+	</select>
+
+	<!-- 단일 게시글 조회 -->
+	<select id="selectBoardById" parameterType="int"
+		resultType="board">
+		SELECT *
+		FROM board
+		WHERE board_no = #{boardNo}
+	</select>
+
+	<!-- 유저별 조회 -->
+	<select id="selectBoardsByUser" resultType="Board">
+		SELECT * FROM board
+		WHERE user_no = #{userNo}
+		ORDER BY board_reg_date DESC
+	</select>
+
+	<!-- 카테고리별 조회 -->
+	<select id="selectBoardsByType" resultType="Board">
+		SELECT * FROM board
+		WHERE board_type = #{boardType}
+		ORDER BY board_reg_date DESC
+	</select>
+
+	<!-- 게시글 등록 -->
+	<insert id="insertBoard" parameterType="Board"
+		useGeneratedKeys="true" keyProperty="boardNo">
+		INSERT INTO board (board_type,
+		user_no, board_title, board_content)
+		VALUES (#{boardType}, #{userNo},
+		#{boardTitle}, #{boardContent})
+	</insert>
+
+	<!-- 게시글 수정 -->
+	<update id="updateBoard" parameterType="board">
+		UPDATE board
+		SET
+		board_type = #{boardType},
+		board_title = #{boardTitle},
+		board_content =
+		#{boardContent},
+		updated_date = NOW()
+		WHERE board_no = #{boardNo}
+	</update>
+
+	<!-- 게시글 삭제 -->
+	<delete id="deleteBoard" parameterType="map">
+		DELETE FROM board
+		WHERE
+		board_no = #{boardNo}
+		AND user_no = #{userNo}
+	</delete>
+
+	<!-- 검색 -->
+	<select id="searchBoards" parameterType="BoardSearchCondition"
+		resultType="Board">
+		SELECT * FROM board
+		WHERE 1=1
+		<if test="boardType != null and boardType != ''">
+			AND board_type = #{boardType}
+		</if>
+		<if test="keyword != null and keyword != ''">
+			AND (board_title LIKE CONCAT('%', #{keyword}, '%')
+			OR board_content LIKE CONCAT('%', #{keyword}, '%'))
+		</if>
+		ORDER BY board_reg_date DESC
+	</select>
+
+</mapper>
