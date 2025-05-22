@@ -1,4 +1,4 @@
-package com.ssafy.nomnom.model.dto.board;
+package com.ssafy.nomnom.model.dto.community;
 
 import java.time.LocalDateTime;
 

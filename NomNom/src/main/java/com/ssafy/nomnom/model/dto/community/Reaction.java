@@ -1,4 +1,4 @@
-package com.ssafy.nomnom.model.dto.board;
+package com.ssafy.nomnom.model.dto.community;
 
 public class Reaction {
 	private Integer reactionNo;
@@ -8,6 +8,11 @@ public class Reaction {
     
 	public Reaction() {
 	}
+	
+    public Reaction(int boardNo, int userNo) {
+        this.boardNo = boardNo;
+        this.userNo = userNo;
+    }
 	
 	
 	public Reaction(Integer reactionNo, Integer boardNo, Integer userNo) {
