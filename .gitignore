@@ -183,11 +183,49 @@ fabric.properties
 
 # End of https://www.toptal.com/developers/gitignore/api/eclipse,intellij
 
-# Macbook
-.DS_Store
-
 # secretkey ignore
 application-secret.properties
 
+# Java / Spring
+/target/
+/*.iml
+/.idea/
+*.log
+*.class
 
-NomNom/target/
+# Node / Vue
+node_modules/
+dist/
+.vite/
+
+# OS/Tool-specific
+.DS_Store
+Thumbs.db
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+dist-ssr
+coverage
+*.local
+
+/cypress/videos/
+/cypress/screenshots/
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+*.tsbuildinfo
