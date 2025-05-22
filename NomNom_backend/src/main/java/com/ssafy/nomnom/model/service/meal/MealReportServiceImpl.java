@@ -1,5 +1,8 @@
 package com.ssafy.nomnom.model.service.meal;
 
+import java.time.LocalDate;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ssafy.nomnom.controller.UserController;
@@ -62,9 +65,19 @@ public class MealReportServiceImpl implements MealReportService{
 		// 끼니별 식사 횟수
 		ReportMonthlyResponse monthlyResponse = mealDao.selectMonthlyWeekdayCnt(userNo);
 
+		monthlyResponse.setReportStartDate(LocalDate.now());
+		monthlyResponse.setReportEndDate(LocalDate.now().minusDays(7));
+		
 		// 요일별 영양소 섭취 평균
-		monthlyResponse.setWeekdayReportList(mealDao.selectMonthlyWeekdayNutriAvg(userNo));
-
+		LocalDate date = LocalDate.now();
+		List<ReportDayResponse> list = mealDao.selectMonthlyWeekdayNutriAvg(userNo);
+		for(ReportDayResponse weekday : list) {
+			weekday.setReportDate(date);
+			date = date.plusDays(1);
+		}
+		monthlyResponse.setWeekdayReportList(list);
+			
+		
 		// 월 평균 영양성분 섭취량 평가
 		ReportMonthlyResponse weekDayAvg = mealDao.selectMonthlyDayNutriAvg(userNo);
 		

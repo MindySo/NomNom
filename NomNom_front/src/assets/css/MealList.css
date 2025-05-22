@@ -571,6 +571,11 @@
   justify-content: flex-start;
   flex: 1;
   position: relative;
+
+   /* 스크롤 추가 */
+  overflow-y: auto; /* 세로 스크롤 */
+  max-height: 600px; /* 혹은 원하는 높이 (예: 500px) */
+  padding-right: 8px; /* 스크롤 여백 */
 }
 .card-list-all-menu {
   background: #d9f1ff;
