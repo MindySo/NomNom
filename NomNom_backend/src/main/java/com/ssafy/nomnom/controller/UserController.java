@@ -1,7 +1,6 @@
 package com.ssafy.nomnom.controller;
 
 import org.springframework.http.HttpStatus;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssafy.nomnom.model.dto.user.CustomUserDetails;
 import com.ssafy.nomnom.model.dto.user.User;
 import com.ssafy.nomnom.model.dto.user.UserRegisterRequest;
 import com.ssafy.nomnom.model.dto.user.UserUpdateRequest;
@@ -55,30 +55,21 @@ public class UserController {
 	}
 
 	// 회원정보 수정
-    @PutMapping("/{userNo}")
-    public ResponseEntity<String> updateUserProfile(@PathVariable int userNo,
-                                                    @RequestBody UserUpdateRequest request,
-                                                    @AuthenticationPrincipal UserDetails userDetails) {
-        if (userDetails == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
-        }
+	@PutMapping("/{userNo}")
+	public ResponseEntity<String> updateUserProfile(@PathVariable int userNo,
+	                                                @RequestBody UserUpdateRequest request,
+	                                                @AuthenticationPrincipal CustomUserDetails userDetails) {
+	    if (userDetails == null || userDetails.getUserNo() != userNo) {
+	        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("본인만 수정할 수 있습니다.");
+	    }
 
-        String email = userDetails.getUsername();
-        User user = userService.loginByEmail(email);
+	    request.setUserNo(userNo);
+	    int result = userService.updateUserProfile(request);
 
-        if (user == null || user.getUserNo() != userNo) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("본인만 수정할 수 있습니다.");
-        }
-
-        request.setUserNo(userNo);
-        int result = userService.updateUserProfile(request);
-
-        if (result > 0) {
-            return ResponseEntity.ok("회원정보가 수정되었습니다.");
-        } else {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("회원정보 수정 실패");
-        }
-    }
+	    return result > 0
+	        ? ResponseEntity.ok("회원정보가 수정되었습니다.")
+	        : ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("회원정보 수정 실패");
+	}
 
     // 회원탈퇴
     @DeleteMapping

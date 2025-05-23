@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.nomnom.model.dao.CommentDao">
+
+	<!-- 댓글 등록 -->
+	<insert id="insertComment" parameterType="Comment"
+		useGeneratedKeys="true" keyProperty="commentNo">
+		INSERT INTO comment (board_no, user_no, comment_content, comment_parent_no,
+		comment_reg_date)
+		VALUES (#{boardNo}, #{userNo}, #{commentContent}, #{commentParentNo}, NOW())
+	</insert>
+
+	<!-- 댓글 수정 -->
+	<update id="updateComment" parameterType="Comment">
+		UPDATE comment
+		SET comment_content = #{commentContent}
+		WHERE comment_no = #{commentNo} AND user_no = #{userNo}
+	</update>
+
+	<!-- 댓글 삭제 -->
+	<delete id="deleteComment">
+		DELETE FROM comment
+		WHERE comment_no = #{commentNo} AND user_no = #{userNo}
+	</delete>
+
+	<!-- 마이페이지 댓글 조회 -->
+	<select id="selectCommentsByUser" parameterType="int"
+		resultType="Comment">
+		SELECT * FROM comment
+		WHERE user_no = #{userNo}
+		ORDER BY comment_reg_date DESC
+	</select>
+
+	<!-- 게시글 조회 시 댓글 조회 -->
+	<select id="selectCommentsByBoard" parameterType="int"
+		resultType="Comment">
+		SELECT * FROM comment
+		WHERE board_no = #{boardNo}
+		ORDER BY comment_parent_no ASC, comment_reg_date ASC
+	</select>
+</mapper>
