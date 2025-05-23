@@ -1,6 +1,6 @@
 package com.ssafy.nomnom.model.dto.meal;
 
-public class UserDailyNutriValueResponse {
+public class NutriStandardResponse {
 	private double Energy;              // 칼로리 (Energy, kcal)
 	private double Carbohydrate;        // 탄수화물
 	private double Sugar;               // 당류
@@ -9,9 +9,9 @@ public class UserDailyNutriValueResponse {
 	private double Water;               // 수분
 	private double Sodium;              // 나트륨
 	
-	public UserDailyNutriValueResponse() {
+	public NutriStandardResponse() {
 	}
-	public UserDailyNutriValueResponse(double energy, double carbohydrate, double sugar, double protein,
+	public NutriStandardResponse(double energy, double carbohydrate, double sugar, double protein,
 			double totalFattyAcids, double water, double sodium) {
 		super();
 		Energy = energy;
