@@ -44,6 +44,7 @@ public class MealReportController {
 		meal.setUserNo(userNo);
 		meal.setMealRegDate(LocalDate.parse(mealRegDate));
 		ReportDayResponse reportDayResponse = mealReportService.getDayNutriSum(meal);
+		System.out.println(reportDayResponse);
 		
 		return ResponseEntity.ok(reportDayResponse);
 	}
