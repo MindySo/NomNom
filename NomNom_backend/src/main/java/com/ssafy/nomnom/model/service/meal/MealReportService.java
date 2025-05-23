@@ -5,6 +5,8 @@ import com.ssafy.nomnom.model.dto.meal.MealResponse;
 import com.ssafy.nomnom.model.dto.meal.ReportDayResponse;
 import com.ssafy.nomnom.model.dto.meal.ReportMonthlyResponse;
 import com.ssafy.nomnom.model.dto.meal.ReportWeeklyResponse;
+import com.ssafy.nomnom.model.dto.user.User;
+import com.ssafy.nomnom.model.dto.meal.NutriStandardResponse;
 
 public interface MealReportService {
 	
@@ -17,5 +19,8 @@ public interface MealReportService {
 	
 	// 최근 30일 : 월간 리포트
 	ReportMonthlyResponse getMonthlyReport(int userNo);
+	
+	// 사용자별 영양소 기준
+	NutriStandardResponse getNutriStandard(int userNo);
 	
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.nomnom.model.dto.meal.MealRequest;
 import com.ssafy.nomnom.model.dto.meal.MealResponse;
+import com.ssafy.nomnom.model.dto.meal.NutriStandardResponse;
 import com.ssafy.nomnom.model.dto.meal.ReportDayResponse;
 import com.ssafy.nomnom.model.dto.meal.ReportMonthlyResponse;
 import com.ssafy.nomnom.model.dto.meal.ReportWeeklyResponse;
@@ -65,5 +66,13 @@ public class MealReportController {
 		ReportMonthlyResponse monthlyResponse = mealReportService.getMonthlyReport(userNo);
 		
 		return ResponseEntity.ok(monthlyResponse);
+	}
+	
+	@Operation(summary = "사용자별 영양성분 권장 기준")
+	@GetMapping("nutriStandard")
+	public ResponseEntity<NutriStandardResponse> getNutriStandard(@RequestParam int userNo){
+		NutriStandardResponse response = mealReportService.getNutriStandard(userNo);
+		
+		return ResponseEntity.ok(response);
 	}
 }
