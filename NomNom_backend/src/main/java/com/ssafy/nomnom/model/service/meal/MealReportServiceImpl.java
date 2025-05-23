@@ -50,7 +50,6 @@ public class MealReportServiceImpl implements MealReportService{
 		
 		// 끼니별 칼로리 분석
 		ReportDayResponse weeklyNutriAvg = mealDao.selectWeeklyNutriAvg(userNo);
-		System.out.println(weeklyNutriAvg);
 		weeklyResponse.setAvgWeeklyEnergy(weeklyNutriAvg.getEnergy());
 		weeklyResponse.setAvgWeeklycarbohydrate(weeklyNutriAvg.getCarbohydrate());
 		weeklyResponse.setAvgWeeklyProtein(weeklyNutriAvg.getProtein());
@@ -80,6 +79,11 @@ public class MealReportServiceImpl implements MealReportService{
 		
 		// 월 평균 영양성분 섭취량 평가
 		ReportMonthlyResponse weekDayAvg = mealDao.selectMonthlyDayNutriAvg(userNo);
+		monthlyResponse.setAvgMonthlycarbohydrate(weekDayAvg.getAvgMonthlycarbohydrate());
+		monthlyResponse.setAvgMonthlyProtein(weekDayAvg.getAvgMonthlyProtein());
+		monthlyResponse.setAvgMonthlyTotalFattyAcids(weekDayAvg.getAvgMonthlyTotalFattyAcids());
+		monthlyResponse.setAvgMonthlySodium(weekDayAvg.getAvgMonthlySodium());
+		monthlyResponse.setAvgMonthlySugar(weekDayAvg.getAvgMonthlySugar());
 		
 		return monthlyResponse;
 	}
