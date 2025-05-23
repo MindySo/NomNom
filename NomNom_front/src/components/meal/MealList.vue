@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import axios from "axios";
 import { useRouter } from "vue-router";
 
@@ -8,6 +8,7 @@ const meals = ref([]);
 const dayReport = ref([]);
 const weeklyReport = ref([]);
 const monthlyReport = ref([]);
+const userNutriStandard = ref([]);
 
 // 선택일자 식단 불러오기 ///////////////////////////////////////////////////////////////////
 async function requestMealList(userNo, mealRegDate) {
@@ -15,6 +16,14 @@ async function requestMealList(userNo, mealRegDate) {
     params: { userNo, mealRegDate },
   });
   meals.value = data;
+}
+
+// 사용자 맞춤 영양소 권장량 불러오기 ///////////////////////////////////////////////////////////////////
+async function requestNutriStandard(userNo) {
+  const { data } = await axios.get("http://localhost:8080/api/meal/report/nutriStandard", {
+    params: { userNo },
+  });
+  userNutriStandard.value = data;
 }
 
 // 식사 시간 한글 변환
@@ -51,7 +60,7 @@ async function requestDayReport(userNo, mealRegDate) {
   dayReport.value = data;
 
   drawDoughnutCharts(calorieChart.value, dayReport.value.energy, " Kcal", calorieGoal, "#EF5E5E");
-  drawDoughnutCharts(waterChart.value, water, " ml", waterGoal, "#9cd9ff");
+  drawDoughnutCharts(waterChart.value, dayReport.value.water, " ml", waterGoal, "#9cd9ff");
 
   drawBarCharts(dailyCarbChart.value, "탄수화물", dayReport.value.carbohydrate, carbGoal, "#a8e063");
   drawBarCharts(dailyProteinChart.value, "단백질", dayReport.value.protein, proteinGoal, "#ffa751");
@@ -67,10 +76,9 @@ async function requestweeklyReport(userNo) {
   });
   weeklyReport.value = data;
   drawWeeklyChart(weeklyReport.value.dailySumList);
-  console.log(`${weeklyReport.value.avgBreakfastEnergy} Kcal`);
-  drawDoughnutCharts(breakfastChart.value, weeklyReport.value.avgBreakfastEnergy, " Kcal", calorieGoal, "#a8e063");
-  drawDoughnutCharts(lunchChart.value, weeklyReport.value.avgLunchEnergy, " kcal", calorieGoal, "#ffa751");
-  drawDoughnutCharts(dinnerChart.value, weeklyReport.value.avgDinnerEnergy, "Kcal", calorieGoal, "#f9d423");
+  drawDoughnutCharts(breakfastChart.value, weeklyReport.value.avgBreakfastEnergy, " Kcal", calorieGoal * 0.25, "#a8e063");
+  drawDoughnutCharts(lunchChart.value, weeklyReport.value.avgLunchEnergy, " kcal", calorieGoal * 0.35, "#ffa751");
+  drawDoughnutCharts(dinnerChart.value, weeklyReport.value.avgDinnerEnergy, "Kcal", calorieGoal * 0.3, "#f9d423");
 
   drawBarCharts(weeklyEnergyChart.value, "칼로리", weeklyReport.value.avgWeeklyEnergy, calorieGoal, "#EF5E5E");
   drawBarCharts(weeklyCarbChart.value, "탄수화물", weeklyReport.value.avgWeeklycarbohydrate, carbGoal, "#a8e063");
@@ -95,8 +103,8 @@ async function requestmonthlyReport(userNo) {
   drawBarCharts(monthlyCarbChart.value, "탄수화물", monthlyReport.value.avgMonthlycarbohydrate, carbGoal, "#a8e063");
   drawBarCharts(monthlyProteinChart.value, "단백질", monthlyReport.value.avgMonthlyProtein, proteinGoal, "#a8e063");
   drawBarCharts(monthlyFatChart.value, "지방", monthlyReport.value.avgMonthlyTotalFattyAcids, fatGoal, "#ffa751");
-  drawBarCharts(monthlySodiumChart.value, "나트륨", monthlyReport.value.avgMonthlySodium, fatGoal, "#9CBEFF");
-  drawBarCharts(monthlySugarChart.value, "당", monthlyReport.value.avgMonthlySugar, waterGoal, "#FFC0F1");
+  drawBarCharts(monthlySodiumChart.value, "나트륨", monthlyReport.value.avgMonthlySodium, sodiumGoal, "#9CBEFF");
+  drawBarCharts(monthlySugarChart.value, "당", monthlyReport.value.avgMonthlySugar, sugarGoal, "#FFC0F1");
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -132,18 +140,15 @@ const monthlyFatChart = ref(null);
 const monthlySodiumChart = ref(null);
 const monthlySugarChart = ref(null);
 
-// 샘플 데이터
-const calorie = 2008.1;
-const water = 1638.8;
-const carb = 367.5;
-const protein = 48.5;
-const fat = 32.6;
-
-const calorieGoal = 2500;
-const waterGoal = 2000;
-const carbGoal = 400;
-const proteinGoal = 60;
-const fatGoal = 50;
+// 영양소 기준 데이터
+console.log(userNutriStandard.value);
+const calorieGoal = computed(() => userNutriStandard.value.energy || 0);
+const waterGoal = computed(() => userNutriStandard.value.water || 0);
+const carbGoal = computed(() => userNutriStandard.value.carbohydrate || 0);
+const proteinGoal = computed(() => userNutriStandard.value.protein || 0);
+const fatGoal = computed(() => userNutriStandard.value.totalFattyAcids || 0);
+const sodiumGoal = computed(() => userNutriStandard.value.sodium || 0);
+const sugarGoal = computed(() => userNutriStandard.value.sugar || 0);
 
 // 일간 : 도넛
 const createDoughnutData = (value, goal, color) => {
@@ -451,6 +456,7 @@ function drawBarCharts(chart, label, value, valueGoal, color) {
 
 // 실행 (테스트용으로 userNo=1, date는 하드코딩)
 onMounted(() => {
+  requestNutriStandard(1);
   requestMealList(1, "2025-05-21");
   requestDayReport(1, "2025-05-21");
   requestweeklyReport(1);
@@ -907,7 +913,7 @@ const requestMealDetail = (id) => {
                 <div class="frame-167">
                   <!-- 끼니별 칼로리 분석 -->
                   <div class="frame-168">
-                    <div class="title2">끼니별 칼로리 분석(웰스토리 카피)</div>
+                    <div class="title2">끼니별 칼로리 분석</div>
                     <div class="frame-169">
                       <canvas class="chart-doughnut" ref="breakfastChart"></canvas>
                       <canvas class="chart-doughnut" ref="lunchChart"></canvas>
@@ -926,7 +932,7 @@ const requestMealDetail = (id) => {
                           <div class="frame-1612">
                             <div class="title12">{{ weeklyReport.avgWeeklyEnergy }} g</div>
                             <div class="title13">/</div>
-                            <div class="title13">13g</div>
+                            <div class="title13">{{ calorieGoal }} g</div>
                           </div>
                         </div>
                       </div>
@@ -937,7 +943,7 @@ const requestMealDetail = (id) => {
                           <div class="frame-1612">
                             <div class="title12">{{ weeklyReport.avgWeeklycarbohydrate }} g</div>
                             <div class="title13">/</div>
-                            <div class="title13">13g</div>
+                            <div class="title13">{{ carbGoal }} g</div>
                           </div>
                         </div>
                       </div>
@@ -947,7 +953,7 @@ const requestMealDetail = (id) => {
                         <div class="frame-1612">
                           <div class="title12">{{ weeklyReport.avgWeeklyProtein }} g</div>
                           <div class="title13">/</div>
-                          <div class="title13">13g</div>
+                          <div class="title13">{{ proteinGoal }} g</div>
                         </div>
                       </div>
                       <div class="frame-154">
@@ -956,7 +962,7 @@ const requestMealDetail = (id) => {
                         <div class="frame-1612">
                           <div class="title12">{{ weeklyReport.avgWeeklyTotalFattyAcids }} g</div>
                           <div class="title13">/</div>
-                          <div class="title13">13g</div>
+                          <div class="title13">{{ fatGoal }} g</div>
                         </div>
                       </div>
                       <div class="frame-1613">
@@ -965,7 +971,7 @@ const requestMealDetail = (id) => {
                         <div class="frame-1612">
                           <div class="title12">{{ weeklyReport.avgWeeklyWater }} g</div>
                           <div class="title13">/</div>
-                          <div class="title13">13g</div>
+                          <div class="title13">{{ waterGoal }} g</div>
                         </div>
                       </div>
                     </div>
@@ -982,7 +988,7 @@ const requestMealDetail = (id) => {
                     </div>
                     <div class="frame-204">
                       <div class="frame-205">
-                        <div class="title15">89</div>
+                        <div class="title15">{{ monthlyReport.monthlyScore }}</div>
                         <div class="title16">점</div>
                       </div>
                     </div>
@@ -1036,9 +1042,9 @@ const requestMealDetail = (id) => {
                           <canvas class="chart-bar" ref="monthlyCarbChart"></canvas>
                           <div class="title20">미달</div>
                           <div class="frame-1614">
-                            <div class="title21">13g</div>
+                            <div class="title21">{{ monthlyReport.avgMonthlycarbohydrate }} g</div>
                             <div class="title22">/</div>
-                            <div class="title22">13g</div>
+                            <div class="title22">{{ carbGoal }} g</div>
                           </div>
                         </div>
                       </div>
@@ -1047,9 +1053,9 @@ const requestMealDetail = (id) => {
                         <canvas class="chart-bar" ref="monthlyProteinChart"></canvas>
                         <div class="title23">적정</div>
                         <div class="frame-1614">
-                          <div class="title21">13g</div>
+                          <div class="title21">{{ monthlyReport.avgMonthlyProtein }} g</div>
                           <div class="title22">/</div>
-                          <div class="title22">13g</div>
+                          <div class="title22">{{ proteinGoal }} g</div>
                         </div>
                       </div>
                       <div class="frame-154">
@@ -1057,9 +1063,9 @@ const requestMealDetail = (id) => {
                         <canvas class="chart-bar" ref="monthlyFatChart"></canvas>
                         <div class="title23">적정</div>
                         <div class="frame-1614">
-                          <div class="title21">13g</div>
+                          <div class="title21">{{ monthlyReport.avgMonthlyTotalFattyAcids }} g</div>
                           <div class="title22">/</div>
-                          <div class="title22">13g</div>
+                          <div class="title22">{{ fatGoal }} g</div>
                         </div>
                       </div>
                       <div class="frame-1613">
@@ -1067,9 +1073,9 @@ const requestMealDetail = (id) => {
                         <canvas class="chart-bar" ref="monthlySodiumChart"></canvas>
                         <div class="title24">초과</div>
                         <div class="frame-1614">
-                          <div class="title21">13g</div>
+                          <div class="title21">{{ monthlyReport.avgMonthlySodium }} g</div>
                           <div class="title22">/</div>
-                          <div class="title22">13g</div>
+                          <div class="title22">{{ sodiumGoal }} g</div>
                         </div>
                       </div>
                       <div class="frame-148">
@@ -1077,9 +1083,9 @@ const requestMealDetail = (id) => {
                         <canvas class="chart-bar" ref="monthlySugarChart"></canvas>
                         <div class="title23">적정</div>
                         <div class="frame-1614">
-                          <div class="title21">13g</div>
+                          <div class="title21">{{ monthlyReport.avgMonthlySugar }} g</div>
                           <div class="title22">/</div>
-                          <div class="title22">13g</div>
+                          <div class="title22">{{ sugarGoal }} g</div>
                         </div>
                       </div>
                     </div>
