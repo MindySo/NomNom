@@ -16,6 +16,8 @@ public interface MealService {
 	MealResponse getMeal(int mealNo);
 
 	void writeMeal(MealRequest meal);
+	
+	void writeMealFood(MealFood mealFood);
 
 	void updateMeal(Meal meal);
 
