@@ -227,11 +227,11 @@
 		)
 		SELECT 
 		    ds.reportDate,
-		    ROUND(SUM(f.nutri_energy), 1) AS energy,
-		    ROUND(SUM(f.nutri_carbohydrate), 1) AS carbohydrate,
-		    ROUND(SUM(f.nutri_protein), 1) AS protein,
-		    ROUND(SUM(f.nutri_total_fatty_acids), 1) AS totalFattyAcids,
-		    ROUND(SUM(f.nutri_water), 1) AS water
+		    ROUND(SUM(f.nutri_energy * food_amount), 1) AS energy,
+		    ROUND(SUM(f.nutri_carbohydrate * food_amount), 1) AS carbohydrate,
+		    ROUND(SUM(f.nutri_protein * food_amount), 1) AS protein,
+		    ROUND(SUM(f.nutri_total_fatty_acids * food_amount), 1) AS totalFattyAcids,
+		    ROUND(SUM(f.nutri_water * food_amount), 1) AS water
 		FROM date_seq ds
 		LEFT JOIN meal m ON DATE(m.meal_reg_date) = ds.reportDate AND m.user_no = #{userNo}
 		LEFT JOIN meal_food mf ON m.meal_no = mf.meal_no
@@ -251,11 +251,11 @@
 			ROUND(AVG(water), 1) AS water
 		FROM (
 			SELECT
-				SUM(f.nutri_energy) AS energy,
-				SUM(f.nutri_carbohydrate) AS carbohydrate,
-				SUM(f.nutri_protein) AS protein,
-				SUM(f.nutri_total_fatty_acids) AS totalFattyAcids,
-				SUM(f.nutri_water) AS water
+				SUM(f.nutri_energy * food_amount) AS energy,
+				SUM(f.nutri_carbohydrate * food_amount) AS carbohydrate,
+				SUM(f.nutri_protein * food_amount) AS protein,
+				SUM(f.nutri_total_fatty_acids * food_amount) AS totalFattyAcids,
+				SUM(f.nutri_water * food_amount) AS water
 			FROM meal m
 			JOIN meal_food mf ON m.meal_no = mf.meal_no
 			JOIN food f ON mf.food_code = f.food_code
@@ -268,9 +268,9 @@
 	<!-- 오늘 기준 일주일간 끼니(아침, 점심, 저녁)별 칼로리 평균(끼니별 칼로리 분석) : reportWeeklyResponse 객체 -->
 	<select id="selectWeeklyMealTimeNutriAvg" parameterType="int" resultType="reportWeeklyResponse">
 		SELECT
-		    ROUND(AVG(CASE WHEN m.meal_time = 'BREAKFAST' THEN f.nutri_energy ELSE NULL END), 2) AS avgBreakfastEnergy,
-		    ROUND(AVG(CASE WHEN m.meal_time = 'LUNCH' THEN f.nutri_energy ELSE NULL END), 2) AS avgLunchEnergy,
-		    ROUND(AVG(CASE WHEN m.meal_time = 'DINNER' THEN f.nutri_energy ELSE NULL END), 2) AS avgDinnerEnergy
+		    ROUND(AVG(CASE WHEN m.meal_time = 'BREAKFAST' THEN f.nutri_energy * food_amount ELSE NULL END), 2) AS avgBreakfastEnergy,
+		    ROUND(AVG(CASE WHEN m.meal_time = 'LUNCH' THEN f.nutri_energy * food_amount ELSE NULL END), 2) AS avgLunchEnergy,
+		    ROUND(AVG(CASE WHEN m.meal_time = 'DINNER' THEN f.nutri_energy * food_amount ELSE NULL END), 2) AS avgDinnerEnergy
 		FROM meal m
 		JOIN meal_food mf ON m.meal_no = mf.meal_no
 		JOIN food f ON mf.food_code = f.food_code
@@ -293,11 +293,11 @@
 		daily_totals AS (
 		  SELECT
 		    DAYNAME(m.meal_reg_date) AS weekday,
-		    SUM(f.nutri_energy) AS energy,
-		    SUM(f.nutri_carbohydrate) AS carbohydrate,
-		    SUM(f.nutri_protein) AS protein,
-		    SUM(f.nutri_total_fatty_acids) AS totalFattyAcids,
-		    SUM(f.nutri_water) AS water
+		    SUM(f.nutri_energy * food_amount) AS energy,
+		    SUM(f.nutri_carbohydrate * food_amount) AS carbohydrate,
+		    SUM(f.nutri_protein * food_amount) AS protein,
+		    SUM(f.nutri_total_fatty_acids * food_amount) AS totalFattyAcids,
+		    SUM(f.nutri_water * food_amount) AS water
 		  FROM meal m
 		  JOIN meal_food mf ON m.meal_no = mf.meal_no
 		  JOIN food f ON mf.food_code = f.food_code
@@ -337,17 +337,17 @@
 	<select id="selectMonthlyDayNutriAvg" parameterType="int" resultType="reportMonthlyResponse">
 		SELECT
 		    ROUND(AVG(carbohydrate), 1) AS avgMonthlycarbohydrate,
-			ROUND(AVG(protein), 1) AS avgWeeklyProtein,
-			ROUND(AVG(totalFattyAcids), 1) AS avgWeeklyTotalFattyAcids,
+			ROUND(AVG(protein), 1) AS avgMonthlyProtein,
+			ROUND(AVG(totalFattyAcids), 1) AS avgMonthlyTotalFattyAcids,
 			ROUND(AVG(sodium), 1) AS avgMonthlySodium,
 			ROUND(AVG(sugar), 1) AS avgMonthlySugar
 		FROM (
 		    SELECT
-		        SUM(f.nutri_carbohydrate) AS carbohydrate,
-		        SUM(f.nutri_protein) AS protein,
-		        SUM(f.nutri_total_fatty_acids) AS totalFattyAcids,
-		        SUM(f.nutri_sugar) AS sugar,
-		        SUM(f.nutri_sodium) AS sodium
+		        SUM(f.nutri_carbohydrate * food_amount) AS carbohydrate,
+		        SUM(f.nutri_protein * food_amount) AS protein,
+		        SUM(f.nutri_total_fatty_acids * food_amount) AS totalFattyAcids,
+		        SUM(f.nutri_sugar * food_amount) AS sugar,
+		        SUM(f.nutri_sodium * food_amount) AS sodium
 		    FROM meal m
 		    JOIN meal_food mf ON m.meal_no = mf.meal_no
 		    JOIN food f ON mf.food_code = f.food_code
