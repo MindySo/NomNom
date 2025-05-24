@@ -1,6 +1,7 @@
 package com.ssafy.nomnom.controller.meal;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -69,7 +70,7 @@ public class MealController {
 	@PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public ResponseEntity<Void> writeMeal(@RequestPart("meal") MealRequest meal,
 			@RequestPart(value = "fileList", required = false) List<MultipartFile> fileList) {
-		meal.setFileList(fileList);
+		meal.setFileList(fileList != null ? fileList : new ArrayList<>());
 		mealservice.writeMeal(meal);
 		return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}

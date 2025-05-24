@@ -86,13 +86,13 @@
   justify-content: flex-start;
 }
 .nutrigo-span {
-  font-family: "Poppins-SemiBold", sans-serif;
+  font-family: 'Poppins-SemiBold', sans-serif;
   font-size: 15px;
   line-height: 110%;
   font-weight: 600;
 }
 .nutrigo-span2 {
-  font-family: "Poppins-SemiBold", sans-serif;
+  font-family: 'Poppins-SemiBold', sans-serif;
   font-size: 20px;
   line-height: 110%;
   font-weight: 600;
@@ -139,7 +139,11 @@
 .label {
   color: var(--black, #272932);
   text-align: center;
-  font-family: var(--btn-14px-semibold-font-family, "Poppins-SemiBold", sans-serif);
+  font-family: var(
+    --btn-14px-semibold-font-family,
+    'Poppins-SemiBold',
+    sans-serif
+  );
   font-size: var(--btn-14px-semibold-font-size, 14px);
   line-height: var(--btn-14px-semibold-line-height, 100%);
   font-weight: var(--btn-14px-semibold-font-weight, 600);
@@ -177,7 +181,7 @@
 .label2 {
   color: var(--gray-20, #8a8c90);
   text-align: center;
-  font-family: var(--btn-14px-medium-font-family, "Poppins-Medium", sans-serif);
+  font-family: var(--btn-14px-medium-font-family, 'Poppins-Medium', sans-serif);
   font-size: var(--btn-14px-medium-font-size, 14px);
   line-height: var(--btn-14px-medium-line-height, 100%);
   font-weight: var(--btn-14px-medium-font-weight, 500);
@@ -282,7 +286,7 @@
 .title {
   color: var(--black, #272932);
   text-align: left;
-  font-family: "Poppins-SemiBold", sans-serif;
+  font-family: 'Poppins-SemiBold', sans-serif;
   font-size: 40px;
   line-height: 108%;
   font-weight: 600;
@@ -391,7 +395,11 @@
 .year2 {
   color: #000000;
   text-align: center;
-  font-family: var(--h6-20px-semibold-font-family, "Poppins-SemiBold", sans-serif);
+  font-family: var(
+    --h6-20px-semibold-font-family,
+    'Poppins-SemiBold',
+    sans-serif
+  );
   font-size: var(--h6-20px-semibold-font-size, 20px);
   line-height: var(--h6-20px-semibold-line-height, 108%);
   font-weight: var(--h6-20px-semibold-font-weight, 600);
@@ -400,7 +408,11 @@
 .div2 {
   color: #000000;
   text-align: center;
-  font-family: var(--h6-20px-semibold-font-family, "Poppins-SemiBold", sans-serif);
+  font-family: var(
+    --h6-20px-semibold-font-family,
+    'Poppins-SemiBold',
+    sans-serif
+  );
   font-size: var(--h6-20px-semibold-font-size, 20px);
   line-height: var(--h6-20px-semibold-line-height, 108%);
   font-weight: var(--h6-20px-semibold-font-weight, 600);
@@ -419,7 +431,11 @@
 .month2 {
   color: #000000;
   text-align: center;
-  font-family: var(--h6-20px-semibold-font-family, "Poppins-SemiBold", sans-serif);
+  font-family: var(
+    --h6-20px-semibold-font-family,
+    'Poppins-SemiBold',
+    sans-serif
+  );
   font-size: var(--h6-20px-semibold-font-size, 20px);
   line-height: var(--h6-20px-semibold-line-height, 108%);
   font-weight: var(--h6-20px-semibold-font-weight, 600);
@@ -438,7 +454,11 @@
 .day3 {
   color: #000000;
   text-align: center;
-  font-family: var(--h6-20px-semibold-font-family, "Poppins-SemiBold", sans-serif);
+  font-family: var(
+    --h6-20px-semibold-font-family,
+    'Poppins-SemiBold',
+    sans-serif
+  );
   font-size: var(--h6-20px-semibold-font-size, 20px);
   line-height: var(--h6-20px-semibold-line-height, 108%);
   font-weight: var(--h6-20px-semibold-font-weight, 600);
@@ -530,6 +550,7 @@
   align-self: stretch;
   flex-shrink: 0;
   position: relative;
+  height: 650px;
 }
 .frame-172 {
   display: flex;
@@ -539,7 +560,7 @@
   justify-content: flex-start;
   flex-shrink: 0;
   width: 588px;
-  height: 600px;
+  height: 100%;
   position: relative;
   overflow: hidden;
 }
@@ -551,10 +572,10 @@
   justify-content: flex-start;
   flex: 1;
   position: relative;
+  height: 100%;
 
   /* 스크롤 추가 */
   overflow-y: auto; /* 세로 스크롤 */
-  max-height: 600px; /* 혹은 원하는 높이 (예: 500px) */
   padding-right: 8px; /* 스크롤 여백 */
 }
 .card-list-all-menu {
@@ -582,7 +603,11 @@
 .name {
   color: var(--black, #272932);
   text-align: left;
-  font-family: var(--title-16px-semibold-font-family, "Poppins-SemiBold", sans-serif);
+  font-family: var(
+    --title-16px-semibold-font-family,
+    'Poppins-SemiBold',
+    sans-serif
+  );
   font-size: var(--title-16px-semibold-font-size, 16px);
   line-height: var(--title-16px-semibold-line-height, 124%);
   font-weight: var(--title-16px-semibold-font-weight, 600);
@@ -629,7 +654,11 @@
 .amount {
   color: var(--gray-30, #52545b);
   text-align: left;
-  font-family: var(--title-11px-regular-font-family, "Poppins-Regular", sans-serif);
+  font-family: var(
+    --title-11px-regular-font-family,
+    'Poppins-Regular',
+    sans-serif
+  );
   font-size: var(--title-11px-regular-font-size, 11px);
   line-height: var(--title-11px-regular-line-height, 124%);
   font-weight: var(--title-11px-regular-font-weight, 400);
@@ -695,7 +724,7 @@
 .badge-meal-category {
   background: var(--green, #c2e66e);
   border-radius: 6px;
-  padding: 4px 10px 4px 10px;
+  padding: 5px 10px 5px 10px;
   display: flex;
   flex-direction: row;
   gap: 10px;
@@ -707,7 +736,7 @@
 .category {
   color: var(--gray-30, #52545b);
   text-align: left;
-  font-family: var(--btn-11px-medium-font-family, "Poppins-Medium", sans-serif);
+  font-family: var(--btn-11px-medium-font-family, 'Poppins-Medium', sans-serif);
   font-size: var(--btn-11px-medium-font-size, 11px);
   line-height: var(--btn-11px-medium-line-height, 105%);
   font-weight: var(--btn-11px-medium-font-weight, 500);
@@ -747,7 +776,7 @@
 .label3 {
   color: var(--black, #272932);
   text-align: center;
-  font-family: var(--btn-11px-medium-font-family, "Poppins-Medium", sans-serif);
+  font-family: var(--btn-11px-medium-font-family, 'Poppins-Medium', sans-serif);
   font-size: var(--btn-11px-medium-font-size, 11px);
   line-height: var(--btn-11px-medium-line-height, 105%);
   font-weight: var(--btn-11px-medium-font-weight, 500);
@@ -768,7 +797,11 @@
 .name2 {
   color: var(--black, #272932);
   text-align: left;
-  font-family: var(--title-16px-semibold-font-family, "Poppins-SemiBold", sans-serif);
+  font-family: var(
+    --title-16px-semibold-font-family,
+    'Poppins-SemiBold',
+    sans-serif
+  );
   font-size: var(--title-16px-semibold-font-size, 16px);
   line-height: var(--title-16px-semibold-line-height, 124%);
   font-weight: var(--title-16px-semibold-font-weight, 600);
@@ -830,7 +863,11 @@
 .unit {
   color: var(--gray-30, #52545b);
   text-align: left;
-  font-family: var(--title-11px-regular-font-family, "Poppins-Regular", sans-serif);
+  font-family: var(
+    --title-11px-regular-font-family,
+    'Poppins-Regular',
+    sans-serif
+  );
   font-size: var(--title-11px-regular-font-size, 11px);
   line-height: var(--title-11px-regular-line-height, 124%);
   font-weight: var(--title-11px-regular-font-weight, 400);
@@ -1145,7 +1182,7 @@
   align-items: flex-start;
   justify-content: center;
   flex: 1;
-  height: 600px;
+  height: 100%;
   position: relative;
 }
 .frame-173 {
@@ -1160,7 +1197,11 @@
 .title2 {
   color: var(--black, #272932);
   text-align: left;
-  font-family: var(--h5-22px-semibold-font-family, "Poppins-SemiBold", sans-serif);
+  font-family: var(
+    --h5-22px-semibold-font-family,
+    'Poppins-SemiBold',
+    sans-serif
+  );
   font-size: var(--h5-22px-semibold-font-size, 22px);
   line-height: var(--h5-22px-semibold-line-height, 108%);
   font-weight: var(--h5-22px-semibold-font-weight, 600);
@@ -1172,7 +1213,7 @@
   padding: 10px;
   display: flex;
   flex-direction: column;
-  gap: 0px;
+  gap: 20px;
   align-items: flex-start;
   justify-content: flex-start;
   align-self: stretch;
@@ -1190,10 +1231,24 @@
   position: relative;
 }
 .group-18 {
+  display: flex;
   flex-shrink: 0;
-  width: 147.25px;
-  height: 146px;
   position: static;
+  flex-direction: column;
+  align-items: center;
+}
+.chart-doughnut-name {
+  color: var(--black, #272932);
+  text-align: left;
+  font-family: var(
+    --title-14px-semibold-font-family,
+    'Poppins-SemiBold',
+    sans-serif
+  );
+  font-size: var(--title-14px-semibold-font-size, 14px);
+  line-height: var(--title-14px-semibold-line-height, 125%);
+  font-weight: var(--title-14px-semibold-font-weight, 600);
+  position: relative;
 }
 .v-2-2-1 {
   width: 147.25px;
@@ -1207,7 +1262,11 @@
 .title3 {
   color: var(--black, #272932);
   text-align: center;
-  font-family: var(--title-14px-semibold-font-family, "Poppins-SemiBold", sans-serif);
+  font-family: var(
+    --title-14px-semibold-font-family,
+    'Poppins-SemiBold',
+    sans-serif
+  );
   font-size: var(--title-14px-semibold-font-size, 14px);
   line-height: var(--title-14px-semibold-line-height, 125%);
   font-weight: var(--title-14px-semibold-font-weight, 600);
@@ -1234,7 +1293,11 @@
 .title4 {
   color: var(--black, #272932);
   text-align: center;
-  font-family: var(--title-14px-semibold-font-family, "Poppins-SemiBold", sans-serif);
+  font-family: var(
+    --title-14px-semibold-font-family,
+    'Poppins-SemiBold',
+    sans-serif
+  );
   font-size: var(--title-14px-semibold-font-size, 14px);
   line-height: var(--title-14px-semibold-line-height, 125%);
   font-weight: var(--title-14px-semibold-font-weight, 600);
@@ -1291,7 +1354,11 @@
 .title5 {
   color: var(--black, #272932);
   text-align: left;
-  font-family: var(--title-14px-semibold-font-family, "Poppins-SemiBold", sans-serif);
+  font-family: var(
+    --title-14px-semibold-font-family,
+    'Poppins-SemiBold',
+    sans-serif
+  );
   font-size: var(--title-14px-semibold-font-size, 14px);
   line-height: var(--title-14px-semibold-line-height, 125%);
   font-weight: var(--title-14px-semibold-font-weight, 600);
@@ -1301,7 +1368,11 @@
 .title6 {
   color: var(--gray-30, #52545b);
   text-align: left;
-  font-family: var(--title-14px-semibold-font-family, "Poppins-SemiBold", sans-serif);
+  font-family: var(
+    --title-14px-semibold-font-family,
+    'Poppins-SemiBold',
+    sans-serif
+  );
   font-size: var(--title-14px-semibold-font-size, 14px);
   line-height: var(--title-14px-semibold-line-height, 125%);
   font-weight: var(--title-14px-semibold-font-weight, 600);
@@ -1355,7 +1426,11 @@
 .title7 {
   color: var(--gray-30, #52545b);
   text-align: left;
-  font-family: var(--title-14px-regular-font-family, "Poppins-Regular", sans-serif);
+  font-family: var(
+    --title-14px-regular-font-family,
+    'Poppins-Regular',
+    sans-serif
+  );
   font-size: var(--title-14px-regular-font-size, 14px);
   line-height: var(--title-14px-regular-line-height, 125%);
   font-weight: var(--title-14px-regular-font-weight, 400);
@@ -1441,12 +1516,16 @@
 .title8 {
   color: var(--black, #272932);
   text-align: left;
-  font-family: var(--title-14px-semibold-font-family, "Poppins-SemiBold", sans-serif);
+  font-family: var(
+    --title-14px-semibold-font-family,
+    'Poppins-SemiBold',
+    sans-serif
+  );
   font-size: var(--title-14px-semibold-font-size, 14px);
   line-height: var(--title-14px-semibold-line-height, 125%);
   font-weight: var(--title-14px-semibold-font-weight, 600);
   position: relative;
-  width: 65px;
+  width: 75px;
 }
 .frame-137 {
   display: flex;
@@ -1572,7 +1651,7 @@
 .label4 {
   color: var(--black, #272932);
   text-align: center;
-  font-family: "Poppins-SemiBold", sans-serif;
+  font-family: 'Poppins-SemiBold', sans-serif;
   font-size: 20px;
   line-height: 140%;
   font-weight: 600;
@@ -1595,7 +1674,7 @@
 .label5 {
   color: var(--gray-20, #8a8c90);
   text-align: center;
-  font-family: "Poppins-SemiBold", sans-serif;
+  font-family: 'Poppins-SemiBold', sans-serif;
   font-size: 20px;
   line-height: 140%;
   font-weight: 600;
@@ -1614,7 +1693,7 @@
   flex-shrink: 0;
   position: relative;
 }
-.div4 {
+.weekly-summary {
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -1982,7 +2061,7 @@
 ._25-06-18 {
   color: var(--black, #272932);
   text-align: left;
-  font-family: var(--p-12px-regular-font-family, "Poppins-Regular", sans-serif);
+  font-family: var(--p-12px-regular-font-family, 'Poppins-Regular', sans-serif);
   font-size: var(--p-12px-regular-font-size, 12px);
   line-height: var(--p-12px-regular-line-height, 150%);
   font-weight: var(--p-12px-regular-font-weight, 400);
@@ -1991,7 +2070,7 @@
 ._25-06-19 {
   color: #000000;
   text-align: left;
-  font-family: var(--p-12px-regular-font-family, "Poppins-Regular", sans-serif);
+  font-family: var(--p-12px-regular-font-family, 'Poppins-Regular', sans-serif);
   font-size: var(--p-12px-regular-font-size, 12px);
   line-height: var(--p-12px-regular-line-height, 150%);
   font-weight: var(--p-12px-regular-font-weight, 400);
@@ -2000,7 +2079,7 @@
 ._25-06-20 {
   color: #000000;
   text-align: left;
-  font-family: var(--p-12px-regular-font-family, "Poppins-Regular", sans-serif);
+  font-family: var(--p-12px-regular-font-family, 'Poppins-Regular', sans-serif);
   font-size: var(--p-12px-regular-font-size, 12px);
   line-height: var(--p-12px-regular-line-height, 150%);
   font-weight: var(--p-12px-regular-font-weight, 400);
@@ -2009,7 +2088,7 @@
 ._25-06-21 {
   color: #000000;
   text-align: left;
-  font-family: var(--p-12px-regular-font-family, "Poppins-Regular", sans-serif);
+  font-family: var(--p-12px-regular-font-family, 'Poppins-Regular', sans-serif);
   font-size: var(--p-12px-regular-font-size, 12px);
   line-height: var(--p-12px-regular-line-height, 150%);
   font-weight: var(--p-12px-regular-font-weight, 400);
@@ -2018,7 +2097,7 @@
 ._25-06-22 {
   color: #000000;
   text-align: left;
-  font-family: var(--p-12px-regular-font-family, "Poppins-Regular", sans-serif);
+  font-family: var(--p-12px-regular-font-family, 'Poppins-Regular', sans-serif);
   font-size: var(--p-12px-regular-font-size, 12px);
   line-height: var(--p-12px-regular-line-height, 150%);
   font-weight: var(--p-12px-regular-font-weight, 400);
@@ -2027,7 +2106,7 @@
 ._25-06-23 {
   color: #000000;
   text-align: left;
-  font-family: var(--p-12px-regular-font-family, "Poppins-Regular", sans-serif);
+  font-family: var(--p-12px-regular-font-family, 'Poppins-Regular', sans-serif);
   font-size: var(--p-12px-regular-font-size, 12px);
   line-height: var(--p-12px-regular-line-height, 150%);
   font-weight: var(--p-12px-regular-font-weight, 400);
@@ -2036,7 +2115,7 @@
 ._25-06-24 {
   color: var(--black, #272932);
   text-align: left;
-  font-family: var(--p-12px-regular-font-family, "Poppins-Regular", sans-serif);
+  font-family: var(--p-12px-regular-font-family, 'Poppins-Regular', sans-serif);
   font-size: var(--p-12px-regular-font-size, 12px);
   line-height: var(--p-12px-regular-line-height, 150%);
   font-weight: var(--p-12px-regular-font-weight, 400);
@@ -2081,7 +2160,11 @@
 .title9 {
   color: var(--black, #272932);
   text-align: center;
-  font-family: var(--title-14px-semibold-font-family, "Poppins-SemiBold", sans-serif);
+  font-family: var(
+    --title-14px-semibold-font-family,
+    'Poppins-SemiBold',
+    sans-serif
+  );
   font-size: var(--title-14px-semibold-font-size, 14px);
   line-height: var(--title-14px-semibold-line-height, 125%);
   font-weight: var(--title-14px-semibold-font-weight, 600);
@@ -2100,7 +2183,11 @@
 .title10 {
   color: var(--black, #272932);
   text-align: center;
-  font-family: var(--title-14px-semibold-font-family, "Poppins-SemiBold", sans-serif);
+  font-family: var(
+    --title-14px-semibold-font-family,
+    'Poppins-SemiBold',
+    sans-serif
+  );
   font-size: var(--title-14px-semibold-font-size, 14px);
   line-height: var(--title-14px-semibold-line-height, 125%);
   font-weight: var(--title-14px-semibold-font-weight, 600);
@@ -2119,7 +2206,11 @@
 .title11 {
   color: var(--black, #272932);
   text-align: center;
-  font-family: var(--title-14px-semibold-font-family, "Poppins-SemiBold", sans-serif);
+  font-family: var(
+    --title-14px-semibold-font-family,
+    'Poppins-SemiBold',
+    sans-serif
+  );
   font-size: var(--title-14px-semibold-font-size, 14px);
   line-height: var(--title-14px-semibold-line-height, 125%);
   font-weight: var(--title-14px-semibold-font-weight, 600);
@@ -2216,7 +2307,11 @@
 .title12 {
   color: var(--black, #272932);
   text-align: left;
-  font-family: var(--title-14px-semibold-font-family, "Poppins-SemiBold", sans-serif);
+  font-family: var(
+    --title-14px-semibold-font-family,
+    'Poppins-SemiBold',
+    sans-serif
+  );
   font-size: var(--title-14px-semibold-font-size, 14px);
   line-height: var(--title-14px-semibold-line-height, 125%);
   font-weight: var(--title-14px-semibold-font-weight, 600);
@@ -2225,7 +2320,11 @@
 .title13 {
   color: var(--gray-20, #8a8c90);
   text-align: left;
-  font-family: var(--title-14px-semibold-font-family, "Poppins-SemiBold", sans-serif);
+  font-family: var(
+    --title-14px-semibold-font-family,
+    'Poppins-SemiBold',
+    sans-serif
+  );
   font-size: var(--title-14px-semibold-font-size, 14px);
   line-height: var(--title-14px-semibold-line-height, 125%);
   font-weight: var(--title-14px-semibold-font-weight, 600);
@@ -2337,7 +2436,7 @@
   position: relative;
   overflow: hidden;
 }
-.div5 {
+.monthly-summary {
   background: #ffffff;
   border-radius: 10px;
   display: flex;
@@ -2375,7 +2474,11 @@
 .title14 {
   color: var(--gray-20, #8a8c90);
   text-align: left;
-  font-family: var(--title-16px-semibold-font-family, "Poppins-SemiBold", sans-serif);
+  font-family: var(
+    --title-16px-semibold-font-family,
+    'Poppins-SemiBold',
+    sans-serif
+  );
   font-size: var(--title-16px-semibold-font-size, 16px);
   line-height: var(--title-16px-semibold-line-height, 124%);
   font-weight: var(--title-16px-semibold-font-weight, 600);
@@ -2390,6 +2493,7 @@
   align-self: stretch;
   flex: 1;
   position: relative;
+  padding-top: 10px;
 }
 .frame-205 {
   display: flex;
@@ -2404,7 +2508,7 @@
 .title15 {
   color: var(--green-dark, #73a107);
   text-align: left;
-  font-family: "Poppins-SemiBold", sans-serif;
+  font-family: 'Poppins-SemiBold', sans-serif;
   font-size: 80px;
   line-height: 105%;
   font-weight: 600;
@@ -2418,7 +2522,7 @@
 .title16 {
   color: var(--green-dark, #73a107);
   text-align: left;
-  font-family: "Poppins-SemiBold", sans-serif;
+  font-family: 'Poppins-SemiBold', sans-serif;
   font-size: 30px;
   line-height: 108%;
   font-weight: 600;
@@ -2436,7 +2540,7 @@
 .div6 {
   color: var(--black, #272932);
   text-align: left;
-  font-family: var(--p-12px-regular-font-family, "Poppins-Regular", sans-serif);
+  font-family: var(--p-12px-regular-font-family, 'Poppins-Regular', sans-serif);
   font-size: var(--p-12px-regular-font-size, 12px);
   line-height: var(--p-12px-regular-line-height, 150%);
   font-weight: var(--p-12px-regular-font-weight, 400);
@@ -2445,7 +2549,7 @@
 .div7 {
   color: #000000;
   text-align: left;
-  font-family: var(--p-12px-regular-font-family, "Poppins-Regular", sans-serif);
+  font-family: var(--p-12px-regular-font-family, 'Poppins-Regular', sans-serif);
   font-size: var(--p-12px-regular-font-size, 12px);
   line-height: var(--p-12px-regular-line-height, 150%);
   font-weight: var(--p-12px-regular-font-weight, 400);
@@ -2454,7 +2558,11 @@
 .title17 {
   color: var(--black, #272932);
   text-align: center;
-  font-family: var(--title-14px-semibold-font-family, "Poppins-SemiBold", sans-serif);
+  font-family: var(
+    --title-14px-semibold-font-family,
+    'Poppins-SemiBold',
+    sans-serif
+  );
   font-size: var(--title-14px-semibold-font-size, 14px);
   line-height: var(--title-14px-semibold-line-height, 125%);
   font-weight: var(--title-14px-semibold-font-weight, 600);
@@ -2466,7 +2574,11 @@
 .title18 {
   color: var(--black, #272932);
   text-align: center;
-  font-family: var(--title-14px-semibold-font-family, "Poppins-SemiBold", sans-serif);
+  font-family: var(
+    --title-14px-semibold-font-family,
+    'Poppins-SemiBold',
+    sans-serif
+  );
   font-size: var(--title-14px-semibold-font-size, 14px);
   line-height: var(--title-14px-semibold-line-height, 125%);
   font-weight: var(--title-14px-semibold-font-weight, 600);
@@ -2478,7 +2590,11 @@
 .title19 {
   color: var(--black, #272932);
   text-align: center;
-  font-family: var(--title-14px-semibold-font-family, "Poppins-SemiBold", sans-serif);
+  font-family: var(
+    --title-14px-semibold-font-family,
+    'Poppins-SemiBold',
+    sans-serif
+  );
   font-size: var(--title-14px-semibold-font-size, 14px);
   line-height: var(--title-14px-semibold-line-height, 125%);
   font-weight: var(--title-14px-semibold-font-weight, 600);
@@ -2490,7 +2606,11 @@
 .title20 {
   color: var(--saffron, #ffcb65);
   text-align: left;
-  font-family: var(--title-14px-semibold-font-family, "Poppins-SemiBold", sans-serif);
+  font-family: var(
+    --title-14px-semibold-font-family,
+    'Poppins-SemiBold',
+    sans-serif
+  );
   font-size: var(--title-14px-semibold-font-size, 14px);
   line-height: var(--title-14px-semibold-line-height, 125%);
   font-weight: var(--title-14px-semibold-font-weight, 600);
@@ -2508,7 +2628,11 @@
 .title21 {
   color: var(--black, #272932);
   text-align: left;
-  font-family: var(--title-11px-semibold-font-family, "Poppins-SemiBold", sans-serif);
+  font-family: var(
+    --title-11px-semibold-font-family,
+    'Poppins-SemiBold',
+    sans-serif
+  );
   font-size: var(--title-11px-semibold-font-size, 11px);
   line-height: var(--title-11px-semibold-line-height, 124%);
   font-weight: var(--title-11px-semibold-font-weight, 600);
@@ -2517,7 +2641,11 @@
 .title22 {
   color: var(--gray-20, #8a8c90);
   text-align: left;
-  font-family: var(--title-11px-semibold-font-family, "Poppins-SemiBold", sans-serif);
+  font-family: var(
+    --title-11px-semibold-font-family,
+    'Poppins-SemiBold',
+    sans-serif
+  );
   font-size: var(--title-11px-semibold-font-size, 11px);
   line-height: var(--title-11px-semibold-line-height, 124%);
   font-weight: var(--title-11px-semibold-font-weight, 600);
@@ -2526,7 +2654,11 @@
 .title23 {
   color: var(--green-dark, #73a107);
   text-align: left;
-  font-family: var(--title-14px-semibold-font-family, "Poppins-SemiBold", sans-serif);
+  font-family: var(
+    --title-14px-semibold-font-family,
+    'Poppins-SemiBold',
+    sans-serif
+  );
   font-size: var(--title-14px-semibold-font-size, 14px);
   line-height: var(--title-14px-semibold-line-height, 125%);
   font-weight: var(--title-14px-semibold-font-weight, 600);
@@ -2561,7 +2693,11 @@
 .title24 {
   color: #b75a5c;
   text-align: left;
-  font-family: var(--title-14px-semibold-font-family, "Poppins-SemiBold", sans-serif);
+  font-family: var(
+    --title-14px-semibold-font-family,
+    'Poppins-SemiBold',
+    sans-serif
+  );
   font-size: var(--title-14px-semibold-font-size, 14px);
   line-height: var(--title-14px-semibold-line-height, 125%);
   font-weight: var(--title-14px-semibold-font-weight, 600);
@@ -2615,7 +2751,11 @@
 .copyright-2024-peterdraw {
   color: var(--gray-30, #52545b);
   text-align: left;
-  font-family: var(--title-12px-semibold-font-family, "Poppins-SemiBold", sans-serif);
+  font-family: var(
+    --title-12px-semibold-font-family,
+    'Poppins-SemiBold',
+    sans-serif
+  );
   font-size: var(--title-12px-semibold-font-size, 12px);
   line-height: var(--title-12px-semibold-line-height, 130%);
   font-weight: var(--title-12px-semibold-font-weight, 600);
@@ -2633,7 +2773,11 @@
 .privacy-policy {
   color: var(--gray-20, #8a8c90);
   text-align: left;
-  font-family: var(--title-12px-regular-font-family, "Poppins-Regular", sans-serif);
+  font-family: var(
+    --title-12px-regular-font-family,
+    'Poppins-Regular',
+    sans-serif
+  );
   font-size: var(--title-12px-regular-font-size, 12px);
   line-height: var(--title-12px-regular-line-height, 130%);
   font-weight: var(--title-12px-regular-font-weight, 400);
@@ -2642,7 +2786,11 @@
 .term-and-conditions {
   color: var(--gray-20, #8a8c90);
   text-align: left;
-  font-family: var(--title-12px-regular-font-family, "Poppins-Regular", sans-serif);
+  font-family: var(
+    --title-12px-regular-font-family,
+    'Poppins-Regular',
+    sans-serif
+  );
   font-size: var(--title-12px-regular-font-size, 12px);
   line-height: var(--title-12px-regular-line-height, 130%);
   font-weight: var(--title-12px-regular-font-weight, 400);
@@ -2651,7 +2799,11 @@
 .contact {
   color: var(--gray-20, #8a8c90);
   text-align: left;
-  font-family: var(--title-12px-regular-font-family, "Poppins-Regular", sans-serif);
+  font-family: var(
+    --title-12px-regular-font-family,
+    'Poppins-Regular',
+    sans-serif
+  );
   font-size: var(--title-12px-regular-font-size, 12px);
   line-height: var(--title-12px-regular-line-height, 130%);
   font-weight: var(--title-12px-regular-font-weight, 400);
@@ -2700,4 +2852,70 @@
   height: 20px;
   position: relative;
   overflow: visible;
+}
+
+/* 추가 css */
+.chart-doughnut {
+  max-height: 150px;
+  max-width: 150px;
+  margin-bottom: 1rem;
+}
+.chart-bar {
+  width: 143px;
+  height: 5px;
+  border-radius: 10;
+  display: block;
+}
+.weekly-canvas-div {
+  width: 100%;
+  height: 150px;
+}
+.weekly-canvas {
+  width: 100%;
+  height: 100%;
+}
+.monthly-canvas-div {
+  width: 100%;
+  height: 150px;
+}
+.monthly-canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.badge-breakfast {
+  background-color: #c2e66e;
+}
+
+.badge-lunch {
+  background-color: #ffcb65;
+}
+
+.badge-dinner {
+  background-color: #ffa257;
+}
+
+.badge-snack {
+  background-color: #e1e1e2;
+}
+.green-text {
+  color: #73a107; /* 초록 */
+}
+
+.yellow-text {
+  color: #ffcb65; /* 노랑 */
+}
+
+.red-text {
+  color: #b75a5c; /* 빨강 */
+}
+
+.date-input {
+  position: relative;
+  align-items: center;
+  border-radius: 8px;
+  box-sizing: border-box;
+  font-family: var(--h2-32px-bold-font-family);
+  font-size: 22px;
+  font-weight: bold;
 }

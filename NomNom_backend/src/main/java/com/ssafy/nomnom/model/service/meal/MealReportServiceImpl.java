@@ -34,7 +34,6 @@ public class MealReportServiceImpl implements MealReportService{
 
 	@Override
 	public ReportDayResponse getDayNutriSum(MealRequest meal) {
-		System.out.println("DAO : " + mealDao.selectDayNutriSum(meal));
 		return mealDao.selectDayNutriSum(meal);
 	}
 
@@ -82,7 +81,6 @@ public class MealReportServiceImpl implements MealReportService{
 		monthlyResponse.setAvgMonthlyTotalFattyAcids(weekDayAvg.getAvgMonthlyTotalFattyAcids());
 		monthlyResponse.setAvgMonthlySodium(weekDayAvg.getAvgMonthlySodium());
 		monthlyResponse.setAvgMonthlySugar(weekDayAvg.getAvgMonthlySugar());
-		
 		User user = userDao.getUserByUserNo(userNo);
 	    if (user == null) throw new IllegalArgumentException("사용자 없음");
 
@@ -128,7 +126,6 @@ public class MealReportServiceImpl implements MealReportService{
 	    double ruleScore = (b >= 15 && l >= 15 && d >= 15) ? 30
 	                     : (b >= 7 && l >= 7 && d >= 7) ? 20 : 10;
 
-	    System.out.println("calorie=" + calorieScore + " / balance=" + balanceScore + " / rule=" + ruleScore);
 	    return (int)(calorieScore + balanceScore + ruleScore);
 	}
 
