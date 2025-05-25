@@ -16,6 +16,16 @@ public class Board {
 		}
 		
 		
+		
+		public Board(String boardType, String boardTitle, String boardContent) {
+			super();
+			this.boardType = boardType;
+			this.boardTitle = boardTitle;
+			this.boardContent = boardContent;
+		}
+
+
+
 		public Board(Integer boardNo, String boardType, Integer userNo, String boardTitle, String boardContent,
 				LocalDateTime boardRegDate, Integer boardViewCnt) {
 			this.boardNo = boardNo;
