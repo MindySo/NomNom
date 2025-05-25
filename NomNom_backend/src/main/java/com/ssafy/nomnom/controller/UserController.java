@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.nomnom.model.dto.user.CustomUserDetails;
 import com.ssafy.nomnom.model.dto.user.User;
+import com.ssafy.nomnom.model.dto.user.UserProfileSetupRequest;
 import com.ssafy.nomnom.model.dto.user.UserRegisterRequest;
 import com.ssafy.nomnom.model.dto.user.UserUpdateRequest;
 import com.ssafy.nomnom.model.service.UserService;
@@ -92,4 +93,34 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("회원탈퇴 실패");
         }
     }
+    
+    //프로필 설정 API 추가
+    @PostMapping("/profile/setup")
+    public ResponseEntity<String> setupUserProfile(@AuthenticationPrincipal CustomUserDetails userDetails,
+                                                   @RequestBody UserProfileSetupRequest request) {
+        if (userDetails == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
+        }
+
+        if (request.getUserBirthday() == null) {
+            return ResponseEntity.badRequest().body("생년월일은 필수 항목입니다.");
+        }
+
+        User user = new User();
+        user.setUserNo(userDetails.getUserNo());
+        user.setUserBirthday(request.getUserBirthday());
+        user.setUserGender(request.getUserGender());
+        user.setUserHeight(request.getUserHeight());
+        user.setUserWeight(request.getUserWeight());
+
+        int result = userService.updateUser(user);
+        return result > 0
+            ? ResponseEntity.ok("추가 정보 저장 완료")
+            : ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("추가 정보 저장 실패");
+    }
+
+    // UserService.java (인터페이스)에는 이미 updateUser(User user) 존재함
+
+    //UserServiceImpl.java 내부에도 updateUser(User user) 호출 방식은 그대로 사용 가능
+
 }
