@@ -43,7 +43,6 @@ public class MealReportServiceImpl implements MealReportService{
 	
 		// 끼니별 칼로리 분석
 		ReportWeeklyResponse mealTimeNutriAvg = mealDao.selectWeeklyMealTimeNutriAvg(userNo);
-		System.out.println(mealTimeNutriAvg);
 		if(mealTimeNutriAvg != null) {
 			weeklyResponse.setAvgBreakfastEnergy(mealTimeNutriAvg.getAvgBreakfastEnergy());
 			weeklyResponse.setAvgLunchEnergy(mealTimeNutriAvg.getAvgLunchEnergy());
@@ -82,12 +81,10 @@ public class MealReportServiceImpl implements MealReportService{
 		monthlyResponse.setAvgMonthlyTotalFattyAcids(weekDayAvg.getAvgMonthlyTotalFattyAcids());
 		monthlyResponse.setAvgMonthlySodium(weekDayAvg.getAvgMonthlySodium());
 		monthlyResponse.setAvgMonthlySugar(weekDayAvg.getAvgMonthlySugar());
-		
 		User user = userDao.getUserByUserNo(userNo);
 	    if (user == null) throw new IllegalArgumentException("사용자 없음");
 
 	    int score = calculateMonthlyScore(userNo, monthlyResponse);
-	    System.out.println(score);
 	    monthlyResponse.setMonthlyScore(score);
 		
 		return monthlyResponse;
@@ -129,7 +126,6 @@ public class MealReportServiceImpl implements MealReportService{
 	    double ruleScore = (b >= 15 && l >= 15 && d >= 15) ? 30
 	                     : (b >= 7 && l >= 7 && d >= 7) ? 20 : 10;
 
-	    System.out.println("calorie=" + calorieScore + " / balance=" + balanceScore + " / rule=" + ruleScore);
 	    return (int)(calorieScore + balanceScore + ruleScore);
 	}
 
