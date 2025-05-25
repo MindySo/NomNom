@@ -1,11 +1,9 @@
 package com.ssafy.nomnom.model.service.meal;
 
 import com.ssafy.nomnom.model.dto.meal.MealRequest;
-import com.ssafy.nomnom.model.dto.meal.MealResponse;
 import com.ssafy.nomnom.model.dto.meal.ReportDayResponse;
 import com.ssafy.nomnom.model.dto.meal.ReportMonthlyResponse;
 import com.ssafy.nomnom.model.dto.meal.ReportWeeklyResponse;
-import com.ssafy.nomnom.model.dto.user.User;
 import com.ssafy.nomnom.model.dto.meal.NutriStandardResponse;
 
 public interface MealReportService {
