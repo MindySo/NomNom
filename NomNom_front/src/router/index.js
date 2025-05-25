@@ -1,22 +1,22 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import MainView from '../views/MainView.vue'
-import MealView from '../views/MealView.vue'
-import MealList from '../components/meal/MealList.vue'
-import MealDetail from '../components/meal/MealDetail.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+import MainView from '../views/MainView.vue';
+import MealView from '../views/MealView.vue';
+import MealList from '../components/meal/MealList.vue';
+import MealDetail from '../components/meal/MealDetail.vue';
 
-import ChallengeView from '../views/ChallengeView.vue'
-import ChallengeList from '../components/challenge/ChallengeList.vue'
-import ChallengeDetail from '../components/challenge/ChallengeDetail.vue'
+import ChallengeView from '../views/ChallengeView.vue';
+import ChallengeList from '../components/challenge/ChallengeList.vue';
+import ChallengeDetail from '../components/challenge/ChallengeDetail.vue';
 
-import CommunityView from '../views/CommunityView.vue'
-import CommunityList from '../components/community/CommunityList.vue'
-import CommunityDetail from '../components/community/CommunityDetail.vue'
+import CommunityView from '../views/CommunityView.vue';
+import CommunityList from '../components/community/CommunityList.vue';
+import CommunityDetail from '../components/community/CommunityDetail.vue';
 
-import MypageView from '../views/ChallengeView.vue'
-import MypageList from '../components/mypage/MypageList.vue'
-import MypageChallenge from '../components/mypage/MypageChallenge.vue'
-import MypagePointlog from '../components/mypage/MypagePointlog.vue'
-import MypageUserinfo from '../components/mypage/MypageUserinfo.vue'
+import MypageView from '../views/ChallengeView.vue';
+import MypageList from '../components/mypage/MypageList.vue';
+import MypageChallenge from '../components/mypage/MypageChallenge.vue';
+import MypagePointlog from '../components/mypage/MypagePointlog.vue';
+import MypageUserinfo from '../components/mypage/MypageUserinfo.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -34,14 +34,14 @@ const router = createRouter({
         {
           path: '',
           name: 'mealList',
-          component: MealList
+          component: MealList,
         },
         {
           path: 'detail/:regDate',
           name: 'mealDetail',
-          component: MealDetail
+          component: MealDetail,
         },
-      ]
+      ],
     },
     {
       path: '/challenge',
@@ -51,14 +51,14 @@ const router = createRouter({
         {
           path: '',
           name: 'challengeList',
-          component: ChallengeList
+          component: ChallengeList,
         },
         {
           path: 'detail/:id',
           name: 'challengeDetail',
-          component: ChallengeDetail
+          component: ChallengeDetail,
         },
-      ]
+      ],
     },
     {
       path: '/community',
@@ -68,14 +68,14 @@ const router = createRouter({
         {
           path: '',
           name: 'communityList',
-          component: CommunityList
+          component: CommunityList,
         },
         {
           path: 'detail/:id',
           name: 'communityDetail',
-          component: CommunityDetail
+          component: CommunityDetail,
         },
-      ]
+      ],
     },
     {
       path: '/mypage',
@@ -85,26 +85,26 @@ const router = createRouter({
         {
           path: '',
           name: 'mypageList',
-          component: MypageList
+          component: MypageList,
         },
         {
           path: '',
           name: 'mypageChallenge',
-          component: MypageChallenge
+          component: MypageChallenge,
         },
         {
           path: 'detail/',
           name: 'mypagePointlog',
-          component: MypagePointlog
+          component: MypagePointlog,
         },
-         {
+        {
           path: 'detail/',
           name: 'mypageUserinfo',
-          component: MypageUserinfo
+          component: MypageUserinfo,
         },
-      ]
+      ],
     },
   ],
-})
+});
 // router.beforeEach
-export default router
+export default router;
