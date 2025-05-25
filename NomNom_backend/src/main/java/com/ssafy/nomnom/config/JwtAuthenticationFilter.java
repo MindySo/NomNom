@@ -38,21 +38,29 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
 			if (jwtTokenProvider.validateToken(token)) {
 				try {
+					// 토큰에서 사용자 이메일 추출
 					String email = jwtTokenProvider.getEmailFromToken(token);
+
+					// 이메일로 사용자 정보 조회
 					UserDetails userDetails = userDetailsService.loadUserByUsername(email);
 
-					UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails,
-							null, userDetails.getAuthorities());
+					// 인증 객체 생성 및 SecurityContext에 설정
+					UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
+							userDetails, null, userDetails.getAuthorities());
 
 					SecurityContextHolder.getContext().setAuthentication(authToken);
 				} catch (Exception e) {
+					// 사용자 인증 실패 처리
 					response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-					response.getWriter().write("User authentication failed: " + e.getMessage());
+					response.setContentType("application/json;charset=UTF-8");
+					response.getWriter().write("{\"error\": \"User authentication failed: " + e.getMessage() + "\"}");
 					return;
 				}
 			} else {
+				// 토큰 유효성 검증 실패 처리
 				response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-				response.getWriter().write("Invalid or expired JWT token");
+				response.setContentType("application/json;charset=UTF-8");
+				response.getWriter().write("{\"error\": \"Invalid or expired JWT token\"}");
 				return;
 			}
 		}

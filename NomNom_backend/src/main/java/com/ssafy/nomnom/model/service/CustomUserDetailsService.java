@@ -9,6 +9,9 @@ import com.ssafy.nomnom.model.dao.UserDao;
 import com.ssafy.nomnom.model.dto.user.User;
 import com.ssafy.nomnom.model.dto.user.CustomUserDetails;
 
+/**
+ * JWT 인증 시 사용자를 로드해주는 서비스
+ */
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
