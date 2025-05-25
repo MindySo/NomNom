@@ -76,5 +76,11 @@
 		SELECT allergy_no FROM allergy WHERE name =
 		#{allergy}
 	</select>
+	
+	<!-- userNo로 유저 정보 조회 -->
+	<select id="getUserByUserNo" parameterType="int"
+		resultType="User">
+		SELECT * FROM user WHERE user_no = #{userNo}
+	</select>
 
 </mapper>
