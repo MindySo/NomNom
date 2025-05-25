@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, computed, watch } from 'vue';
+import { ref, onMounted, computed, watch, nextTick } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
 
@@ -7,35 +7,9 @@ import WeeklyReport from '@/components/meal/WeeklyReport.vue';
 import MonthlyReport from '@/components/meal/MonthlyReport.vue';
 import RegisterMealModal from '@/components/meal/RegisterMealModal.vue';
 
-const selectedDate = ref(new Date().toISOString().slice(0, 10)); // YYYY-MM-DD
-const userNo = 1;
-
-// 날짜 선택 로직
-// 포맷: 2024년 6월 24일 (월)
-const formattedDate = computed(() => {
-  const d = new Date(selectedDate.value);
-  const weekdays = ['일', '월', '화', '수', '목', '금', '토'];
-  return `${d.getFullYear()}년 ${d.getMonth() + 1}월 ${d.getDate()}일 (${
-    weekdays[d.getDay()]
-  })`;
-});
-
-// 날짜 변경 (하루 단위)
-function changeDate(delta) {
-  const d = new Date(selectedDate.value);
-  d.setDate(d.getDate() + delta);
-  selectedDate.value = d.toISOString().slice(0, 10);
-}
-
-// 날짜 변경시 호출
-function onDateChange(event) {
-  selectedDate.value = event.target.value;
-  // 여기에 날짜 기반 로직 추가하면 됨 (ex. fetchDataByDate(selectedDate.value))
-}
-
-watch(selectedDate, (newDate) => {
-  fetchAllReports(newDate);
-});
+// 날짜 선택 ///////////////////////////////////////////////////////////////////////////////
+const selectedDate = ref('');
+// selectedDate.value = new Date().toISOString().split('T')[0];
 
 // Pinia : 사용자 맞춤 영양소 권장량 store ///////////////////////////////////////////////////
 import { userNutritionStore } from '@/stores/meal/nutritionStore';
@@ -49,21 +23,53 @@ const reportStore = useReportStore();
 import { useChartRender } from '@/stores/meal/chartRenderStore';
 const chartRender = useChartRender();
 
-// 값 순서대로 가져오기 //////////////////////////////////////////////////////////////////////
-async function fetchAllReports(date) {
-  await nutritionStore.fetchNutriStandard(userNo);
-  await reportStore.fetchMeals(userNo, date);
-  await reportStore.fetchDayReport(userNo, date);
-  await reportStore.fetchWeeklyReport(userNo);
-  await reportStore.fetchMonthlyReport(userNo);
+// 날짜 포맷 표시: 2024. 06. 24 (월)
+function formatDateForDisplay(isoDate) {
+  if (!isoDate) return '';
+  const date = new Date(isoDate);
+  const weekDay = ['일', '월', '화', '수', '목', '금', '토'][date.getDay()];
+  return `${date.getFullYear()}. ${String(date.getMonth() + 1).padStart(
+    2,
+    '0'
+  )}. ${String(date.getDate()).padStart(2, '0')} (${weekDay})`;
+}
 
-  requestDayReport();
+const userNo = 1;
+// 값 순서대로 가져오기 //////////////////////////////////////////////////////////////////////
+async function fetchAllReports() {
+  selectedDate.value = new Date().toISOString().split('T')[0];
+  console.log('MealList-fetchAllReports' + selectedDate);
+
+  console.time('fetchNutriStandard');
+  await nutritionStore.fetchNutriStandard(userNo);
+  console.timeEnd('fetchNutriStandard');
+
+  console.time('fetchMeals');
+  await reportStore.fetchMeals(userNo, selectedDate.value);
+  console.timeEnd('fetchMeals');
+
+  await Promise.all([
+    reportStore.fetchDayReport(userNo, selectedDate.value),
+    reportStore.fetchWeeklyReport(userNo),
+    reportStore.fetchMonthlyReport(userNo),
+  ]);
+
+  console.time('requestDayReport');
+  requestDayReport(selectedDate.value);
+  console.timeEnd('requestDayReport');
 }
 
 // onMounted //////////////////////////////////////////////////////////////////////////////
-onMounted(() => {
+onMounted(async () => {
+  await nextTick();
   fetchAllReports();
 });
+
+// 식단 등록 시 데이터 다시 받아옴 ////////////////////////////////////////////////////////////
+const onMealRegistered = async () => {
+  await nextTick();
+  fetchAllReports();
+};
 
 const requestMealDetail = (id) => {
   // detail 페이지의 라우터 정보를 줘야 함.
@@ -100,12 +106,12 @@ function convertMealTime(time) {
   return time;
 }
 
-// 날짜 포맷 (YYYY-MM-DD -> M월 D일)
-function formatDate(date) {
-  if (!date) return '';
-  const d = new Date(date);
-  return `${d.getMonth() + 1}월 ${d.getDate()}일`;
-}
+// // 날짜 포맷 (YYYY-MM-DD -> M월 D일)
+// function formatDate(date) {
+//   if (!date) return '';
+//   const d = new Date(date);
+//   return `${d.getMonth() + 1}월 ${d.getDate()}일`;
+// }
 
 // 더미 이미지 경로 지정
 function getImagePath(index) {
@@ -516,6 +522,7 @@ function openWaterModal() {
                             <canvas
                               class="chart-bar"
                               ref="dailyCarbChart"
+                              style="width: 100%"
                             ></canvas>
                           </div>
                         </div>
@@ -546,6 +553,7 @@ function openWaterModal() {
                             <canvas
                               class="chart-bar"
                               ref="dailyProteinChart"
+                              style="width: 100%"
                             ></canvas>
                           </div>
                         </div>
@@ -570,6 +578,7 @@ function openWaterModal() {
                             <canvas
                               class="chart-bar"
                               ref="dailyFatChart"
+                              style="width: 100%"
                             ></canvas>
                           </div>
                         </div>
@@ -770,5 +779,9 @@ function openWaterModal() {
   </div>
 
   <!-- 식단 추가 모달 -->
-  <RegisterMealModal :show="showMealModal" @close="showMealModal = false" />
+  <RegisterMealModal
+    :show="showMealModal"
+    @close="showMealModal = false"
+    @mealRegistered="onMealRegistered"
+  />
 </template>

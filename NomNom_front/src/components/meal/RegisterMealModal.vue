@@ -249,6 +249,7 @@ async function submitMeal() {
     });
 
     alert('식단 등록 완료!');
+    emit('mealRegistered');
     closeModal();
   } catch (err) {
     console.error('등록 실패:', err);
