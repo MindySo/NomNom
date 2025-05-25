@@ -6,6 +6,7 @@ import { useRouter } from 'vue-router';
 import WeeklyReport from '@/components/meal/WeeklyReport.vue';
 import MonthlyReport from '@/components/meal/MonthlyReport.vue';
 import RegisterMealModal from '@/components/meal/RegisterMealModal.vue';
+import RegisterWaterModal from '@/components/meal/RegisterWaterModal.vue';
 
 // 날짜 선택 ///////////////////////////////////////////////////////////////////////////////
 const selectedDate = ref('');
@@ -83,7 +84,7 @@ onMounted(async () => {
 });
 
 // 식단 등록 시 데이터 다시 받아옴 ////////////////////////////////////////////////////////////
-const onMealRegistered = async () => {
+const onWaterOrMealRegistered = async () => {
   window.location.reload();
 };
 
@@ -195,6 +196,7 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
+import MealDetailModal from './MealDetailModal.vue';
 
 Chart.register(
   DoughnutController,
@@ -220,7 +222,7 @@ function openMealModal() {
   showMealModal.value = true;
 }
 function openWaterModal() {
-  showMealModal.value = true;
+  showWaterModal.value = true;
 }
 </script>
 
@@ -397,6 +399,7 @@ function openWaterModal() {
                     v-for="(meal, index) in reportStore.meals"
                     :key="meal.mealNo"
                     class="card-list-all-menu2"
+                    @click="openMealDetailModal"
                   >
                     <div class="image">
                       <img
@@ -798,6 +801,19 @@ function openWaterModal() {
   <RegisterMealModal
     :show="showMealModal"
     @close="showMealModal = false"
-    @mealRegistered="onMealRegistered"
+    @mealRegistered="onWaterOrMealRegistered"
+  />
+
+  <!-- 물 추가 모달 -->
+  <RegisterWaterModal
+    :show="showWaterModal"
+    @close="showWaterModal = false"
+    @waterRegistered="onWaterOrMealRegistered"
+  />
+
+  <!-- 상세보기 모달 -->
+  <MealDetailModal
+    :show="showMealDetailModal"
+    @close="showMealDetailModal = false"
   />
 </template>
