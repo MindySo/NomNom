@@ -9,6 +9,7 @@ import RegisterMealModal from '@/components/meal/RegisterMealModal.vue';
 
 // 날짜 선택 ///////////////////////////////////////////////////////////////////////////////
 const selectedDate = ref('');
+
 // selectedDate.value = new Date().toISOString().split('T')[0];
 
 // Pinia : 사용자 맞춤 영양소 권장량 store ///////////////////////////////////////////////////
@@ -34,10 +35,25 @@ function formatDateForDisplay(isoDate) {
   )}. ${String(date.getDate()).padStart(2, '0')} (${weekDay})`;
 }
 
+// 날짜 +- 1
+function changeDate(val) {
+  const date = new Date(selectedDate.value); // 문자열을 Date 객체로 변환
+  date.setDate(date.getDate() + val); // 날짜 조작
+  selectedDate.value = date.toISOString().slice(0, 10); // yyyy-MM-dd 형식으로 다시 저장
+
+  console.log('changeDate', selectedDate.value);
+}
+
+// 날짜 변경 추적 ///////////////////////////////////////////////////////////////////////////
+watch(selectedDate, async (newDate, oldDate) => {
+  console.log('날짜 변경됨:', oldDate, '→', newDate);
+  await nextTick();
+  fetchAllReports();
+});
+
 const userNo = 1;
 // 값 순서대로 가져오기 //////////////////////////////////////////////////////////////////////
 async function fetchAllReports() {
-  selectedDate.value = new Date().toISOString().split('T')[0];
   console.log('MealList-fetchAllReports' + selectedDate);
 
   console.time('fetchNutriStandard');
@@ -61,14 +77,14 @@ async function fetchAllReports() {
 
 // onMounted //////////////////////////////////////////////////////////////////////////////
 onMounted(async () => {
-  await nextTick();
-  fetchAllReports();
+  selectedDate.value = new Date().toISOString().split('T')[0];
+  // await nextTick();
+  // fetchAllReports();
 });
 
 // 식단 등록 시 데이터 다시 받아옴 ////////////////////////////////////////////////////////////
 const onMealRegistered = async () => {
-  await nextTick();
-  fetchAllReports();
+  window.location.reload();
 };
 
 const requestMealDetail = (id) => {
