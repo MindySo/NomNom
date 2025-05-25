@@ -60,6 +60,12 @@ public class MealServiceImpl implements MealService {
 		}
 	}
 
+
+	@Override
+	public void writeMealFood(MealFood mealFood) {
+		mealDao.insertMealFood(mealFood);
+	};
+	
 	@Override
 	public void updateMeal(Meal meal) {
 		mealDao.updateMeal(meal);
@@ -90,5 +96,6 @@ public class MealServiceImpl implements MealService {
 	@Override
 	public List<MealResponse> getWaterListByUserAndRegDate(MealRequest meal){
 		return mealDao.selectWaterListByUserAndRegDate(meal);
-	};
+	}
+
 }
