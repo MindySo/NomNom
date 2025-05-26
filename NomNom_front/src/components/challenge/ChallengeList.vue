@@ -1,8 +1,38 @@
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
+import axios from "axios";
 
 const router = useRouter();
+
+const missionList = ref([]);
+const selectedMission = ref(null);
+const showModal = ref(false);
+
+const openModal = (mission) => {
+  selectedMission.value = mission;
+  showModal.value = true;
+};
+
+const closeModal = () => {
+  showModal.value = false;
+  selectedMission.value = null;
+};
+
+onMounted(async () => {
+  const { data } = await axios.get("http://localhost:8080/api/mission/list", {
+    params: { userNo: 1 },
+  });
+  missionList.value = data;
+});
+
+onMounted(async () => {
+  const response = await axios.get("http://localhost:8080/api/mission/list", {
+    params: { userNo: 1 },
+  });
+  missionList.value = response.data;
+  console.log(missionList);
+});
 </script>
 
 <style>
@@ -91,183 +121,24 @@ const router = useRouter();
         </div>
         <div class="frame-112">
           <div class="cards">
-            <div class="card-popular-menu">
+            <div v-for="mission in missionList" :key="mission.missionNo" :class="mission.inProgress ? 'card-popular-menu2' : 'card-popular-menu'" @click="openModal(mission)">
               <div class="image">
-                <img
-                  class="carrot-vegetables-autumn-easter-3-d-vector-icon-cartoon-minimal-style"
-                  src="@/assets/images/challenge/ChallengeList/carrot-vegetables-autumn-easter-3-d-vector-icon-cartoon-minimal-style.png"
-                />
+                <img class="mission-image" src="@/assets/images/challenge/ChallengeList/carrot-vegetables-autumn-easter-3-d-vector-icon-cartoon-minimal-style.png" />
               </div>
               <div class="frame-113">
-                <div class="title4">
-                  하루 한끼
-                  <br />
-                  생 채소 먹기
-                </div>
-              </div>
-              <div class="frame-114">
-                <div class="title5">30일 성공하면</div>
-                <div class="button-more">
-                  <div class="title6">+ 15 포인트</div>
-                </div>
-              </div>
-            </div>
-            <div class="card-popular-menu2">
-              <div class="image">
-                <img
-                  class="carrot-vegetables-autumn-easter-3-d-vector-icon-cartoon-minimal-style"
-                  src="@/assets/images/challenge/ChallengeList/carrot-vegetables-autumn-easter-3-d-vector-icon-cartoon-minimal-style.png"
-                />
-              </div>
-              <div class="frame-113">
-                <div class="button-more2">
+                <div v-if="mission.inProgress" class="button-more2">
                   <div class="title6">참여중</div>
                 </div>
-                <div class="title4">
-                  하루 한끼
-                  <br />
-                  생 채소 먹기
-                </div>
-              </div>
-              <div class="frame-114">
-                <div class="title5">30일 성공하면</div>
-                <div class="button-more">
-                  <div class="title6">+ 15 포인트</div>
-                </div>
-              </div>
-            </div>
-            <div class="card-popular-menu">
-              <div class="image">
-                <img
-                  class="carrot-vegetables-autumn-easter-3-d-vector-icon-cartoon-minimal-style"
-                  src="@/assets/images/challenge/ChallengeList/carrot-vegetables-autumn-easter-3-d-vector-icon-cartoon-minimal-style.png"
-                />
-              </div>
-              <div class="frame-113">
-                <div class="button-more3">
+                <div v-else-if="mission.completedCount > 0" class="button-more3">
                   <img class="icon-check" src="@/assets/images/challenge/ChallengeList/icon-check1.svg" />
-                  <div class="title7">2회</div>
+                  <div class="title7">{{ mission.completedCount }}회</div>
                 </div>
                 <div class="title4">
-                  하루 한끼
-                  <br />
-                  생 채소 먹기
+                  {{ mission.missionName }}
                 </div>
               </div>
               <div class="frame-114">
-                <div class="title5">30일 성공하면</div>
-                <div class="button-more">
-                  <div class="title6">+ 15 포인트</div>
-                </div>
-              </div>
-            </div>
-            <div class="card-popular-menu">
-              <div class="image">
-                <img
-                  class="carrot-vegetables-autumn-easter-3-d-vector-icon-cartoon-minimal-style"
-                  src="@/assets/images/challenge/ChallengeList/carrot-vegetables-autumn-easter-3-d-vector-icon-cartoon-minimal-style.png"
-                />
-              </div>
-              <div class="frame-113">
-                <div class="title4">
-                  하루 한끼
-                  <br />
-                  생 채소 먹기
-                </div>
-              </div>
-              <div class="frame-114">
-                <div class="title5">30일 성공하면</div>
-                <div class="button-more">
-                  <div class="title6">+ 15 포인트</div>
-                </div>
-              </div>
-            </div>
-            <div class="card-popular-menu">
-              <div class="image">
-                <img
-                  class="carrot-vegetables-autumn-easter-3-d-vector-icon-cartoon-minimal-style"
-                  src="@/assets/images/challenge/ChallengeList/carrot-vegetables-autumn-easter-3-d-vector-icon-cartoon-minimal-style.png"
-                />
-              </div>
-              <div class="frame-113">
-                <div class="button-more3">
-                  <img class="icon-check2" src="@/assets/images/challenge/ChallengeList/icon-check1.svg" />
-                  <div class="title7">2회</div>
-                </div>
-                <div class="title4">
-                  하루 한끼
-                  <br />
-                  생 채소 먹기
-                </div>
-              </div>
-              <div class="frame-114">
-                <div class="title5">30일 성공하면</div>
-                <div class="button-more">
-                  <div class="title6">+ 15 포인트</div>
-                </div>
-              </div>
-            </div>
-            <div class="card-popular-menu">
-              <div class="image">
-                <img
-                  class="carrot-vegetables-autumn-easter-3-d-vector-icon-cartoon-minimal-style"
-                  src="@/assets/images/challenge/ChallengeList/carrot-vegetables-autumn-easter-3-d-vector-icon-cartoon-minimal-style.png"
-                />
-              </div>
-              <div class="frame-113">
-                <div class="title4">
-                  하루 한끼
-                  <br />
-                  생 채소 먹기
-                </div>
-              </div>
-              <div class="frame-114">
-                <div class="title5">30일 성공하면</div>
-                <div class="button-more">
-                  <div class="title6">+ 15 포인트</div>
-                </div>
-              </div>
-            </div>
-            <div class="card-popular-menu2">
-              <div class="image">
-                <img
-                  class="carrot-vegetables-autumn-easter-3-d-vector-icon-cartoon-minimal-style"
-                  src="@/assets/images/challenge/ChallengeList/carrot-vegetables-autumn-easter-3-d-vector-icon-cartoon-minimal-style.png"
-                />
-              </div>
-              <div class="frame-113">
-                <div class="button-more2">
-                  <div class="title6">참여중</div>
-                </div>
-                <div class="title4">
-                  하루 한끼
-                  <br />
-                  생 채소 먹기
-                </div>
-              </div>
-              <div class="frame-114">
-                <div class="title5">30일 성공하면</div>
-                <div class="button-more">
-                  <div class="title6">+ 15 포인트</div>
-                </div>
-              </div>
-            </div>
-            <div class="card-popular-menu">
-              <div class="image">
-                <img
-                  class="carrot-vegetables-autumn-easter-3-d-vector-icon-cartoon-minimal-style"
-                  src="@/assets/images/challenge/ChallengeList/carrot-vegetables-autumn-easter-3-d-vector-icon-cartoon-minimal-style.png"
-                />
-              </div>
-              <div class="frame-113">
-                <div class="title4">
-                  하루 한끼
-                  <br />
-                  생 채소 먹기
-                </div>
-              </div>
-              <div class="frame-114">
-                <div class="title5">30일 성공하면</div>
+                <div class="title5">{{ mission.challengeDuration }}일 성공하면</div>
                 <div class="button-more">
                   <div class="title6">+ 15 포인트</div>
                 </div>
@@ -291,35 +162,35 @@ const router = useRouter();
   </div>
 
   <!-- 챌린지 상세 모달 -->
-  <div class="modal">
+  <!-- 모달 전체 -->
+  <div v-if="showModal" class="modal-overlay" @click.self="closeModal">
     <div class="modal-body">
+      <!-- 이미지 -->
       <div class="modal-image">
-        <img class="modal-carrot-vegetables-autumn-easter-3-d-vector-icon-cartoon-minimal-style" src="@/assets/images/challenge/ChallengeList/blur-carrot.png" />
+        <img class="modal-carrot" src="@/assets/images/challenge/ChallengeList/blur-carrot.png" />
       </div>
+
+      <!-- 텍스트 정보 -->
       <div class="modal-header">
         <div class="modal-title">
-          하루 한끼
-          <br />
-          생 채소 먹기
+          {{ selectedMission?.missionName }}
         </div>
         <div class="modal-sub-title">
-          하루에 한 끼는 꼭 생 채소를 먹어보아요.
-          <br />
-          식단 등록에서 사진을 첨부하면
-          <br />
-          냠냠코치가 체크하고 미션 기록을 적립해요.
+          {{ selectedMission?.missionDescription }}
         </div>
         <div class="modal-frame-11">
-          <div class="modal-title2">30일 연속으로 성공하면</div>
+          <div class="modal-title2">{{ selectedMission?.challengeDuration }}일 연속으로 성공하면</div>
           <div class="modal-button-more">
             <div class="modal-title3">+ 15 포인트</div>
           </div>
         </div>
-        <div class="modal-button-more2">
+        <button class="modal-button-more2" :disabled="selectedMission?.inProgress">
           <div class="modal-text">
-            <div class="modal-label">오늘부터 챌린지 시작하기!</div>
+            <div class="modal-label">
+              {{ selectedMission?.inProgress ? "지금 참여 중인 챌린지예요." : "오늘부터 챌린지 시작하기!" }}
+            </div>
           </div>
-        </div>
+        </button>
       </div>
     </div>
   </div>
