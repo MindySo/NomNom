@@ -14,6 +14,7 @@ import com.ssafy.nomnom.model.dto.meal.ReportDayResponse;
 import com.ssafy.nomnom.model.dto.meal.ReportMonthlyResponse;
 import com.ssafy.nomnom.model.dto.meal.ReportWeeklyResponse;
 import com.ssafy.nomnom.model.dto.meal.SimpleFoodResponse;
+import com.ssafy.nomnom.model.dto.meal.Water;
 
 @Repository
 public interface MealDao {
@@ -54,7 +55,7 @@ public interface MealDao {
 	int deleteMealFoodByMealFoodNo(int mealFoodNo);
 
 	// 물 섭취 목록 조회(enum='WATER')(사용자별/일자)
-	List<MealResponse> selectWaterListByUserAndRegDate(MealRequest meal);
+	List<Water> selectWaterListByUserAndRegDate(MealRequest meal);
 
 	////// MealReport(리포트) //////
 
