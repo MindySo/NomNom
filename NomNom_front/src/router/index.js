@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import MainView from '../views/MainView.vue';
 import MealView from '../views/MealView.vue';
 import MealList from '../components/meal/MealList.vue';
-import MealDetail from '../components/meal/MealDetail.vue';
+import MealDetailModal from '../components/meal/MealDetailModal.vue';
 
 import ChallengeView from '../views/ChallengeView.vue';
 import ChallengeList from '../components/challenge/ChallengeList.vue';
@@ -38,8 +38,8 @@ const router = createRouter({
         },
         {
           path: 'detail/:regDate',
-          name: 'mealDetail',
-          component: MealDetail,
+          name: 'mealDetailModal',
+          component: MealDetailModal,
         },
       ],
     },
