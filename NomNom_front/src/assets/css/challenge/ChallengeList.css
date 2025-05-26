@@ -411,8 +411,9 @@
   gap: 50px 90px;
   justify-content: center;
   padding: 20px;
-  width: 40%;
+  width: 100%;
   box-sizing: border-box;
+  justify-items: center;
 }
 .card-popular-menu {
   background: var(--white, #fefcfb);
@@ -434,8 +435,8 @@
   width: 56px;
   height: 49px;
   position: absolute;
-  left: 60.5px;
-  top: 58px;
+  left: 8.5px;
+  top: 25px;
 }
 .carrot-vegetables-autumn-easter-3-d-vector-icon-cartoon-minimal-style {
   width: 172.94px;
@@ -468,6 +469,9 @@
   font-weight: 600;
   position: relative;
   width: 169px;
+  word-break: keep-all;
+  white-space: normal;
+  padding-left: 40px;
 }
 .frame-114 {
   display: flex;
@@ -525,8 +529,6 @@
   height: 323px;
   position: relative;
   box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.15);
-  grid-column: NaN / span undefined;
-  grid-row: NaN / span undefined;
 }
 .button-more2 {
   background: var(--gray-10, #bebfc2);
@@ -720,8 +722,8 @@
   width: 56px;
   height: 49px;
   position: absolute;
-  left: 433px;
-  top: 100px;
+  left: 190px;
+  top: 30px;
 }
 .modal-carrot-vegetables-autumn-easter-3-d-vector-icon-cartoon-minimal-style {
   width: 330modal-83px;
@@ -736,7 +738,7 @@
   aspect-ratio: 330modal-83/310modal-17;
 }
 .modal-header {
-  padding: 80px 0px 0px 0px;
+  padding: 120px 30px 70px 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -754,16 +756,22 @@
   font-weight: 600;
   position: relative;
   align-self: stretch;
+  word-break: keep-all;
+  white-space: normal;
+  padding-right: 167px;
 }
 .modal-sub-title {
   color: var(--gray-20, #8a8c90);
   text-align: left;
   font-family: "Poppins-Regular", sans-serif;
   font-size: 20px;
-  line-height: 180%;
+  line-height: 220%;
   font-weight: 400;
   position: relative;
   align-self: stretch;
+  word-break: keep-all;
+  white-space: normal;
+  padding-right: 25px;
 }
 .modal-frame-11 {
   display: flex;
@@ -835,4 +843,37 @@
   line-height: var(--btn-14px-medium-line-height, 100%);
   font-weight: var(--btn-14px-medium-font-weight, 500);
   position: relative;
+}
+.modal-button-more2:disabled {
+  background-color: #e0e0e0;
+  color: #888;
+  cursor: default;
+}
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal-body {
+  background: white;
+  border-radius: 16px;
+  padding: 40px;
+  width: 90%;
+  max-width: 500px;
+  height: 720px;
+  position: relative;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  align-self: auto;
+}
+
+.modal-close:hover {
+  color: #888;
 }
