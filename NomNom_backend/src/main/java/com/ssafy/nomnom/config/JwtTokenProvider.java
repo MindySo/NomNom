@@ -13,6 +13,9 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 
+/**
+ * JWT 토큰 생성 및 검증 유틸
+ */
 @Component
 public class JwtTokenProvider {
 

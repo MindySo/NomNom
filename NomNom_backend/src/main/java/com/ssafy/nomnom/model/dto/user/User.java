@@ -8,7 +8,7 @@ public class User {
     private String userId;
     private String userEmail;
     private String userPw;
-    private LocalDate userRegDate;
+    private LocalDate userCreatedAt;
     private LocalDate userBirthday;
     private String userGender;
     private String userRole;
@@ -22,6 +22,7 @@ public class User {
 	public User() {}
 	
 	
+	
 	public User(Integer userNo, String userId, String userEmail, String userPw, LocalDate userRegDate,
 			LocalDate userBirthday, String userGender, String userRole, Integer userHeight, Integer userWeight,
 			Integer userPoint) {
@@ -29,7 +30,7 @@ public class User {
 		this.userId = userId;
 		this.userEmail = userEmail;
 		this.userPw = userPw;
-		this.userRegDate = userRegDate;
+		this.userCreatedAt = userRegDate;
 		this.userBirthday = userBirthday;
 		this.userGender = userGender;
 		this.userRole = userRole;
@@ -64,10 +65,10 @@ public class User {
 		this.userPw = userPw;
 	}
 	public LocalDate getUserRegDate() {
-		return userRegDate;
+		return userCreatedAt;
 	}
 	public void setUserRegDate(LocalDate userRegDate) {
-		this.userRegDate = userRegDate;
+		this.userCreatedAt = userRegDate;
 	}
 	public LocalDate getUserBirthday() {
 		return userBirthday;
@@ -108,7 +109,7 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [userNo=" + userNo + ", userId=" + userId + ", userEmail=" + userEmail + ", userPw=" + userPw
-				+ ", userRegDate=" + userRegDate + ", userBirthday=" + userBirthday + ", userGender=" + userGender
+				+ ", userRegDate=" + userCreatedAt + ", userBirthday=" + userBirthday + ", userGender=" + userGender
 				+ ", userRole=" + userRole + ", userHeight=" + userHeight + ", userWeight=" + userWeight
 				+ ", userPoint=" + userPoint + "]";
 	}

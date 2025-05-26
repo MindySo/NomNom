@@ -11,6 +11,7 @@
 			user_id,
 			user_email,
 			user_pw,
+			user_role,
 			user_birthday,
 			<if test="userGender != null">user_gender,</if>
 			<if test="userHeight != null">user_height,</if>
@@ -21,12 +22,14 @@
 			#{userId},
 			#{userEmail},
 			#{userPw},
+			#{userRole},
 			#{userBirthday},
 			<if test="userGender != null">#{userGender},</if>
 			<if test="userHeight != null">#{userHeight},</if>
 			<if test="userWeight != null">#{userWeight},</if>
 		</trim>
 	</insert>
+
 
 	<!-- 마이페이지 조회 -->
 	<select id="getUserByEmail" parameterType="string"
