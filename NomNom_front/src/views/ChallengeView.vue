@@ -1,15 +1,6 @@
 <template>
-  <main>
-    <h1>챌린지 화면</h1>
-    <RouterView />
-  </main>
+  <RouterView />
 </template>
 
-<script setup>
-
-</script>
-<style scoped>
-
-</style>
-
-
+<script setup></script>
+<style scoped></style>
