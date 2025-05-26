@@ -12,7 +12,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.ssafy.nomnom.model.dao.UserDao;
 import com.ssafy.nomnom.model.service.CustomUserDetailsService;
-
+import static org.springframework.security.config.Customizer.withDefaults;
 /**
  * Spring Security 설정 클래스 - JWT 인증 설정 - OAuth2 로그인 성공 핸들러 연결
  */
@@ -31,37 +31,56 @@ public class SecurityConfig {
 		this.userDao = userDao;
 	}
 
-	@Bean
-	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		http
-				// ✅ 기본 인증 비활성화
-				.httpBasic().disable()
-				.formLogin().disable()
-				// ✅ CSRF 비활성화 (REST API용)
-				.csrf().disable()
-				// ✅ CORS 허용
-				.cors().and()
+	// 원 코드
+//	@Bean
+//	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+//		http
+//				// ✅ 기본 인증 비활성화
+//				.httpBasic().disable()
+//				.formLogin().disable()
+//				// ✅ CSRF 비활성화 (REST API용)
+//				.csrf().disable()
+//				// ✅ CORS 허용
+//				.cors().and()
+//
+//				// ✅ 요청 인증 규칙 설정
+//			    .authorizeHttpRequests()
+//			    .requestMatchers("/api/auth/**", "/login/**", "/oauth2/**").permitAll() // ✅ 꼭 이거 추가!
+//			    .requestMatchers("/api/boards/search").permitAll()
+//			    .anyRequest().authenticated().and()
+//
+//				// ✅ 소셜 로그인 설정
+//				.oauth2Login().successHandler(new OAuth2LoginSuccessHandler(jwtTokenProvider, userDao)) // 직접 생성자 주입
+//				.and()
+//
+//				// ✅ 세션 비활성화 (JWT 방식)
+//				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+//
+//				// ✅ JWT 인증 필터 등록
+//				.addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider, userDetailsService),
+//						UsernamePasswordAuthenticationFilter.class);
+//
+//		return http.build();
+//	}
 
-				// ✅ 요청 인증 규칙 설정
-			    .authorizeHttpRequests()
-			    .requestMatchers("/api/auth/**", "/login/**", "/oauth2/**").permitAll() // ✅ 꼭 이거 추가!
-			    .requestMatchers("/api/boards/search").permitAll()
-			    .anyRequest().authenticated().and()
+	
+	// 임시방편
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+            .cors(withDefaults()) // ✅ 자동으로 아래 corsConfigurationSource() 사용
+            .authorizeHttpRequests(auth -> auth
+                .anyRequest().permitAll() // ✅ 인증 없이 전부 허용 (개발용)
+            );
 
-				// ✅ 소셜 로그인 설정
-				.oauth2Login().successHandler(new OAuth2LoginSuccessHandler(jwtTokenProvider, userDao)) // 직접 생성자 주입
-				.and()
-
-				// ✅ 세션 비활성화 (JWT 방식)
-				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-
-				// ✅ JWT 인증 필터 등록
-				.addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider, userDetailsService),
-						UsernamePasswordAuthenticationFilter.class);
-
-		return http.build();
-	}
-
+        return http.build();
+    }
+	
+	
+	
+	
+	
+	
 	// ✅ 비밀번호 암호화 설정
 	@Bean
 	public PasswordEncoder passwordEncoder() {
