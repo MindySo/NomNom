@@ -26,6 +26,25 @@ Chart.register(
   Legend
 );
 
+const chartInstances = {};
+function renderChart(canvas, config) {
+  const ctx = canvas instanceof HTMLCanvasElement ? canvas : canvas.value;
+
+  // id가 없으면 내부적으로 관리할 수 없으므로 무작위 id 부여 (선택적)
+  if (!ctx.id) {
+    ctx.id = `chart-${Math.random().toString(36).substr(2, 9)}`;
+    console.warn(`⚠️ canvas에 id가 없어 자동 부여됨: ${ctx.id}`);
+  }
+
+  // 기존 차트가 있으면 파괴
+  if (chartInstances[ctx.id]) {
+    chartInstances[ctx.id].destroy();
+  }
+
+  const chart = new Chart(ctx, config);
+  chartInstances[ctx.id] = chart;
+}
+
 export const useChartRender = defineStore('chartRender', () => {
   // 일간 : 도넛
   const createDoughnutData = (value, goal, color) => {
@@ -98,7 +117,7 @@ export const useChartRender = defineStore('chartRender', () => {
     ctx.width = ctx.offsetWidth;
     ctx.height = 150;
 
-    new Chart(ctx, {
+    renderChart(ctx, {
       type: 'bar',
       data: createGroupBarData(dailySumList, 'weekly'),
       options: groupChartoptions,
@@ -113,7 +132,7 @@ export const useChartRender = defineStore('chartRender', () => {
     ctx.width = ctx.offsetWidth;
     ctx.height = 150;
 
-    new Chart(ctx, {
+    renderChart(ctx, {
       type: 'bar',
       data: createGroupBarData(dailySumList, 'monthly'),
       options: groupChartoptions,
@@ -289,7 +308,7 @@ export const useChartRender = defineStore('chartRender', () => {
   function drawDoughnutCharts(chart, value, unit, valueGoal, color) {
     const canvas = chart;
     canvas.height = 150;
-    new Chart(canvas, {
+    renderChart(canvas, {
       type: 'doughnut',
       data: createDoughnutData(value, valueGoal, color),
       options: {
@@ -308,7 +327,7 @@ export const useChartRender = defineStore('chartRender', () => {
     const canvas = chart;
     canvas.height = 8;
 
-    new Chart(canvas, {
+    renderChart(canvas, {
       type: 'bar',
       data: createBarData(label, value, valueGoal, color),
       options: {
@@ -348,5 +367,6 @@ export const useChartRender = defineStore('chartRender', () => {
     centerTextPlugin,
     drawDoughnutCharts,
     drawBarCharts,
+    renderChart,
   };
 });

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ssafy.nomnom.model.dto.meal.MealResponse;
 import com.ssafy.nomnom.model.dto.meal.SimpleFoodResponse;
+import com.ssafy.nomnom.model.dto.meal.Water;
 import com.ssafy.nomnom.model.dto.meal.Food;
 import com.ssafy.nomnom.model.dto.meal.Meal;
 import com.ssafy.nomnom.model.dto.meal.MealFood;
@@ -29,5 +30,5 @@ public interface MealService {
 
 	Food getFood(String foodCode);
 
-	List<MealResponse> getWaterListByUserAndRegDate(MealRequest meal);
+	List<Water> getWaterListByUserAndRegDate(MealRequest meal);
 }
