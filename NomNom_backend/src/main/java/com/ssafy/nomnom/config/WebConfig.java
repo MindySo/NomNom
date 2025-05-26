@@ -20,12 +20,12 @@ public class WebConfig implements WebMvcConfigurer {
 //		registry.addInterceptor(adminInterceptor).addPathPatterns("/users");
 //	}
 	
-//    @Override
-//    public void addCorsMappings(CorsRegistry registry) {
-//        registry.addMapping("/**") // 모든 경로에 대해
-//                .allowedOrigins("http://localhost:5173") // Vue 앱 도메인
-//                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // 필요한 메서드 허용
-//                .allowedHeaders("*")
-//                .allowCredentials(true);
-//    }
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**") // 모든 경로에 대해
+                .allowedOrigins("http://localhost:5173") // Vue 앱 도메인
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // 필요한 메서드 허용
+                .allowedHeaders("*")
+                .allowCredentials(true);
+    }
 }
