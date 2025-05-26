@@ -1,7 +1,11 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed, nextTick } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
+
+// 날짜 선택
+const selectedDate = ref('');
+// selectedDate.value = new Date().toISOString().split('T')[0];
 
 // chart.js //////////////////////////////////////////////////////////////////////
 import {
@@ -43,16 +47,20 @@ const userNo = 1;
 
 // 값 순서대로 가져오기 //////////////////////////////////////////////////////////////////////
 async function fetchAllReports() {
+  selectedDate.value = new Date().toISOString().split('T')[0];
+  console.log('MonthlyReport-fetchAllReports' + selectedDate);
+  await nextTick();
   await nutritionStore.fetchNutriStandard(userNo);
-  await reportStore.fetchMeals(userNo, '2025-05-21');
-  await reportStore.fetchDayReport(userNo, '2025-05-21');
+  await reportStore.fetchMeals(userNo, selectedDate.value);
+  await reportStore.fetchDayReport(userNo, selectedDate.value);
   await reportStore.fetchMonthlyReport(userNo);
 
   requestMonthlyReport();
 }
 
 // onMounted //////////////////////////////////////////////////////////////////////////////
-onMounted(() => {
+onMounted(async () => {
+  await nextTick();
   fetchAllReports();
 });
 
