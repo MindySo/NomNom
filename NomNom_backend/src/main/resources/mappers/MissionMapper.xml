@@ -13,11 +13,14 @@
 		missionName,
 		m.mission_description AS missionDescription,
 		m.challenge_duration AS challengeDuration,
+		m.image_url AS imageUrl,
+		m.mission_color AS missionColor,
 
 		CASE
 		WHEN EXISTS (
 		SELECT 1
-		FROM challenge c2
+		FROM
+		challenge c2
 		WHERE c2.mission_no = m.mission_no
 		AND c2.user_no =
 		#{userNo}
@@ -41,57 +44,72 @@
 
 	<!-- 사용자가 참여한 모든 챌린지 조회 -->
 	<select id="selectAllChallengeByUser" parameterType="int"
-		resultType="Challenge">
+		resultType="ChallengeResponse">
 		SELECT
-		challenge_no AS challengeNo,
-		user_no AS userId,
-		mission_no AS missionId,
-		challenge_start_date AS challengeStartDate,
-		challenge_current_streak AS challengeCurrentStreak,
-		challenge_status AS
-		challengeStatus,
-		FROM challenge
-		WHERE user_no = #{userNo}
+		c.challenge_no AS challengeNo,
+		c.user_no AS userId,
+		m.mission_no AS missionId,
+		m.image_url AS imageUrl,
+		m.mission_color AS
+		missionColor,
+		c.challenge_start_date AS challengeStartDate,
+		c.challenge_current_streak AS challengeCurrentStreak,
+		c.challenge_status AS challengeStatus
+		FROM challenge c
+		JOIN mission m ON
+		c.mission_no = m.mission_no
+		WHERE c.user_no = #{userNo}
 		ORDER BY
-		challenge_start_date DESC
+		c.challenge_start_date DESC
 	</select>
 
 	<!-- 사용자가 달성한 모든 챌린지 조회 -->
 	<select id="selectAllChallengeCompletedByUser"
-		parameterType="int" resultType="Challenge">
+		parameterType="int" resultType="ChallengeResponse">
 		SELECT
-		challenge_no AS challengeNo,
-		user_no AS userId,
-		mission_no AS missionId,
-		challenge_start_date AS
+		c.challenge_no AS challengeNo,
+		c.user_no AS userId,
+		m.mission_no AS missionId,
+		m.mission_name AS
+		missionName,
+		m.mission_color AS missionColor,
+		m.image_url AS imageUrl,
+		c.challenge_start_date AS
 		challengeStartDate,
-		challenge_current_streak AS challengeCurrentStreak,
-		challenge_status AS challengeStatus
-		FROM challenge
-		WHERE user_no =
+		c.challenge_current_streak AS challengeCurrentStreak,
+		c.challenge_status AS challengeStatus
+		FROM challenge c
+		JOIN mission m
+		WHERE c.mission_no = m.mission_no
+		AND user_no =
 		#{userNo}
-		AND challenge_status = 'COMPLETED'
+		AND
+		challenge_status = 'COMPLETED'
 		ORDER BY
 		challenge_start_date DESC
 	</select>
 
 	<!-- 사용자가 진행중인 모든 챌린지 조회 -->
 	<select id="selectAllChallengeInProgressByUser"
-		parameterType="int" resultType="Challenge">
+		parameterType="int" resultType="ChallengeResponse">
 		SELECT
-		challenge_no AS challengeNo,
-		user_no AS userId,
-		mission_no AS missionId,
-		challenge_start_date AS
-		challengeStartDate,
-		challenge_current_streak AS challengeCurrentStreak,
-		challenge_status AS challengeStatus
-		FROM challenge
-		WHERE user_no =
-		#{userNo}
-		AND challenge_status = 'IN_PROGRESS'
-		ORDER BY
-		challenge_start_date DESC
+		c.challenge_no AS challengeNo,
+		c.user_no AS userId,
+		m.mission_no AS missionId,
+		m.mission_name AS
+		missionName,
+		m.mission_color AS missionColor,
+		m.image_url AS imageUrl,
+		c.challenge_start_date AS challengeStartDate,
+		c.challenge_current_streak AS challengeCurrentStreak,
+		c.challenge_status AS challengeStatus
+		FROM challenge c
+		JOIN mission m ON
+		c.mission_no = m.mission_no
+		WHERE c.user_no = #{userNo}
+		AND
+		c.challenge_status = 'IN_PROGRESS'
+		ORDER BY c.challenge_start_date DESC
 	</select>
 
 
