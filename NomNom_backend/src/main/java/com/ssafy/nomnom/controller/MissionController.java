@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.ssafy.nomnom.model.dto.mission.Challenge;
+import com.ssafy.nomnom.model.dto.mission.ChallengeResponse;
 import com.ssafy.nomnom.model.dto.mission.MissionResponse;
 import com.ssafy.nomnom.model.service.mission.MissionService;
 
@@ -37,28 +37,28 @@ public class MissionController {
 	
 	@Operation(summary = "유저의 챌린지 내역 전체 조회")
 	@GetMapping("/challenge/all")
-	public ResponseEntity<List<Challenge>> getChallengesByUser(@RequestParam int userNo){
-		List<Challenge> challengeList = missionService.getChallengesByUser(userNo);
+	public ResponseEntity<List<ChallengeResponse>> getChallengesByUser(@RequestParam int userNo){
+		List<ChallengeResponse> challengeList = missionService.getChallengesByUser(userNo);
 		return ResponseEntity.ok(challengeList);
 	}
 	
 	@Operation(summary = "유저의 진행중인 챌린지 조회")
 	@GetMapping("/challenge/inprogress")
-	public ResponseEntity<List<Challenge>> getChallengesInProgressByUser(@RequestParam int userNo){
-		List<Challenge> challengeList = missionService.getChallengesInProgressByUser(userNo);
+	public ResponseEntity<List<ChallengeResponse>> getChallengesInProgressByUser(@RequestParam int userNo){
+		List<ChallengeResponse> challengeList = missionService.getChallengesInProgressByUser(userNo);
 		return ResponseEntity.ok(challengeList);
 	}
 	
 	@Operation(summary = "유저의 달성한 챌린지 조회")
 	@GetMapping("/challenge/completed")
-	public ResponseEntity<List<Challenge>> getChallengesCompletedByUser(@RequestParam int userNo){
-		List<Challenge> challengeList = missionService.getChallengesCompletedByUser(userNo);
+	public ResponseEntity<List<ChallengeResponse>> getChallengesCompletedByUser(@RequestParam int userNo){
+		List<ChallengeResponse> challengeList = missionService.getChallengesCompletedByUser(userNo);
 		return ResponseEntity.ok(challengeList);
 	}
 	
 	@Operation(summary = "챌린지 등록")
 	@PostMapping("/challenge")
-	public ResponseEntity<Void> writeChallenge(Challenge challenge) {
+	public ResponseEntity<Void> writeChallenge(ChallengeResponse challenge) {
 		missionService.writeChallenge(challenge);
 		return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}

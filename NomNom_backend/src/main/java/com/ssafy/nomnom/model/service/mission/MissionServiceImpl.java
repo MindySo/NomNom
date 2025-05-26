@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ssafy.nomnom.model.dao.MissionDao;
-import com.ssafy.nomnom.model.dto.mission.Challenge;
+import com.ssafy.nomnom.model.dto.mission.ChallengeResponse;
 import com.ssafy.nomnom.model.dto.mission.MissionResponse;
 
 @Service
@@ -20,22 +20,22 @@ public class MissionServiceImpl implements MissionService{
 	}
 	
 	@Override
-	public List<Challenge> getChallengesByUser(int userNo) {
+	public List<ChallengeResponse> getChallengesByUser(int userNo) {
 		return missionDao.selectAllChallengeByUser(userNo);
 	}
 	
 	@Override
-	public List<Challenge> getChallengesInProgressByUser(int userNo) {
+	public List<ChallengeResponse> getChallengesInProgressByUser(int userNo) {
 		return missionDao.selectAllChallengeInProgressByUser(userNo);
 	}
 	
 	@Override
-	public List<Challenge> getChallengesCompletedByUser(int userNo) {
+	public List<ChallengeResponse> getChallengesCompletedByUser(int userNo) {
 		return missionDao.selectAllChallengeCompletedByUser(userNo);
 	}
 
 	@Override
-	public void writeChallenge(Challenge challenge) {
+	public void writeChallenge(ChallengeResponse challenge) {
 		missionDao.insertChallenge(challenge);
 	}
 

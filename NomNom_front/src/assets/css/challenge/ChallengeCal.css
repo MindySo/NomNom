@@ -1,0 +1,146 @@
+.temp {
+  width: 100%;
+  height: 100%;
+}
+.fc {
+  width: 100%;
+  height: 100%;
+}
+/* 날짜 셀 - 배경 흰색, 세로줄 제거 */
+.fc .fc-daygrid-day {
+  background-color: white;
+  border-left: none !important;
+  border-right: none !important;
+}
+
+/* 날짜 셀 - 가로줄만 유지 */
+.fc-theme-standard td,
+.fc-theme-standard th {
+  border-right: none !important;
+  border-left: none !important;
+  border-bottom: none !important;
+  border-top: 1px solid #e0e0e0 !important; /* 연한 회색 */
+}
+/* 요일 헤더만 위 테두리 제거 */
+.fc .fc-scrollgrid-section-header th {
+  border-top: none !important;
+}
+
+/* 날짜 숫자 작게 + 패딩 조정 */
+.fc .fc-daygrid-day-number {
+  font-size: 12px !important;
+  font-weight: 400;
+  padding: 2px !important;
+}
+
+/* 일요일 빨간색 */
+.fc .fc-day-sun .fc-daygrid-day-number {
+  color: #e57373 !important;
+}
+
+/* 토요일 파란색 */
+.fc .fc-day-sat .fc-daygrid-day-number {
+  color: #64b5f6 !important;
+}
+
+/* 일정 표시 바 - 얇게 */
+.fc .fc-daygrid-event-harness {
+  height: auto !important;
+  margin-top: 1px !important;
+}
+/* 첫 번째 일정은 margin 제거 (선택) */
+.fc .fc-daygrid-event-harness:first-of-type {
+  margin-top: 0 !important;
+}
+
+/* 일정 표시 바 안 텍스트 안보이게 */
+.fc .fc-daygrid-event-dot,
+.fc .fc-event-title {
+  display: none !important;
+}
+
+/* 일정 바 자체 스타일 */
+.fc .fc-event {
+  background-color: #ffa726 !important; /* 기본 색 */
+  border: none !important;
+  border-radius: 4px !important;
+  height: 4px !important;
+  padding: 0 !important;
+}
+
+/* 색상별 클래스 지정 */
+.fc .fc-event.green {
+  background-color: #aed581 !important;
+}
+
+.fc .fc-event.yellow {
+  background-color: #fff176 !important;
+}
+/* 요일 스타일 */
+.fc .fc-col-header-cell {
+  font-weight: 400 !important; /* 일반체 */
+  padding: 5px 0 !important;
+  background-color: white;
+}
+
+/* 요일 색상 (일/토) */
+.fc .fc-col-header-cell.fc-day-sun {
+  color: #e57373 !important;
+}
+.fc .fc-col-header-cell.fc-day-sat {
+  color: #64b5f6 !important;
+}
+
+/* 날짜 셀 패딩 */
+.fc .fc-daygrid-day-frame {
+  padding: 5px !important;
+}
+/* 달력 날짜 테이블 전체에 border-radius 적용 */
+.fc .fc-scrollgrid {
+  border-radius: 12px !important; /* 테두리 둥글게 */
+  overflow: hidden !important;
+  border: none; /* 테두리 색 (선택사항) */
+}
+
+/* 내부 스크롤 제거 */
+.fc .fc-scroller-harness,
+.fc .fc-scroller,
+.fc .fc-daygrid-body-natural {
+  overflow: hidden !important;
+  max-height: none !important;
+}
+.fc .fc-button {
+  height: 28px !important; /* ✅ 높이 줄이기 */
+  background-color: white !important; /* ✅ 흰 배경 */
+  color: #333 !important; /* 글자색 */
+  border: none !important; /* ✅ 테두리 제거 */
+  border-radius: 6px !important; /* 약간 둥글게 (선택사항) */
+  padding: 4px 10px !important;
+  font-size: 14px !important;
+  box-shadow: none !important; /* 그림자 제거 */
+  transition: background-color 0.2s ease;
+}
+
+/* 🖱️ hover 시 연녹색 */
+.fc .fc-button:hover {
+  background-color: #dff9a2 !important; /* 연한 연두색 */
+}
+/* 상단 월/연도 텍스트 (2025 June) 스타일 */
+.fc .fc-toolbar-title {
+  font-weight: 600 !important; /* ✅ 덜 두껍게 (기본은 700~bold) */
+  font-size: 25px !important; /* 크기도 원하면 조정 가능 */
+}
+.fc .fc-col-header-cell {
+  font-size: 14px !important;
+}
+.fc .fc-toolbar.fc-header-toolbar {
+  margin-bottom: 20px !important; /* ✅ 원하는 만큼 간격 조절 */
+}
+/* 요일 행 밑줄 제거 */
+.fc .fc-scrollgrid-section-header td {
+  border-top: none !important;
+}
+/* 혹시 남아있을 수도 있는 요일 칸 테두리 제거 */
+.fc .fc-col-header-cell {
+  border-top: none !important;
+}
