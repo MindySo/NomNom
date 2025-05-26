@@ -9,6 +9,7 @@ export const useReportStore = defineStore('report', () => {
   const monthlyReport = ref({});
 
   async function fetchMeals(userNo, mealRegDate) {
+    console.log('mealReportStore-fetchMeals' + mealRegDate);
     const { data } = await axios.get('http://localhost:8080/api/meal', {
       params: { userNo, mealRegDate },
     });

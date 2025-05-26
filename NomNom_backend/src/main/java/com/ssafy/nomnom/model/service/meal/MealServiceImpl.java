@@ -13,6 +13,7 @@ import com.ssafy.nomnom.model.dto.meal.Food;
 import com.ssafy.nomnom.model.dto.meal.Meal;
 import com.ssafy.nomnom.model.dto.meal.MealResponse;
 import com.ssafy.nomnom.model.dto.meal.SimpleFoodResponse;
+import com.ssafy.nomnom.model.dto.meal.Water;
 import com.ssafy.nomnom.model.dto.meal.MealFood;
 import com.ssafy.nomnom.model.dto.meal.MealRequest;
 import com.ssafy.nomnom.model.service.attachment.AttachmentService;
@@ -94,7 +95,7 @@ public class MealServiceImpl implements MealService {
 	}
 
 	@Override
-	public List<MealResponse> getWaterListByUserAndRegDate(MealRequest meal){
+	public List<Water> getWaterListByUserAndRegDate(MealRequest meal){
 		return mealDao.selectWaterListByUserAndRegDate(meal);
 	}
 
