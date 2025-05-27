@@ -4,78 +4,81 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ssafy.nomnom.model.dao.BoardDao">
-	<!-- 전체 게시글 조회 -->
-	<select id="selectAllBoards" resultType="board">
-		SELECT *
-		FROM board
-	</select>
 
-	<!-- 단일 게시글 조회 -->
-	<select id="selectBoardById" parameterType="int"
-		resultType="board">
-		SELECT *
-		FROM board
-		WHERE board_no = #{boardNo}
-	</select>
+  <!-- 전체 게시글 조회 -->
+  <select id="selectAllBoards" resultType="board">
+    SELECT b.*, u.user_id AS userId
+    FROM board b
+    JOIN user u ON b.user_no = u.user_no
+    ORDER BY b.board_reg_date DESC, b.board_no DESC
+  </select>
 
-	<!-- 유저별 조회 -->
-	<select id="selectBoardsByUser" resultType="Board">
-		SELECT * FROM board
-		WHERE user_no = #{userNo}
-		ORDER BY board_reg_date DESC
-	</select>
+  <!-- 단일 게시글 조회 -->
+  <select id="selectBoardById" parameterType="int" resultType="board">
+    SELECT b.*, u.user_id AS userId
+    FROM board b
+    JOIN user u ON b.user_no = u.user_no
+    WHERE b.board_no = #{boardNo}
+  </select>
 
-	<!-- 카테고리별 조회 -->
-	<select id="selectBoardsByType" resultType="Board">
-		SELECT * FROM board
-		WHERE board_type = #{boardType}
-		ORDER BY board_reg_date DESC
-	</select>
+  <!-- 유저별 조회 -->
+  <select id="selectBoardsByUser" resultType="board">
+    SELECT b.*, u.user_id AS userId
+    FROM board b
+    JOIN user u ON b.user_no = u.user_no
+    WHERE b.user_no = #{userNo}
+    ORDER BY b.board_reg_date DESC, b.board_no DESC
+  </select>
 
-	<!-- 게시글 등록 -->
-	<insert id="insertBoard" parameterType="Board"
-		useGeneratedKeys="true" keyProperty="boardNo">
-		INSERT INTO board (board_type,
-		user_no, board_title, board_content)
-		VALUES (#{boardType}, #{userNo},
-		#{boardTitle}, #{boardContent})
-	</insert>
+  <!-- 카테고리별 조회 -->
+  <select id="selectBoardsByType" resultType="board">
+    SELECT b.*, u.user_id AS userId
+    FROM board b
+    JOIN user u ON b.user_no = u.user_no
+    WHERE b.board_type = #{boardType}
+    ORDER BY b.board_reg_date DESC, b.board_no DESC
+  </select>
 
-	<!-- 게시글 수정 -->
-	<update id="updateBoard" parameterType="board">
-		UPDATE board
-		SET
-		board_type = #{boardType},
-		board_title = #{boardTitle},
-		board_content =
-		#{boardContent},
-		update_date = NOW()
-		WHERE board_no = #{boardNo}
-		AND
-		user_no = #{userNo}
-	</update>
+  <!-- 게시글 등록 -->
+  <insert id="insertBoard" parameterType="Board" useGeneratedKeys="true" keyProperty="boardNo">
+    INSERT INTO board (board_type, user_no, board_title, board_content)
+    VALUES (#{boardType}, #{userNo}, #{boardTitle}, #{boardContent})
+  </insert>
 
-	<!-- 게시글 삭제 -->
-	<delete id="deleteBoard" parameterType="map">
-		DELETE FROM board
-		WHERE
-		board_no = #{boardNo}
-		AND user_no = #{userNo}
-	</delete>
+  <!-- 게시글 수정 -->
+  <update id="updateBoard" parameterType="board">
+    UPDATE board
+    SET board_type = #{boardType},
+        board_title = #{boardTitle},
+        board_content = #{boardContent},
+        update_date = NOW()
+    WHERE board_no = #{boardNo}
+      AND user_no = #{userNo}
+  </update>
 
-	<!-- 검색 -->
-	<select id="searchBoards" parameterType="BoardSearchCondition"
-		resultType="Board">
-		SELECT * FROM board
-		WHERE 1=1
-		<if test="cond.boardType != null and cond.boardType != ''">
-			AND board_type = #{cond.boardType}
-		</if>
-		<if test="cond.keyword != null and cond.keyword != ''">
-			AND (board_title LIKE CONCAT('%', #{cond.keyword}, '%')
-			OR board_content LIKE CONCAT('%', #{cond.keyword}, '%'))
-		</if>
-		ORDER BY board_reg_date DESC
-	</select>
+  <!-- 게시글 삭제 -->
+  <delete id="deleteBoard" parameterType="map">
+    DELETE FROM board
+    WHERE board_no = #{boardNo}
+      AND user_no = #{userNo}
+  </delete>
+
+  <!-- 검색 -->
+  <select id="searchBoards" parameterType="BoardSearchCondition" resultType="board">
+    SELECT b.*, u.user_id AS userId
+    FROM board b
+    JOIN user u ON b.user_no = u.user_no
+    WHERE 1=1
+    <if test="cond.boardType != null and cond.boardType != ''">
+      AND b.board_type = #{cond.boardType}
+    </if>
+    <if test="cond.keyword != null and cond.keyword != ''">
+      AND (
+        b.board_title LIKE CONCAT('%', #{cond.keyword}, '%')
+        OR b.board_content LIKE CONCAT('%', #{cond.keyword}, '%')
+      )
+    </if>
+    ORDER BY b.board_reg_date DESC, b.board_no DESC
+  </select>
 
 </mapper>
