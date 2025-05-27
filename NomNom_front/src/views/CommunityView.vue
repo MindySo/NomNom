@@ -1,6 +1,5 @@
 <template>
   <div class="community-page">
-    <HeaderNavbar />
     <div class="content-layout">
       <SidebarView />
       <div class="main-content">
@@ -33,49 +32,44 @@
 </template>
 
 <script setup>
-import axios from 'axios'
-import HeaderNavbar from '../components/common/HeaderNavbar.vue'
-import SidebarView from '@/views/SidebarView.vue'
-import { ref, computed, onMounted, watch } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
+import axios from "axios";
+import HeaderNavbar from "../components/common/HeaderNavbar.vue";
+import SidebarView from "@/views/SidebarView.vue";
+import { ref, computed, onMounted, watch } from "vue";
+import { useRouter, useRoute } from "vue-router";
 
-const router = useRouter()
-const route = useRoute()
+const router = useRouter();
+const route = useRoute();
 
-const searchQuery = ref('')
-const posts = ref([])
+const searchQuery = ref("");
+const posts = ref([]);
 
-const boardType = computed(() => route.query.boardType || '')
+const boardType = computed(() => route.query.boardType || "");
 
 const fetchPosts = async () => {
   try {
     if (boardType.value) {
-      const response = await axios.get(`http://localhost:8080/api/boards/category?boardType=${boardType.value}`)
-      posts.value = response.data
+      const response = await axios.get(`http://localhost:8080/api/boards/category?boardType=${boardType.value}`);
+      posts.value = response.data;
     } else {
-      const response = await axios.get('http://localhost:8080/api/boards')
-      posts.value = response.data
+      const response = await axios.get("http://localhost:8080/api/boards");
+      posts.value = response.data;
     }
   } catch (error) {
-    console.error('게시글 불러오기 실패:', error)
+    console.error("게시글 불러오기 실패:", error);
   }
-}
+};
 
-onMounted(fetchPosts)
-watch(() => route.query.boardType, fetchPosts)
+onMounted(fetchPosts);
+watch(() => route.query.boardType, fetchPosts);
 
-const filteredPosts = computed(() =>
-  posts.value.filter(post =>
-    post.boardTitle.includes(searchQuery.value) ||
-    post.boardContent.includes(searchQuery.value)
-  )
-)
+const filteredPosts = computed(() => posts.value.filter((post) => post.boardTitle.includes(searchQuery.value) || post.boardContent.includes(searchQuery.value)));
 
 const handleSearch = () => {
-  console.log('검색:', searchQuery.value)
-}
+  console.log("검색:", searchQuery.value);
+};
 
-const goToWrite = () => router.push('/community/write')
+const goToWrite = () => router.push("/community/write");
 </script>
 
 <style scoped>
@@ -98,7 +92,7 @@ const goToWrite = () => router.push('/community/write')
   max-width: 1080px;
   margin: 0 auto;
   padding: 20px;
-  font-family: 'Pretendard', sans-serif;
+  font-family: "Pretendard", sans-serif;
 }
 
 .community-header {
@@ -178,13 +172,6 @@ const goToWrite = () => router.push('/community/write')
   text-decoration: none;
   cursor: pointer;
 }
-
-
 </style>
 
-.write-icon {
-  width: 16px;
-  height: 16px;
-  margin-right: 8px;
-  vertical-align: middle;
-}
+.write-icon { width: 16px; height: 16px; margin-right: 8px; vertical-align: middle; }
