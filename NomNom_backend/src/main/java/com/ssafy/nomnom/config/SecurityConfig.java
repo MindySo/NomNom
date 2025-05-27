@@ -9,10 +9,16 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.ssafy.nomnom.model.dao.UserDao;
 import com.ssafy.nomnom.model.service.CustomUserDetailsService;
 import static org.springframework.security.config.Customizer.withDefaults;
+
+import java.util.List;
+
 /**
  * Spring Security 설정 클래스 - JWT 인증 설정 - OAuth2 로그인 성공 핸들러 연결
  */
@@ -63,7 +69,6 @@ public class SecurityConfig {
 //		return http.build();
 //	}
 
-	
 	@Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http

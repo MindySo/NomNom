@@ -47,8 +47,9 @@
 		resultType="ChallengeResponse">
 		SELECT
 		c.challenge_no AS challengeNo,
-		c.user_no AS userId,
-		m.mission_no AS missionId,
+		c.user_no AS userNo,
+		m.mission_no AS missionNo,
+		m.mission_name AS missionName,
 		m.image_url AS imageUrl,
 		m.mission_color AS
 		missionColor,
@@ -68,8 +69,8 @@
 		parameterType="int" resultType="ChallengeResponse">
 		SELECT
 		c.challenge_no AS challengeNo,
-		c.user_no AS userId,
-		m.mission_no AS missionId,
+		c.user_no AS userNo,
+		m.mission_no AS missionNo,
 		m.mission_name AS
 		missionName,
 		m.mission_color AS missionColor,
@@ -94,8 +95,8 @@
 		parameterType="int" resultType="ChallengeResponse">
 		SELECT
 		c.challenge_no AS challengeNo,
-		c.user_no AS userId,
-		m.mission_no AS missionId,
+		c.user_no AS userNo,
+		m.mission_no AS missionNo,
 		m.mission_name AS
 		missionName,
 		m.mission_color AS missionColor,
