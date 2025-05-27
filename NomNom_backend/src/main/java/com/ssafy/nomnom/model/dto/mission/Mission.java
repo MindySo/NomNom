@@ -1,51 +1,78 @@
 package com.ssafy.nomnom.model.dto.mission;
 
 public class Mission {
-	private Integer missionId;
-    private String missionName;
-    private String missionDescription;
-    private Integer challengeDuration;
+	private Integer missionNo;
+	private String missionName;
+	private String missionDescription;
+	private Integer challengeDuration;
+	private String imageUrl;
+	private String missionColor;
 
-    
-    public Mission() {
+	public Mission() {
 	}
-	
-    
-    public Mission(Integer missionId, String missionName, String missionDescription, Integer challengeDuration) {
-		this.missionId = missionId;
+
+	public Mission(Integer missionNo, String missionName, String missionDescription, Integer challengeDuration,
+			String imageUrl, String missionColor) {
+		this.missionNo = missionNo;
 		this.missionName = missionName;
 		this.missionDescription = missionDescription;
 		this.challengeDuration = challengeDuration;
+		this.imageUrl = imageUrl;
+		this.missionColor = missionColor;
 	}
-	
-    
-    public Integer getMissionId() {
-		return missionId;
+
+	public Integer getMissionNo() {
+		return missionNo;
 	}
-	public void setMissionId(Integer missionId) {
-		this.missionId = missionId;
+
+	public void setMissionNo(Integer missionNo) {
+		this.missionNo = missionNo;
 	}
+
 	public String getMissionName() {
 		return missionName;
 	}
+
 	public void setMissionName(String missionName) {
 		this.missionName = missionName;
 	}
+
 	public String getMissionDescription() {
 		return missionDescription;
 	}
+
 	public void setMissionDescription(String missionDescription) {
 		this.missionDescription = missionDescription;
 	}
+
 	public Integer getChallengeDuration() {
 		return challengeDuration;
 	}
+
 	public void setChallengeDuration(Integer challengeDuration) {
 		this.challengeDuration = challengeDuration;
 	}
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+
+	public String getMissionColor() {
+		return missionColor;
+	}
+
+	public void setMissionColor(String missionColor) {
+		this.missionColor = missionColor;
+	}
+
 	@Override
 	public String toString() {
-		return "Mission [missionId=" + missionId + ", missionName=" + missionName + ", missionDescription="
-				+ missionDescription + ", challengeDuration=" + challengeDuration + "]";
+		return "Mission [missionNo=" + missionNo + ", missionName=" + missionName + ", missionDescription="
+				+ missionDescription + ", challengeDuration=" + challengeDuration + ", imageUrl=" + imageUrl
+				+ ", missionColor=" + missionColor + "]";
 	}
 }

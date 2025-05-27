@@ -3,39 +3,39 @@ package com.ssafy.nomnom.model.dto.mission;
 import java.time.LocalDate;
 
 public class Badge {
-	private Integer badgeId;
-    private Integer userId;
-    private Integer missionId;
+	private Integer badgeNo;
+    private Integer userNo;
+    private Integer missionNo;
     private LocalDate badgeRegDate;
     
 	public Badge() {
 	}	
 	
-	public Badge(Integer badgeId, Integer userId, Integer missionId, LocalDate badgeRegDate) {
-		this.badgeId = badgeId;
-		this.userId = userId;
-		this.missionId = missionId;
+	public Badge(Integer badgeNo, Integer userNo, Integer missionNo, LocalDate badgeRegDate) {
+		this.badgeNo = badgeNo;
+		this.userNo = userNo;
+		this.missionNo = missionNo;
 		this.badgeRegDate = badgeRegDate;
 	}
 	
 	
-	public Integer getBadgeId() {
-		return badgeId;
+	public Integer getBadgeNo() {
+		return badgeNo;
 	}
-	public void setBadgeId(Integer badgeId) {
-		this.badgeId = badgeId;
+	public void setBadgeNo(Integer badgeNo) {
+		this.badgeNo = badgeNo;
 	}
-	public Integer getUserId() {
-		return userId;
+	public Integer getUserNo() {
+		return userNo;
 	}
-	public void setUserId(Integer userId) {
-		this.userId = userId;
+	public void setUserNo(Integer userNo) {
+		this.userNo = userNo;
 	}
-	public Integer getMissionId() {
-		return missionId;
+	public Integer getMissionNo() {
+		return missionNo;
 	}
-	public void setMissionId(Integer missionId) {
-		this.missionId = missionId;
+	public void setMissionNo(Integer missionNo) {
+		this.missionNo = missionNo;
 	}
 	public LocalDate getBadgeRegDate() {
 		return badgeRegDate;
@@ -45,7 +45,7 @@ public class Badge {
 	}
 	@Override
 	public String toString() {
-		return "Badge [badgeId=" + badgeId + ", userId=" + userId + ", missionId=" + missionId + ", badgeRegDate="
+		return "Badge [badgeNo=" + badgeNo + ", userNo=" + userNo + ", missionNo=" + missionNo + ", badgeRegDate="
 				+ badgeRegDate + "]";
 	}
 }

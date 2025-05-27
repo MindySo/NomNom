@@ -1,18 +1,13 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
+import { useRoute } from "vue-router";
+import HeaderNavbar from "@/components/common/HeaderNavbar.vue";
+
+const route = useRoute();
 </script>
 
 <template>
   <header>
-    <div class="wrapper">
-      <nav>
-        <RouterLink to="/main">메인</RouterLink>
-        <RouterLink to="/meal">식단</RouterLink>
-        <RouterLink to="/challenge">챌린지</RouterLink>
-        <RouterLink to="/community">커뮤니티</RouterLink>
-        <RouterLink to="/mypage">마이페이지</RouterLink>
-      </nav>
-    </div>
+    <!-- <HeaderNavbar /> -->
   </header>
 
   <RouterView />
@@ -22,18 +17,12 @@ import { RouterLink, RouterView } from 'vue-router'
 header {
   line-height: 1.5;
   max-height: 100vh;
+  width: 100%;
 }
 
 .logo {
   display: block;
   margin: 0 auto 2rem;
-}
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
 }
 
 nav a.router-link-exact-active {
