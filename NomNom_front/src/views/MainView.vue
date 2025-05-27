@@ -1,15 +1,8 @@
 <template>
-  <main>
-    <h1>메인 화면</h1>
+  <div>
     <RouterView />
-  </main>
+  </div>
 </template>
 
-<script setup>
-
-</script>
-<style scoped>
-
-</style>
-
-
+<script setup></script>
+<style scoped></style>
