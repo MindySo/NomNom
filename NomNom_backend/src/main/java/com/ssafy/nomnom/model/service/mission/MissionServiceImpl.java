@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ssafy.nomnom.model.dao.MissionDao;
+import com.ssafy.nomnom.model.dto.mission.Challenge;
 import com.ssafy.nomnom.model.dto.mission.ChallengeResponse;
 import com.ssafy.nomnom.model.dto.mission.MissionResponse;
 
@@ -35,7 +36,7 @@ public class MissionServiceImpl implements MissionService{
 	}
 
 	@Override
-	public void writeChallenge(ChallengeResponse challenge) {
+	public void writeChallenge(Challenge challenge) {
 		missionDao.insertChallenge(challenge);
 	}
 
