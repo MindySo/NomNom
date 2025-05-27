@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.nomnom.model.dao.MissionDao">
+
+	<!-- 모든 미션 리스트 조회(유저별 미션 상태 및 달성횟수 포함) -->
+	<select id="selectAllMissionByUser" parameterType="int"
+		resultType="MissionResponse">
+		SELECT
+		m.mission_no AS missionNo,
+		m.mission_name AS
+		missionName,
+		m.mission_description AS missionDescription,
+		m.challenge_duration AS challengeDuration,
+
+		CASE
+		WHEN EXISTS (
+		SELECT 1
+		FROM challenge c2
+		WHERE c2.mission_no = m.mission_no
+		AND c2.user_no =
+		#{userNo}
+		AND c2.challenge_status = 'IN_PROGRESS'
+		) THEN true
+		ELSE false
+		END AS isInProgress,
+
+		(
+		SELECT COUNT(*)
+		FROM challenge c3
+		WHERE
+		c3.mission_no = m.mission_no
+		AND c3.challenge_status = 'COMPLETED'
+		) AS
+		completedCount
+
+		FROM mission m
+		ORDER BY m.mission_no
+	</select>
+
+	<!-- 사용자가 참여한 모든 챌린지 조회 -->
+	<select id="selectAllChallengeByUser" parameterType="int"
+		resultType="Challenge">
+		SELECT
+		challenge_no AS challengeNo,
+		user_no AS userId,
+		mission_no AS missionId,
+		challenge_start_date AS challengeStartDate,
+		challenge_current_streak AS challengeCurrentStreak,
+		challenge_status AS
+		challengeStatus,
+		FROM challenge
+		WHERE user_no = #{userNo}
+		ORDER BY
+		challenge_start_date DESC
+	</select>
+
+	<!-- 사용자가 달성한 모든 챌린지 조회 -->
+	<select id="selectAllChallengeCompletedByUser"
+		parameterType="int" resultType="Challenge">
+		SELECT
+		challenge_no AS challengeNo,
+		user_no AS userId,
+		mission_no AS missionId,
+		challenge_start_date AS
+		challengeStartDate,
+		challenge_current_streak AS challengeCurrentStreak,
+		challenge_status AS challengeStatus
+		FROM challenge
+		WHERE user_no =
+		#{userNo}
+		AND challenge_status = 'COMPLETED'
+		ORDER BY
+		challenge_start_date DESC
+	</select>
+
+	<!-- 사용자가 진행중인 모든 챌린지 조회 -->
+	<select id="selectAllChallengeInProgressByUser"
+		parameterType="int" resultType="Challenge">
+		SELECT
+		challenge_no AS challengeNo,
+		user_no AS userId,
+		mission_no AS missionId,
+		challenge_start_date AS
+		challengeStartDate,
+		challenge_current_streak AS challengeCurrentStreak,
+		challenge_status AS challengeStatus
+		FROM challenge
+		WHERE user_no =
+		#{userNo}
+		AND challenge_status = 'IN_PROGRESS'
+		ORDER BY
+		challenge_start_date DESC
+	</select>
+
+
+
+	<!-- 챌린지 등록하기 -->
+	<select id="insertChallenge" parameterType="Challenge">
+		INSERT INTO challenge
+		(
+		user_no,
+		mission_no,
+		challenge_start_date,
+		challenge_current_streak,
+		challenge_status
+		) VALUES (
+		#{userNo},
+		#{missionNo},
+		CURDATE(),
+		0,
+		'IN_PROGRESS'
+		)
+
+	</select>
+
+	<!-- 챌린지 중도 포기 -->
+	<update id="updateChallengeDropped" parameterType="int">
+		UPDATE
+		challenge
+		SET challenge_status = 'DROPPED'
+		WHERE mission_no =
+		#{missionNo}
+	</update>
+
+
+	<!-- 챌린지 실패 처리 -->
+	<update id="updateChallengeFailed" parameterType="int">
+		UPDATE
+		challenge
+		SET challenge_status = 'FAILED'
+		WHERE mission_no =
+		#{missionNo}
+	</update>
+
+	<!-- 챌린지 성공 처리 -->
+	<update id="updateChallengeCompleted" parameterType="int">
+		UPDATE
+		challenge
+		SET challenge_status = 'COMPLETED'
+		WHERE mission_no =
+		#{missionNo}
+	</update>
+
+</mapper>

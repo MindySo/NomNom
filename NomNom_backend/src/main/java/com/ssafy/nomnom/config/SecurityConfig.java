@@ -89,6 +89,11 @@ public class SecurityConfig {
 	}
 	
 
+	
+	
+	
+	
+	
 	// ✅ 비밀번호 암호화 설정
 	@Bean
 	public PasswordEncoder passwordEncoder() {

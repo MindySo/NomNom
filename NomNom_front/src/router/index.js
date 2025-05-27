@@ -1,24 +1,25 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory } from "vue-router";
 
-import MainView from '@/views/MainView.vue'
+import MainView from "../views/MainView.vue";
 import SidebarView from '@/views/SidebarView.vue'
-import MealView from '@/views/MealView.vue'
-import MealList from '@/components/meal/MealList.vue'
-import MealDetail from '@/components/meal/MealDetail.vue'
 
-import ChallengeView from '@/views/ChallengeView.vue'
-import ChallengeList from '@/components/challenge/ChallengeList.vue'
-import ChallengeDetail from '@/components/challenge/ChallengeDetail.vue'
+import MealView from "../views/MealView.vue";
+import MealList from "../components/meal/MealList.vue";
+import MealDetailModal from "../components/meal/MealDetailModal.vue";
+
+import ChallengeView from "../views/ChallengeView.vue";
+import ChallengeList from "../components/challenge/ChallengeList.vue";
+import ChallengeDetail from "../components/challenge/ChallengeDetail.vue";
+import MyChallenge from "../components/challenge/MyChallenge.vue";
 
 import CommunityView from '@/views/CommunityView.vue'
 import BoardDetailView from '@/views/BoardDetailView.vue'
 
-import MypageView from '@/views/MypageView.vue'
-import MypageList from '@/components/mypage/MypageList.vue'
-import MypageChallenge from '@/components/mypage/MypageChallenge.vue'
-import MypagePointlog from '@/components/mypage/MypagePointlog.vue'
-import MypageUserinfo from '@/components/mypage/MypageUserinfo.vue'
-
+import MypageView from "../views/ChallengeView.vue";
+import MypageList from "../components/mypage/MypageList.vue";
+import MypageChallenge from "../components/mypage/MypageChallenge.vue";
+import MypagePointlog from "../components/mypage/MypagePointlog.vue";
+import MypageUserinfo from "../components/mypage/MypageUserinfo.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -58,42 +59,47 @@ const router = createRouter({
       component: () => import('@/views/SignupCompletedView.vue')
     },
     {
-      path: '/meal',
-      name: 'meal',
+      path: "/meal",
+      name: "meal",
       component: MealView,
       children: [
         {
-          path: '',
-          name: 'mealList',
-          component: MealList
+          path: "",
+          name: "mealList",
+          component: MealList,
         },
         {
-          path: 'detail/:regDate',
-          name: 'mealDetail',
-          component: MealDetail
-        }
-      ]
+          path: "detail/:mealNo",
+          name: "mealDetailModal",
+          component: MealDetailModal,
+        },
+      ],
     },
     {
-      path: '/challenge',
-      name: 'challenge',
+      path: "/challenge",
+      name: "challenge",
       component: ChallengeView,
       children: [
         {
-          path: '',
-          name: 'challengeList',
-          component: ChallengeList
+          path: "",
+          name: "challengeList",
+          component: ChallengeList,
         },
         {
-          path: 'detail/:id',
-          name: 'challengeDetail',
-          component: ChallengeDetail
-        }
-      ]
+          path: "detail/:id",
+          name: "challengeDetail",
+          component: ChallengeDetail,
+        },
+        {
+          path: "myChallenge",
+          name: "myChallenge",
+          component: MyChallenge,
+        },
+      ],
     },
     {
-      path: '/community',
-      name: 'community',
+      path: "/community",
+      name: "community",
       component: CommunityView,
     },
     {
@@ -102,33 +108,33 @@ const router = createRouter({
       component: BoardDetailView
     },
     {
-      path: '/mypage',
-      name: 'mypage',
+      path: "/mypage",
+      name: "mypage",
       component: MypageView,
       children: [
         {
-          path: '',
-          name: 'mypageList',
-          component: MypageList
+          path: "",
+          name: "mypageList",
+          component: MypageList,
         },
         {
-          path: 'challenge',
-          name: 'mypageChallenge',
-          component: MypageChallenge
+          path: "",
+          name: "mypageChallenge",
+          component: MypageChallenge,
         },
         {
-          path: 'pointlog',
-          name: 'mypagePointlog',
-          component: MypagePointlog
+          path: "detail/",
+          name: "mypagePointlog",
+          component: MypagePointlog,
         },
         {
-          path: 'userinfo',
-          name: 'mypageUserinfo',
-          component: MypageUserinfo
-        }
-      ]
-    }
-  ]
-})
-
-export default router
+          path: "detail/",
+          name: "mypageUserinfo",
+          component: MypageUserinfo,
+        },
+      ],
+    },
+  ],
+});
+// router.beforeEach
+export default router;
