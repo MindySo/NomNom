@@ -12,7 +12,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.ssafy.nomnom.model.dao.UserDao;
 import com.ssafy.nomnom.model.service.CustomUserDetailsService;
-
+import static org.springframework.security.config.Customizer.withDefaults;
 /**
  * Spring Security 설정 클래스 - JWT 인증 설정 - OAuth2 로그인 성공 핸들러 연결
  */
@@ -31,36 +31,63 @@ public class SecurityConfig {
 		this.userDao = userDao;
 	}
 
+	// 원 코드
+//	@Bean
+//	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+//		http
+//				// ✅ 기본 인증 비활성화
+//				.httpBasic().disable()
+//				.formLogin().disable()
+//				// ✅ CSRF 비활성화 (REST API용)
+//				.csrf().disable()
+//				// ✅ CORS 허용
+//				.cors().and()
+//
+//				// ✅ 요청 인증 규칙 설정
+//			    .authorizeHttpRequests()
+//			    .requestMatchers("/api/auth/**", "/login/**", "/oauth2/**").permitAll() // ✅ 꼭 이거 추가!
+//			    .requestMatchers("/api/boards/search").permitAll()
+//			    .anyRequest().authenticated().and()
+//
+//				// ✅ 소셜 로그인 설정
+//				.oauth2Login().successHandler(new OAuth2LoginSuccessHandler(jwtTokenProvider, userDao)) // 직접 생성자 주입
+//				.and()
+//
+//				// ✅ 세션 비활성화 (JWT 방식)
+//				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+//
+//				// ✅ JWT 인증 필터 등록
+//				.addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider, userDetailsService),
+//						UsernamePasswordAuthenticationFilter.class);
+//
+//		return http.build();
+//	}
+
+	
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		http
-				// ✅ 기본 인증 비활성화
-				.httpBasic().disable()
-				.formLogin().disable()
-				// ✅ CSRF 비활성화 (REST API용)
-				.csrf().disable()
-				// ✅ CORS 허용
-				.cors().and()
+	    http
+	        .httpBasic().disable()
+	        .formLogin().disable()
+	        .csrf().disable()
+	        .cors().and()
+	        .authorizeHttpRequests(auth -> auth
+	            .requestMatchers("/api/user").permitAll() // 회원가입
+	            .requestMatchers("/api/auth/login").permitAll()
+	            .requestMatchers("/api/auth/**", "/login/**", "/oauth2/**").permitAll() // ✅ 로그인 허용
+	            .requestMatchers("/api/boards/**").permitAll()
+	            .anyRequest().authenticated()
+	        )
+	        .oauth2Login().successHandler(new OAuth2LoginSuccessHandler(jwtTokenProvider, userDao))
+	        .and()
+	        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+	        .and()
+	        .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider, userDetailsService),
+	                UsernamePasswordAuthenticationFilter.class);
 
-				// ✅ 요청 인증 규칙 설정
-			    .authorizeHttpRequests()
-			    .requestMatchers("/api/auth/**", "/login/**", "/oauth2/**").permitAll() // ✅ 꼭 이거 추가!
-			    .requestMatchers("/api/boards/search").permitAll()
-			    .anyRequest().authenticated().and()
-
-				// ✅ 소셜 로그인 설정
-				.oauth2Login().successHandler(new OAuth2LoginSuccessHandler(jwtTokenProvider, userDao)) // 직접 생성자 주입
-				.and()
-
-				// ✅ 세션 비활성화 (JWT 방식)
-				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-
-				// ✅ JWT 인증 필터 등록
-				.addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider, userDetailsService),
-						UsernamePasswordAuthenticationFilter.class);
-
-		return http.build();
+	    return http.build();
 	}
+	
 
 	// ✅ 비밀번호 암호화 설정
 	@Bean
