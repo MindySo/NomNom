@@ -103,9 +103,10 @@ const handleLogin = async () => {
       password: password.value,
     });
     const token = response.data.token;
-    const userNo = response.data.userNo;
+    const user = response.data.user;
     sessionStorage.setItem("accessToken", token);
-    authStore.setLogin(token, userNo); // pinia authStore에 토큰과 유저넘버 저장
+    sessionStorage.setItem("user", JSON.stringify(user));
+    authStore.setLogin(token, user.userNo); // pinia authStore에 토큰과 유저넘버 저장
     router.push("/main");
   } catch (error) {
     loginError.value = "로그인에 실패했습니다. 이메일과 비밀번호를 확인해주세요.";
