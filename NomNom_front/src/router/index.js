@@ -1,8 +1,11 @@
-import { createRouter, createWebHistory } from 'vue-router';
-import MainView from '../views/MainView.vue';
-import MealView from '../views/MealView.vue';
-import MealList from '../components/meal/MealList.vue';
-import MealDetailModal from '../components/meal/MealDetailModal.vue';
+import { createRouter, createWebHistory } from "vue-router";
+
+import MainView from "../views/MainView.vue";
+import SidebarView from '@/views/SidebarView.vue'
+
+import MealView from "../views/MealView.vue";
+import MealList from "../components/meal/MealList.vue";
+import MealDetailModal from "../components/meal/MealDetailModal.vue";
 
 import ChallengeView from '../views/ChallengeView.vue';
 import ChallengeList from '../components/challenge/ChallengeList.vue';
@@ -10,9 +13,8 @@ import ChallengeDetail from '../components/challenge/ChallengeDetail.vue';
 import MyChallenge from '../components/challenge/MyChallenge.vue';
 import ChallengeCal from '../components/challenge/ChallengeCal.vue';
 
-import CommunityView from '../views/CommunityView.vue';
-import CommunityList from '../components/community/CommunityList.vue';
-import CommunityDetail from '../components/community/CommunityDetail.vue';
+import CommunityView from '@/views/CommunityView.vue'
+import BoardDetailView from '@/views/BoardDetailView.vue'
 
 import MypageView from '../views/ChallengeView.vue';
 import MypageList from '../components/mypage/MypageList.vue';
@@ -24,9 +26,38 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
+      path: '/',
+      redirect: '/main'
+    },
+    {
       path: '/main',
       name: 'main',
-      component: MainView,
+      component: MainView
+    },
+    {
+      path: '/sidebar',
+      name: 'sidebar',
+      component: SidebarView
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('@/views/LoginView.vue')
+    },
+    {
+      path: '/signup',
+      name: 'signup',
+      component: () => import('@/views/SignupView.vue')
+    },
+    {
+      path: '/signup/profile',
+      name: 'SignupProfile',
+      component: () => import('@/views/SignupProfileView.vue')
+    },
+    {
+      path: '/signup/completed',
+      name: 'SignupCompleted',
+      component: () => import('@/views/SignupCompletedView.vue')
     },
     {
       path: '/meal',
@@ -76,18 +107,11 @@ const router = createRouter({
       path: '/community',
       name: 'community',
       component: CommunityView,
-      children: [
-        {
-          path: '',
-          name: 'communityList',
-          component: CommunityList,
-        },
-        {
-          path: 'detail/:id',
-          name: 'communityDetail',
-          component: CommunityDetail,
-        },
-      ],
+    },
+    {
+      path: '/community/detail/:id',
+      name: 'postDetail',
+      component: BoardDetailView
     },
     {
       path: '/mypage',
