@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.ssafy.nomnom.model.dto.community.Comment;
+import com.ssafy.nomnom.model.dto.community.CommentResponse;
 
 @Repository
 public interface CommentDao {
@@ -22,5 +23,5 @@ public interface CommentDao {
 	List<Comment> selectCommentsByUser(@Param("userNo") int userNo);
 	
 	// 게시글 상세 조회 시 댓글 전체 조회 (대댓글 포함 계층 구조)
-	List<Comment> selectCommentsByBoard(@Param("boardNo") int boardNo);
+	List<CommentResponse> selectCommentsByBoard(@Param("boardNo") int boardNo);
 }
