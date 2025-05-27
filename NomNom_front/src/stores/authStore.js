@@ -1,6 +1,6 @@
-import { defineStore } from "pinia";
+import { defineStore } from 'pinia';
 
-export const useAuthStore = defineStore("auth", {
+export const useAuthStore = defineStore('auth', {
   state: () => ({
     isLoggedIn: false,
     accessToken: null,
@@ -11,15 +11,16 @@ export const useAuthStore = defineStore("auth", {
       this.isLoggedIn = true;
       this.accessToken = token;
       this.userNo = userNo;
+      console.log(this.isLoggedIn + ', ' + userNo);
     },
     logout() {
       this.isLoggedIn = false;
       this.accessToken = null;
       this.userNo = null;
-      sessionStorage.removeItem("accessToken");
+      sessionStorage.removeItem('accessToken');
     },
     checkAuth() {
-      const token = sessionStorage.getItem("accessToken");
+      const token = sessionStorage.getItem('accessToken');
       if (token) {
         this.isLoggedIn = true;
         this.accessToken = token;

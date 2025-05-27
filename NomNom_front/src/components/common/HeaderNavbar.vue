@@ -100,6 +100,7 @@
 </template>
 
 <script setup>
+import { onMounted, computed } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 const router = useRouter();
 const route = useRoute();
@@ -109,11 +110,18 @@ const authStore = useAuthStore();
 
 const hideNavbarRoutes = ['/login', '/signup'];
 
-const isLoggedIn = !!authStore.checkAuth();
+const isLoggedIn = computed(() => authStore.isLoggedIn);
+
+onMounted(() => {
+  authStore.checkAuth();
+});
 
 function handleLogout() {
   sessionStorage.removeItem('accessToken');
-  router.push('/main');
+  if (!authStore.checkAuth()) {
+    alert('로그아웃되었습니다.');
+    router.push('/main');
+  }
 }
 </script>
 
