@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, onBeforeUnmount, watch } from 'vue';
+import { ref, onMounted, onBeforeUnmount, watch, nextTick } from 'vue';
 import axios from 'axios';
 
 const props = defineProps({
@@ -9,26 +9,6 @@ const props = defineProps({
 
 // 식단 상세 정보
 const meal = ref(null);
-
-// mealNo가 바뀌거나 모달이 열릴 때 API 호출
-watch(
-  () => [props.mealNo, props.show],
-  async ([mealNo, show]) => {
-    if (show && mealNo) {
-      try {
-        const { data } = await axios.get(
-          `http://localhost:8080/api/meal/mealDetail`,
-          { params: { mealNo } }
-        );
-        meal.value = data;
-        console.error(meal.value);
-      } catch (err) {
-        console.error('식단 상세 조회 실패:', err);
-      }
-    }
-  },
-  { immediate: true }
-);
 
 const emit = defineEmits(['close']);
 
@@ -71,6 +51,110 @@ function convertMealTime(mealTime) {
   if (mealTime === 'SNACK') return '간식';
   return time;
 }
+
+// chart.js //////////////////////////////////////////////////////////////////////
+
+// Pinia : 차트 함수 store //////////////////////////////////////////////////////////////////
+import { useChartRender } from '@/stores/meal/chartRenderStore';
+const chartRender = useChartRender();
+// Pinia : 사용자 맞춤 영양소 권장량 store ///////////////////////////////////////////////////
+import { userNutritionStore } from '@/stores/meal/nutritionStore';
+const nutritionStore = userNutritionStore();
+
+import {
+  Chart,
+  DoughnutController,
+  BarController,
+  ArcElement,
+  BarElement,
+  CategoryScale,
+  LinearScale,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+
+Chart.register(
+  DoughnutController,
+  BarController,
+  ArcElement,
+  BarElement,
+  CategoryScale,
+  LinearScale,
+  Tooltip,
+  Legend
+);
+
+const calorieChart = ref(null);
+const waterChart = ref(null);
+const dailyCarbChart = ref(null);
+const dailyProteinChart = ref(null);
+const dailyFatChart = ref(null);
+
+// 식단 영양 분석 //////////////////////////////////////////////////////////////////////
+async function requestDayReport() {
+  chartRender.drawBarCharts(
+    calorieChart.value,
+    '칼로리',
+    meal.value.energy,
+    nutritionStore.calorieGoal,
+    '#EF5E5E'
+  );
+  chartRender.drawBarCharts(
+    waterChart.value,
+    '수분',
+    meal.value.water,
+    nutritionStore.waterGoal,
+    '#9cd9ff'
+  );
+
+  chartRender.drawBarCharts(
+    dailyCarbChart.value,
+    '탄수화물',
+    meal.value.carbohydrate,
+    nutritionStore.carbGoal,
+    '#a8e063'
+  );
+  chartRender.drawBarCharts(
+    dailyProteinChart.value,
+    '단백질',
+    meal.value.protein,
+    nutritionStore.proteinGoal,
+    '#ffa751'
+  );
+  chartRender.drawBarCharts(
+    dailyFatChart.value,
+    '지방',
+    meal.value.totalFattyAcids,
+    nutritionStore.fatGoal,
+    '#f9d423'
+  );
+}
+
+// mealNo가 바뀌거나 모달이 열릴 때 API 호출
+watch(
+  () => [props.mealNo, props.show],
+  async ([mealNo, show]) => {
+    if (show && mealNo) {
+      try {
+        const { data } = await axios.get(
+          `http://localhost:8080/api/meal/mealDetail`,
+          { params: { mealNo } }
+        );
+        meal.value = data;
+        console.log(meal.value);
+        await nextTick(); // DOM 렌더 완료 대기
+        requestDayReport();
+      } catch (err) {
+        console.error('식단 상세 조회 실패:', err);
+      }
+    }
+  },
+  { immediate: true }
+);
+
+// onMounted(async () => {
+//   requestDayReport();
+// });
 
 function closeModal() {
   emit('close');
@@ -218,6 +302,23 @@ function closeModal() {
           </div>
           <div class="frame-16">
             <div class="detail-frame-133">
+              <!-- 칼로리 -->
+              <div class="detail-frame-14">
+                <div class="detail-group-15">
+                  <div class="detail-frame-142">
+                    <div class="detail-title5">칼로리</div>
+                    <div class="detail-title6">{{ meal.energy }} ml</div>
+                  </div>
+                  <div class="detail-menu-nav3">
+                    <canvas
+                      class="detail-chart-bar"
+                      ref="calorieChart"
+                      style="width: 100%"
+                    ></canvas>
+                  </div>
+                </div>
+              </div>
+              <!-- 탄수화물 -->
               <div class="detail-frame-14">
                 <div class="detail-group-15">
                   <div class="detail-frame-142">
@@ -243,6 +344,7 @@ function closeModal() {
                   </div>
                 </div>
               </div>
+              <!-- 단백질 -->
               <div class="detail-frame-14">
                 <div class="detail-group-15">
                   <div class="detail-frame-142">
@@ -264,6 +366,7 @@ function closeModal() {
                   </div>
                 </div>
               </div>
+              <!-- 지방 -->
               <div class="detail-frame-14">
                 <div class="detail-group-15">
                   <div class="detail-frame-142">
@@ -290,6 +393,22 @@ function closeModal() {
                     <div class="detail-title7">
                       {{ meal.unsaturatedFats }} g
                     </div>
+                  </div>
+                </div>
+              </div>
+              <!-- 수분 -->
+              <div class="detail-frame-14">
+                <div class="detail-group-15">
+                  <div class="detail-frame-142">
+                    <div class="detail-title5">수분</div>
+                    <div class="detail-title6">{{ meal.water }} ml</div>
+                  </div>
+                  <div class="detail-menu-nav3">
+                    <canvas
+                      class="detail-chart-bar"
+                      ref="waterChart"
+                      style="width: 100%"
+                    ></canvas>
                   </div>
                 </div>
               </div>

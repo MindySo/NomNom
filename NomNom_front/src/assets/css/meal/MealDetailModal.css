@@ -1480,3 +1480,9 @@
 .detail-frame-19 {
   width: 100%;
 }
+.chart-bar {
+  width: 143px;
+  height: 5px;
+  border-radius: 10;
+  display: block;
+}
