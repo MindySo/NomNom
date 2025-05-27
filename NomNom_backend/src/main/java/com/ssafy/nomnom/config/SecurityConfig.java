@@ -87,19 +87,6 @@ public class SecurityConfig {
 		return http.build();
 	}
 
-	@Bean
-	public CorsConfigurationSource corsConfigurationSource() {
-		CorsConfiguration config = new CorsConfiguration();
-		config.setAllowedOriginPatterns(List.of("*")); // 배포시 도메인 명시
-		config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-		config.setAllowedHeaders(List.of("*"));
-		config.setAllowCredentials(true); // 쿠키나 인증정보 포함 허용
-
-		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		source.registerCorsConfiguration("/**", config);
-		return source;
-	}
-
 	// ✅ 비밀번호 암호화 설정
 	@Bean
 	public PasswordEncoder passwordEncoder() {
