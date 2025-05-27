@@ -1,8 +1,8 @@
 <script setup>
-import { ref, onMounted } from 'vue';
-import { useRouter } from 'vue-router';
-import ChallengeCal from '@/components/challenge/ChallengeCal.vue';
-import axios from 'axios';
+import { ref, onMounted } from "vue";
+import { useRouter } from "vue-router";
+import ChallengeCal from "@/components/challenge/ChallengeCal.vue";
+import axios from "axios";
 const router = useRouter();
 
 const inProgressChallengeList = ref([]);
@@ -11,32 +11,26 @@ const completedChallengeList = ref([]);
 const formatDate = (dateStr) => {
   const date = new Date(dateStr);
   const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
   return `${year}년 ${month}월 ${day}일`;
 };
 
 const fetchInProgressChallenges = async () => {
   try {
-    const { data } = await axios.get(
-      'http://localhost:8080/api/mission/challenge/inprogress',
-      { params: { userNo: 1 } }
-    );
+    const { data } = await axios.get("http://localhost:8080/api/mission/challenge/inprogress", { params: { userNo: 1 } });
     inProgressChallengeList.value = data;
   } catch (error) {
-    console.error('챌린지 목록 불러오기 실패:', error);
+    console.error("챌린지 목록 불러오기 실패:", error);
   }
 };
 
 const fetchCompletedChallenges = async () => {
   try {
-    const { data } = await axios.get(
-      'http://localhost:8080/api/mission/challenge/completed',
-      { params: { userNo: 1 } }
-    );
+    const { data } = await axios.get("http://localhost:8080/api/mission/challenge/completed", { params: { userNo: 1 } });
     completedChallengeList.value = data;
   } catch (error) {
-    console.error('챌린지 목록 불러오기 실패:', error);
+    console.error("챌린지 목록 불러오기 실패:", error);
   }
 };
 
@@ -47,12 +41,12 @@ onMounted(() => {
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
-@import '@/assets/css/vars.css';
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+@import "@/assets/css/vars.css";
 </style>
 
 <style scoped>
-@import '@/assets/css/challenge/MyChallenge.css';
+@import "@/assets/css/challenge/MyChallenge.css";
 .temp {
   width: 1000px;
 }
@@ -60,95 +54,12 @@ onMounted(() => {
 
 <template>
   <div class="div">
-    <div class="navbar">
-      <div class="header">
-        <div class="logo">
-          <div class="symbol">
-            <div class="bowl"></div>
-            <div class="bowl2"></div>
-          </div>
-          <div class="nutrigo">
-            <span>
-              <span class="nutrigo-span">NomNom</span>
-              <span class="nutrigo-span2">
-                <br />
-                냠냠코치
-              </span>
-            </span>
-          </div>
-        </div>
-      </div>
-      <div class="menu-nav">
-        <div class="button-nav">
-          <img
-            class="icon-nav-calendar-dots"
-            src="@/assets/images/challenge/MyChallenge/icon-nav-calendar-dots0.svg"
-          />
-          <div class="text">
-            <div class="label">식단 기록</div>
-          </div>
-        </div>
-        <div class="button-nav2">
-          <img
-            class="icon-nav-bowl-food"
-            src="@/assets/images/challenge/MyChallenge/icon-nav-bowl-food0.svg"
-          />
-          <div class="text2">
-            <div class="label2">즐겨찾기</div>
-          </div>
-          <div class="icon">
-            <img
-              class="icon-caret-down"
-              src="@/assets/images/challenge/MyChallenge/icon-caret-down0.svg"
-            />
-          </div>
-        </div>
-        <div class="button-nav2">
-          <img
-            class="icon-nav-notebook"
-            src="@/assets/images/challenge/MyChallenge/icon-nav-notebook0.svg"
-          />
-          <div class="text2">
-            <div class="label2">커뮤니티</div>
-          </div>
-        </div>
-        <div class="button-nav2">
-          <img
-            class="icon-nav-chart-line-up"
-            src="@/assets/images/challenge/MyChallenge/icon-nav-chart-line-up0.svg"
-          />
-          <div class="text2">
-            <div class="label2">챌린지</div>
-          </div>
-        </div>
-        <div class="button-nav2">
-          <img
-            class="icon-nav-heartbeat"
-            src="@/assets/images/challenge/MyChallenge/icon-nav-heartbeat0.svg"
-          />
-          <div class="text2">
-            <div class="label2">마이페이지</div>
-          </div>
-        </div>
-        <div class="button-nav3">
-          <img
-            class="icon-nav-sign-out"
-            src="@/assets/images/challenge/MyChallenge/icon-nav-sign-out0.svg"
-          />
-          <div class="text3">
-            <div class="label2">로그아웃</div>
-          </div>
-        </div>
-      </div>
-    </div>
     <div class="body">
       <div class="header2">
         <div class="title">
           <div class="title2">다양한 챌린지에 도전하고</div>
           <div class="title3">여러분의 건강을 지키세요!</div>
-          <div class="sub-title">
-            어쩌고저쩌고 저쩌구저쩌구 그래서이래서 저렇게이렇게
-          </div>
+          <div class="sub-title">어쩌고저쩌고 저쩌구저쩌구 그래서이래서 저렇게이렇게</div>
         </div>
       </div>
       <div class="content">
@@ -174,31 +85,19 @@ onMounted(() => {
                 </div>
                 <!-- <div class="scroll-div"> -->
                 <div class="list-menu">
-                  <div
-                    class="card-popular-menu"
-                    v-for="(challenge, index) in inProgressChallengeList"
-                    :key="challenge.challengeNo"
-                  >
+                  <div class="card-popular-menu" v-for="(challenge, index) in inProgressChallengeList" :key="challenge.challengeNo">
                     <div class="info">
                       <div class="image">
-                        <img
-                          class="challenge-image"
-                          :src="challenge.imageUrl"
-                          :alt="challenge.missionName"
-                        />
+                        <img class="challenge-image" :src="challenge.imageUrl" :alt="challenge.missionName" />
                       </div>
                       <div class="frame-123">
-                        <div class="title5">
-                          {{ formatDate(challenge.challengeStartDate) }} 시작
-                        </div>
+                        <div class="title5">{{ formatDate(challenge.challengeStartDate) }} 시작</div>
                         <div class="title6">{{ challenge.missionName }}</div>
                       </div>
                     </div>
                     <div class="frame-124">
                       <div class="button-more">
-                        <div class="title7">
-                          + {{ challenge.challengeCurrentStreak }}일차 도전중!
-                        </div>
+                        <div class="title7">+ {{ challenge.challengeCurrentStreak }}일차 도전중!</div>
                       </div>
                     </div>
                     <!-- </div> -->
@@ -213,23 +112,13 @@ onMounted(() => {
                 </div>
                 <!-- <div class="scroll-div"> -->
                 <div class="list-menu">
-                  <div
-                    class="card-popular-menu"
-                    v-for="(challenge, index) in completedChallengeList"
-                    :key="challenge.challengeNo"
-                  >
+                  <div class="card-popular-menu" v-for="(challenge, index) in completedChallengeList" :key="challenge.challengeNo">
                     <div class="info">
                       <div class="image">
-                        <img
-                          class="challenge-image"
-                          :src="challenge.imageUrl"
-                          :alt="challenge.missionName"
-                        />
+                        <img class="challenge-image" :src="challenge.imageUrl" :alt="challenge.missionName" />
                       </div>
                       <div class="frame-123">
-                        <div class="title5">
-                          {{ formatDate(challenge.challengeStartDate) }} 시작
-                        </div>
+                        <div class="title5">{{ formatDate(challenge.challengeStartDate) }} 시작</div>
                         <div class="title6">{{ challenge.missionName }}</div>
                       </div>
                     </div>
@@ -256,26 +145,11 @@ onMounted(() => {
           </div>
         </div>
         <div class="social-media">
-          <img
-            class="facebook-logo"
-            src="@/assets/images/challenge/MyChallenge/facebook-logo0.svg"
-          />
-          <img
-            class="twitter-logo"
-            src="@/assets/images/challenge/MyChallenge/twitter-logo0.svg"
-          />
-          <img
-            class="instagram-logo"
-            src="@/assets/images/challenge/MyChallenge/instagram-logo0.svg"
-          />
-          <img
-            class="youtube-logo"
-            src="@/assets/images/challenge/MyChallenge/youtube-logo0.svg"
-          />
-          <img
-            class="linkedin-logo"
-            src="@/assets/images/challenge/MyChallenge/linkedin-logo0.svg"
-          />
+          <img class="facebook-logo" src="@/assets/images/challenge/MyChallenge/facebook-logo0.svg" />
+          <img class="twitter-logo" src="@/assets/images/challenge/MyChallenge/twitter-logo0.svg" />
+          <img class="instagram-logo" src="@/assets/images/challenge/MyChallenge/instagram-logo0.svg" />
+          <img class="youtube-logo" src="@/assets/images/challenge/MyChallenge/youtube-logo0.svg" />
+          <img class="linkedin-logo" src="@/assets/images/challenge/MyChallenge/linkedin-logo0.svg" />
         </div>
       </div>
     </div>
