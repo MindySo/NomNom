@@ -7,19 +7,20 @@ import MealView from "../views/MealView.vue";
 import MealList from "../components/meal/MealList.vue";
 import MealDetailModal from "../components/meal/MealDetailModal.vue";
 
-import ChallengeView from "../views/ChallengeView.vue";
-import ChallengeList from "../components/challenge/ChallengeList.vue";
-import ChallengeDetail from "../components/challenge/ChallengeDetail.vue";
-import MyChallenge from "../components/challenge/MyChallenge.vue";
+import ChallengeView from '../views/ChallengeView.vue';
+import ChallengeList from '../components/challenge/ChallengeList.vue';
+import ChallengeDetail from '../components/challenge/ChallengeDetail.vue';
+import MyChallenge from '../components/challenge/MyChallenge.vue';
+import ChallengeCal from '../components/challenge/ChallengeCal.vue';
 
 import CommunityView from '@/views/CommunityView.vue'
 import BoardDetailView from '@/views/BoardDetailView.vue'
 
-import MypageView from "../views/ChallengeView.vue";
-import MypageList from "../components/mypage/MypageList.vue";
-import MypageChallenge from "../components/mypage/MypageChallenge.vue";
-import MypagePointlog from "../components/mypage/MypagePointlog.vue";
-import MypageUserinfo from "../components/mypage/MypageUserinfo.vue";
+import MypageView from '../views/ChallengeView.vue';
+import MypageList from '../components/mypage/MypageList.vue';
+import MypageChallenge from '../components/mypage/MypageChallenge.vue';
+import MypagePointlog from '../components/mypage/MypagePointlog.vue';
+import MypageUserinfo from '../components/mypage/MypageUserinfo.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -59,47 +60,52 @@ const router = createRouter({
       component: () => import('@/views/SignupCompletedView.vue')
     },
     {
-      path: "/meal",
-      name: "meal",
+      path: '/meal',
+      name: 'meal',
       component: MealView,
       children: [
         {
-          path: "",
-          name: "mealList",
+          path: '',
+          name: 'mealList',
           component: MealList,
         },
         {
-          path: "detail/:mealNo",
-          name: "mealDetailModal",
+          path: 'detail/:mealNo',
+          name: 'mealDetailModal',
           component: MealDetailModal,
         },
       ],
     },
     {
-      path: "/challenge",
-      name: "challenge",
+      path: '/challenge',
+      name: 'challenge',
       component: ChallengeView,
       children: [
         {
-          path: "",
-          name: "challengeList",
+          path: '',
+          name: 'challengeList',
           component: ChallengeList,
         },
         {
-          path: "detail/:id",
-          name: "challengeDetail",
+          path: 'detail/:id',
+          name: 'challengeDetail',
           component: ChallengeDetail,
         },
         {
-          path: "myChallenge",
-          name: "myChallenge",
+          path: 'myChallenge',
+          name: 'myChallenge',
           component: MyChallenge,
+        },
+        {
+          path: 'challengeCal',
+          name: 'challengeCal',
+          component: ChallengeCal,
         },
       ],
     },
     {
-      path: "/community",
-      name: "community",
+      path: '/community',
+      name: 'community',
       component: CommunityView,
     },
     {
@@ -108,28 +114,28 @@ const router = createRouter({
       component: BoardDetailView
     },
     {
-      path: "/mypage",
-      name: "mypage",
+      path: '/mypage',
+      name: 'mypage',
       component: MypageView,
       children: [
         {
-          path: "",
-          name: "mypageList",
+          path: '',
+          name: 'mypageList',
           component: MypageList,
         },
         {
-          path: "",
-          name: "mypageChallenge",
+          path: '',
+          name: 'mypageChallenge',
           component: MypageChallenge,
         },
         {
-          path: "detail/",
-          name: "mypagePointlog",
+          path: 'detail/',
+          name: 'mypagePointlog',
           component: MypagePointlog,
         },
         {
-          path: "detail/",
-          name: "mypageUserinfo",
+          path: 'detail/',
+          name: 'mypageUserinfo',
           component: MypageUserinfo,
         },
       ],

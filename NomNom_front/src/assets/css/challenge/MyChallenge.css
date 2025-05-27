@@ -86,13 +86,13 @@
   justify-content: flex-start;
 }
 .nutrigo-span {
-  font-family: "Poppins-SemiBold", sans-serif;
+  font-family: 'Poppins-SemiBold', sans-serif;
   font-size: 15px;
   line-height: 110%;
   font-weight: 600;
 }
 .nutrigo-span2 {
-  font-family: "Poppins-SemiBold", sans-serif;
+  font-family: 'Poppins-SemiBold', sans-serif;
   font-size: 20px;
   line-height: 110%;
   font-weight: 600;
@@ -139,7 +139,11 @@
 .label {
   color: var(--black, #272932);
   text-align: center;
-  font-family: var(--btn-14px-semibold-font-family, "Poppins-SemiBold", sans-serif);
+  font-family: var(
+    --btn-14px-semibold-font-family,
+    'Poppins-SemiBold',
+    sans-serif
+  );
   font-size: var(--btn-14px-semibold-font-size, 14px);
   line-height: var(--btn-14px-semibold-line-height, 100%);
   font-weight: var(--btn-14px-semibold-font-weight, 600);
@@ -177,7 +181,7 @@
 .label2 {
   color: var(--gray-20, #8a8c90);
   text-align: center;
-  font-family: var(--btn-14px-medium-font-family, "Poppins-Medium", sans-serif);
+  font-family: var(--btn-14px-medium-font-family, 'Poppins-Medium', sans-serif);
   font-size: var(--btn-14px-medium-font-size, 14px);
   line-height: var(--btn-14px-medium-line-height, 100%);
   font-weight: var(--btn-14px-medium-font-weight, 500);
@@ -294,7 +298,7 @@
 .title2 {
   color: var(--black, #272932);
   text-align: left;
-  font-family: "Poppins-SemiBold", sans-serif;
+  font-family: 'Poppins-SemiBold', sans-serif;
   font-size: 50px;
   line-height: 108%;
   font-weight: 600;
@@ -304,7 +308,7 @@
 .title3 {
   color: var(--black, #272932);
   text-align: right;
-  font-family: "Poppins-SemiBold", sans-serif;
+  font-family: 'Poppins-SemiBold', sans-serif;
   font-size: 50px;
   line-height: 108%;
   font-weight: 600;
@@ -314,7 +318,7 @@
 .sub-title {
   color: var(--gray-20, #8a8c90);
   text-align: center;
-  font-family: "Poppins-Regular", sans-serif;
+  font-family: 'Poppins-Regular', sans-serif;
   font-size: 20px;
   line-height: 130%;
   font-weight: 400;
@@ -362,7 +366,7 @@
 .label3 {
   color: var(--black, #272932);
   text-align: center;
-  font-family: "Poppins-SemiBold", sans-serif;
+  font-family: 'Poppins-SemiBold', sans-serif;
   font-size: 20px;
   line-height: 140%;
   font-weight: 600;
@@ -385,7 +389,7 @@
 .label4 {
   color: var(--gray-20, #8a8c90);
   text-align: center;
-  font-family: "Poppins-SemiBold", sans-serif;
+  font-family: 'Poppins-SemiBold', sans-serif;
   font-size: 20px;
   line-height: 140%;
   font-weight: 600;
@@ -416,11 +420,12 @@
   align-self: stretch;
   flex: 1;
   position: relative;
+  height: 700px;
 }
 .calender-frame {
   background: var(--gray-bg-subtle, #f6f6f7);
   border-radius: 20px;
-  padding: 10px;
+  padding: 20px;
   display: flex;
   flex-direction: row;
   gap: 10px;
@@ -428,7 +433,7 @@
   justify-content: flex-start;
   flex-shrink: 0;
   width: 558px;
-  height: 658px;
+  height: 700px;
   position: relative;
 }
 .calendar {
@@ -484,7 +489,11 @@
 .year2 {
   color: #000000;
   text-align: center;
-  font-family: var(--title-16px-regular-font-family, "Poppins-Regular", sans-serif);
+  font-family: var(
+    --title-16px-regular-font-family,
+    'Poppins-Regular',
+    sans-serif
+  );
   font-size: var(--title-16px-regular-font-size, 16px);
   line-height: var(--title-16px-regular-line-height, 124%);
   font-weight: var(--title-16px-regular-font-weight, 400);
@@ -493,7 +502,11 @@
 .div2 {
   color: #000000;
   text-align: center;
-  font-family: var(--title-16px-regular-font-family, "Poppins-Regular", sans-serif);
+  font-family: var(
+    --title-16px-regular-font-family,
+    'Poppins-Regular',
+    sans-serif
+  );
   font-size: var(--title-16px-regular-font-size, 16px);
   line-height: var(--title-16px-regular-line-height, 124%);
   font-weight: var(--title-16px-regular-font-weight, 400);
@@ -512,7 +525,11 @@
 .month2 {
   color: #000000;
   text-align: center;
-  font-family: var(--title-16px-regular-font-family, "Poppins-Regular", sans-serif);
+  font-family: var(
+    --title-16px-regular-font-family,
+    'Poppins-Regular',
+    sans-serif
+  );
   font-size: var(--title-16px-regular-font-size, 16px);
   line-height: var(--title-16px-regular-line-height, 124%);
   font-weight: var(--title-16px-regular-font-weight, 400);
@@ -574,7 +591,7 @@
 .div3 {
   color: #cd6969;
   text-align: left;
-  font-family: var(--p-12px-regular-font-family, "Poppins-Regular", sans-serif);
+  font-family: var(--p-12px-regular-font-family, 'Poppins-Regular', sans-serif);
   font-size: var(--p-12px-regular-font-size, 12px);
   line-height: var(--p-12px-regular-line-height, 150%);
   font-weight: var(--p-12px-regular-font-weight, 400);
@@ -583,7 +600,7 @@
 .div4 {
   color: #000000;
   text-align: left;
-  font-family: var(--p-12px-regular-font-family, "Poppins-Regular", sans-serif);
+  font-family: var(--p-12px-regular-font-family, 'Poppins-Regular', sans-serif);
   font-size: var(--p-12px-regular-font-size, 12px);
   line-height: var(--p-12px-regular-line-height, 150%);
   font-weight: var(--p-12px-regular-font-weight, 400);
@@ -592,7 +609,7 @@
 .div5 {
   color: #61a4f1;
   text-align: left;
-  font-family: var(--p-12px-regular-font-family, "Poppins-Regular", sans-serif);
+  font-family: var(--p-12px-regular-font-family, 'Poppins-Regular', sans-serif);
   font-size: var(--p-12px-regular-font-size, 12px);
   line-height: var(--p-12px-regular-line-height, 150%);
   font-weight: var(--p-12px-regular-font-weight, 400);
@@ -638,7 +655,7 @@
 ._1 {
   color: #b3b3b3;
   text-align: center;
-  font-family: var(--p-12px-regular-font-family, "Poppins-Regular", sans-serif);
+  font-family: var(--p-12px-regular-font-family, 'Poppins-Regular', sans-serif);
   font-size: var(--p-12px-regular-font-size, 12px);
   line-height: var(--p-12px-regular-line-height, 150%);
   font-weight: var(--p-12px-regular-font-weight, 400);
@@ -647,7 +664,7 @@
 ._12 {
   color: #61a4f1;
   text-align: center;
-  font-family: var(--p-12px-regular-font-family, "Poppins-Regular", sans-serif);
+  font-family: var(--p-12px-regular-font-family, 'Poppins-Regular', sans-serif);
   font-size: var(--p-12px-regular-font-size, 12px);
   line-height: var(--p-12px-regular-line-height, 150%);
   font-weight: var(--p-12px-regular-font-weight, 400);
@@ -668,7 +685,7 @@
 ._13 {
   color: #cd6969;
   text-align: center;
-  font-family: var(--p-12px-regular-font-family, "Poppins-Regular", sans-serif);
+  font-family: var(--p-12px-regular-font-family, 'Poppins-Regular', sans-serif);
   font-size: var(--p-12px-regular-font-size, 12px);
   line-height: var(--p-12px-regular-line-height, 150%);
   font-weight: var(--p-12px-regular-font-weight, 400);
@@ -677,7 +694,7 @@
 ._14 {
   color: #000000;
   text-align: center;
-  font-family: var(--p-12px-regular-font-family, "Poppins-Regular", sans-serif);
+  font-family: var(--p-12px-regular-font-family, 'Poppins-Regular', sans-serif);
   font-size: var(--p-12px-regular-font-size, 12px);
   line-height: var(--p-12px-regular-line-height, 150%);
   font-weight: var(--p-12px-regular-font-weight, 400);
@@ -819,10 +836,11 @@
   justify-content: center;
   flex: 1;
   position: relative;
+  height: 100%;
 }
 .widget-popular-menu {
   border-radius: 16px;
-  padding: 10px 0px 10px 0px;
+  padding: 16px;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -831,6 +849,7 @@
   align-self: stretch;
   flex-shrink: 0;
   position: relative;
+  background-color: #f6f6f7;
 }
 .header-section {
   display: flex;
@@ -855,7 +874,11 @@
 .title4 {
   color: var(--black, #272932);
   text-align: left;
-  font-family: var(--title-14px-semibold-font-family, "Poppins-SemiBold", sans-serif);
+  font-family: var(
+    --title-14px-semibold-font-family,
+    'Poppins-SemiBold',
+    sans-serif
+  );
   font-size: var(--title-14px-semibold-font-size, 14px);
   line-height: var(--title-14px-semibold-line-height, 125%);
   font-weight: var(--title-14px-semibold-font-weight, 600);
@@ -877,8 +900,12 @@
   gap: 16px;
   align-items: flex-start;
   justify-content: center;
+  width: 100%;
   flex: 1;
   position: relative;
+  max-height: 300px; /* ✅ 원하는 높이로 조정 가능 */
+  overflow-y: auto; /* ✅ 세로 스크롤 표시 */
+  padding-right: 6px; /* ✅ 스크롤 안겹치게 */
 }
 .card-popular-menu {
   background: var(--white, #fefcfb);
@@ -907,7 +934,7 @@
   border-radius: 12px;
   flex-shrink: 0;
   width: 56px;
-  height: 49px;
+  height: 56px;
   position: relative;
 }
 .carrot-vegetables-autumn-easter-3-d-vector-icon-cartoon-minimal-style {
@@ -934,7 +961,11 @@
 .title5 {
   color: var(--gray-20, #8a8c90);
   text-align: left;
-  font-family: var(--title-11px-regular-font-family, "Poppins-Regular", sans-serif);
+  font-family: var(
+    --title-11px-regular-font-family,
+    'Poppins-Regular',
+    sans-serif
+  );
   font-size: var(--title-11px-regular-font-size, 11px);
   line-height: var(--title-11px-regular-line-height, 124%);
   font-weight: var(--title-11px-regular-font-weight, 400);
@@ -943,7 +974,11 @@
 .title6 {
   color: var(--black, #272932);
   text-align: left;
-  font-family: var(--title-12px-semibold-font-family, "Poppins-SemiBold", sans-serif);
+  font-family: var(
+    --title-12px-semibold-font-family,
+    'Poppins-SemiBold',
+    sans-serif
+  );
   font-size: var(--title-12px-semibold-font-size, 12px);
   line-height: var(--title-12px-semibold-line-height, 130%);
   font-weight: var(--title-12px-semibold-font-weight, 600);
@@ -973,7 +1008,11 @@
 .title7 {
   color: var(--black, #272932);
   text-align: left;
-  font-family: var(--title-11px-regular-font-family, "Poppins-Regular", sans-serif);
+  font-family: var(
+    --title-11px-regular-font-family,
+    'Poppins-Regular',
+    sans-serif
+  );
   font-size: var(--title-11px-regular-font-size, 11px);
   line-height: var(--title-11px-regular-line-height, 124%);
   font-weight: var(--title-11px-regular-font-weight, 400);
@@ -1076,7 +1115,11 @@
 .title8 {
   color: #517105;
   text-align: left;
-  font-family: var(--title-11px-semibold-font-family, "Poppins-SemiBold", sans-serif);
+  font-family: var(
+    --title-11px-semibold-font-family,
+    'Poppins-SemiBold',
+    sans-serif
+  );
   font-size: var(--title-11px-semibold-font-size, 11px);
   line-height: var(--title-11px-semibold-line-height, 124%);
   font-weight: var(--title-11px-semibold-font-weight, 600);
@@ -1157,7 +1200,11 @@
 .copyright-2024-peterdraw {
   color: var(--gray-30, #52545b);
   text-align: left;
-  font-family: var(--title-12px-semibold-font-family, "Poppins-SemiBold", sans-serif);
+  font-family: var(
+    --title-12px-semibold-font-family,
+    'Poppins-SemiBold',
+    sans-serif
+  );
   font-size: var(--title-12px-semibold-font-size, 12px);
   line-height: var(--title-12px-semibold-line-height, 130%);
   font-weight: var(--title-12px-semibold-font-weight, 600);
@@ -1175,7 +1222,11 @@
 .privacy-policy {
   color: var(--gray-20, #8a8c90);
   text-align: left;
-  font-family: var(--title-12px-regular-font-family, "Poppins-Regular", sans-serif);
+  font-family: var(
+    --title-12px-regular-font-family,
+    'Poppins-Regular',
+    sans-serif
+  );
   font-size: var(--title-12px-regular-font-size, 12px);
   line-height: var(--title-12px-regular-line-height, 130%);
   font-weight: var(--title-12px-regular-font-weight, 400);
@@ -1184,7 +1235,11 @@
 .term-and-conditions {
   color: var(--gray-20, #8a8c90);
   text-align: left;
-  font-family: var(--title-12px-regular-font-family, "Poppins-Regular", sans-serif);
+  font-family: var(
+    --title-12px-regular-font-family,
+    'Poppins-Regular',
+    sans-serif
+  );
   font-size: var(--title-12px-regular-font-size, 12px);
   line-height: var(--title-12px-regular-line-height, 130%);
   font-weight: var(--title-12px-regular-font-weight, 400);
@@ -1193,7 +1248,11 @@
 .contact {
   color: var(--gray-20, #8a8c90);
   text-align: left;
-  font-family: var(--title-12px-regular-font-family, "Poppins-Regular", sans-serif);
+  font-family: var(
+    --title-12px-regular-font-family,
+    'Poppins-Regular',
+    sans-serif
+  );
   font-size: var(--title-12px-regular-font-size, 12px);
   line-height: var(--title-12px-regular-line-height, 130%);
   font-weight: var(--title-12px-regular-font-weight, 400);
@@ -1242,4 +1301,32 @@
   height: 20px;
   position: relative;
   overflow: visible;
+}
+.challenge-image {
+  width: 100%;
+}
+.button-more2 {
+  background: var(--green, #c2e66e);
+  border-radius: 8px;
+  padding: 4px 7px 4px 7px;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  align-items: center;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  position: relative;
+}
+.button-more2-title {
+  color: var(--black, #272932);
+  text-align: left;
+  font-family: var(
+    --title-11px-regular-font-family,
+    'Poppins-Regular',
+    sans-serif
+  );
+  font-size: var(--title-11px-regular-font-size, 11px);
+  line-height: var(--title-11px-regular-line-height, 124%);
+  font-weight: var(--title-11px-regular-font-weight, 400);
+  position: relative;
 }

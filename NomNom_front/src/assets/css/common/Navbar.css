@@ -100,8 +100,8 @@
   display: flex;
   flex-direction: row;
   gap: 8px;
-  align-items: flex-start;
-  justify-content: flex-start;
+  align-items: flex-end;
+  justify-content: flex-end;
   flex-shrink: 0;
   width: 1072px;
   position: relative;
@@ -114,22 +114,7 @@
   position: static;
 }
 
-.button-nav {
-  border-radius: 14px;
-  padding: 10px 8px 10px 16px;
-  display: flex;
-  flex-direction: row;
-  gap: 12px;
-  align-items: center;
-  justify-content: flex-start;
-  width: 215.75px;
-  position: absolute;
-  left: 0px;
-  top: 0px;
-  overflow: hidden;
-}
-
-.icon-nav-calendar-dots {
+.icon-nav {
   flex-shrink: 0;
   width: 20px;
   height: 20px;
@@ -151,35 +136,11 @@
 .label {
   color: var(--gray-20, #8a8c90);
   text-align: center;
-  font-family: var(--btn-14px-semibold-font-family,
-      "Poppins-SemiBold",
-      sans-serif);
+  font-family: var(--btn-14px-semibold-font-family, "Poppins-SemiBold", sans-serif);
   font-size: var(--btn-14px-semibold-font-size, 14px);
   line-height: var(--btn-14px-semibold-line-height, 100%);
   font-weight: var(--btn-14px-semibold-font-weight, 600);
   position: relative;
-}
-
-.button-nav2 {
-  background: var(--green, #c2e66e);
-  border-radius: 14px;
-  padding: 10px 8px 10px 16px;
-  display: flex;
-  flex-direction: row;
-  gap: 12px;
-  align-items: center;
-  justify-content: flex-start;
-  flex: 1;
-  position: relative;
-  overflow: hidden;
-}
-
-.icon-nav-notebook {
-  flex-shrink: 0;
-  width: 20px;
-  height: 20px;
-  position: relative;
-  overflow: visible;
 }
 
 .text2 {
@@ -196,9 +157,7 @@
 .label2 {
   color: var(--black, #272932);
   text-align: center;
-  font-family: var(--btn-14px-semibold-font-family,
-      "Poppins-SemiBold",
-      sans-serif);
+  font-family: var(--btn-14px-semibold-font-family, "Poppins-SemiBold", sans-serif);
   font-size: var(--btn-14px-semibold-font-size, 14px);
   line-height: var(--btn-14px-semibold-line-height, 100%);
   font-weight: var(--btn-14px-semibold-font-weight, 600);
@@ -218,14 +177,6 @@
   overflow: hidden;
 }
 
-.icon-nav-chart-line-up {
-  flex-shrink: 0;
-  width: 20px;
-  height: 20px;
-  position: relative;
-  overflow: visible;
-}
-
 .label3 {
   color: var(--gray-20, #8a8c90);
   text-align: center;
@@ -236,18 +187,10 @@
   position: relative;
 }
 
-.icon-nav-heartbeat {
-  flex-shrink: 0;
-  width: 20px;
-  height: 20px;
-  position: relative;
-  overflow: visible;
-}
-
 .button-nav4 {
   background: var(--cream-bg, #f9f4f2);
   border-radius: 14px;
-  padding: 10px 8px 10px 16px;
+  padding: 10px 16px 10px 16px;
   display: flex;
   flex-direction: row;
   gap: 12px;
@@ -256,14 +199,7 @@
   flex-shrink: 0;
   position: relative;
   overflow: hidden;
-}
-
-.icon-nav-sign-out {
-  flex-shrink: 0;
-  width: 20px;
-  height: 20px;
-  position: relative;
-  overflow: visible;
+  margin-left: 40px;
 }
 
 .text3 {
@@ -283,4 +219,26 @@
   flex-direction: row;
   align-items: center;
   gap: 12px;
+}
+.nutrigo-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  line-height: 1.2;
+}
+.active {
+  background-color: #c2e66e;
+  border-radius: 14px;
+}
+.active .label3 {
+  color: black;
+  font-weight: 600;
+}
+.button-nav3,
+.button-nav4,
+.logo {
+  cursor: pointer;
+}
+.if-login {
+  display: flex;
 }

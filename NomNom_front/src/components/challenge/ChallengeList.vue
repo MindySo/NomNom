@@ -50,58 +50,6 @@ onMounted(async () => {
   </div>
   <!-- ////////////////////////////// -->
   <div class="div">
-    <div class="navbar">
-      <div class="header">
-        <div class="logo">
-          <div class="symbol">
-            <div class="bowl"></div>
-            <div class="bowl2"></div>
-          </div>
-          <div class="nutrigo">
-            <span>
-              <span class="nutrigo-span">NomNom</span>
-              <span class="nutrigo-span2">
-                <br />
-                냠냠코치
-              </span>
-            </span>
-          </div>
-        </div>
-      </div>
-      <div class="menu-nav">
-        <div class="button-nav">
-          <div class="text">
-            <div class="label">식단 기록</div>
-          </div>
-        </div>
-        <div class="button-nav2">
-          <div class="text2">
-            <div class="label2">즐겨찾기</div>
-          </div>
-          <div class="icon"></div>
-        </div>
-        <div class="button-nav2">
-          <div class="text2">
-            <div class="label2">커뮤니티</div>
-          </div>
-        </div>
-        <div class="button-nav2">
-          <div class="text2">
-            <div class="label2">챌린지</div>
-          </div>
-        </div>
-        <div class="button-nav2">
-          <div class="text2">
-            <div class="label2">마이페이지</div>
-          </div>
-        </div>
-        <div class="button-nav3">
-          <div class="text3">
-            <div class="label2">로그아웃</div>
-          </div>
-        </div>
-      </div>
-    </div>
     <div class="content">
       <div class="header2">
         <div class="title">
