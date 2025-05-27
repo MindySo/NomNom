@@ -70,10 +70,6 @@ public class SecurityConfig {
 //	}
 
 	@Bean
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> ced424f58b9c7670493c86a352574b31f9f247b3
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .httpBasic().disable()
@@ -99,28 +95,7 @@ public class SecurityConfig {
 
         return http.build();
     }
-	
-<<<<<<< HEAD
-=======
-	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		http.httpBasic().disable().formLogin().disable().csrf().disable().cors().and()
-				.authorizeHttpRequests(auth -> auth.requestMatchers("/api/user").permitAll() // 회원가입
-						.requestMatchers("/api/auth/login").permitAll()
-						.requestMatchers("/api/auth/**", "/login/**", "/oauth2/**").permitAll() // ✅ 로그인 허용
-						.requestMatchers("/api/boards/**").permitAll().requestMatchers("/api/mission/**").permitAll()
-						.requestMatchers("/api/meal/**").permitAll()
-						.requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**", "/webjars/**")
-						.permitAll().anyRequest().authenticated())
-				.oauth2Login().successHandler(new OAuth2LoginSuccessHandler(jwtTokenProvider, userDao)).and()
-				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-				.addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider, userDetailsService),
-						UsernamePasswordAuthenticationFilter.class);
 
-		return http.build();
-	}
->>>>>>> df4fb0b8e8dca16871042601ed97fb7d56c091b1
-=======
->>>>>>> ced424f58b9c7670493c86a352574b31f9f247b3
 
 	// ✅ 비밀번호 암호화 설정
 	@Bean
