@@ -33,6 +33,29 @@ onMounted(async () => {
   missionList.value = response.data;
   console.log(missionList);
 });
+
+const startChallenge = async (missionNo) => {
+  try {
+    const response = await axios.post(
+      "http://localhost:8080/api/mission/challenge",
+      null, // POST 바디가 필요 없다면 null
+      {
+        params: {
+          userNo: 1,
+          missionNo: missionNo,
+        },
+      }
+    );
+
+    alert("챌린지를 시작했어요!");
+
+    // 필요하다면 챌린지 목록 다시 불러오기
+    // await fetchInProgressChallenges();
+  } catch (error) {
+    console.error("챌린지 시작 실패:", error);
+    alert("챌린지를 시작하는 데 실패했어요.");
+  }
+};
 </script>
 
 <style>
@@ -45,77 +68,38 @@ onMounted(async () => {
 </style>
 
 <template>
-  <div class="board-header">
-    <RouterLink :to="{ name: 'myChallenge' }">챌린지</RouterLink>
-  </div>
-  <!-- ////////////////////////////// -->
-  <div class="div">
-    <div class="content">
-      <div class="header2">
-        <div class="title">
-          <div class="title2">다양한 챌린지에 도전하고</div>
-          <div class="title3">여러분의 건강을 지키세요!</div>
-          <div class="sub-title">어쩌고저쩌고 저쩌구저쩌구 그래서이래서 저렇게이렇게</div>
+  <div class="cards">
+    <div v-for="mission in missionList" :key="mission.missionNo" :class="mission.inProgress ? 'card-popular-menu2' : 'card-popular-menu'" @click="openModal(mission)">
+      <div class="image">
+        <img class="mission-image" :src="mission.imageUrl" :alt="mission.missionName" />
+      </div>
+      <div class="frame-113">
+        <div v-if="mission.inProgress" class="button-more2">
+          <div class="title6">참여중</div>
+        </div>
+        <div v-else-if="mission.completedCount > 0" class="button-more3">
+          <img class="icon-check" src="@/assets/images/challenge/ChallengeList/icon-check1.svg" />
+          <div class="title7">{{ mission.completedCount }}회</div>
+        </div>
+        <div class="title4">
+          {{ mission.missionName }}
         </div>
       </div>
-      <div class="frame-11">
-        <div class="menu-nav2">
-          <div class="button-nav4">
-            <div class="label3">나의 챌린지</div>
-          </div>
-          <div class="button-nav5">
-            <div class="label4">새로운 챌린지 도전하기</div>
-          </div>
+      <div class="frame-114">
+        <div class="title5">{{ mission.challengeDuration }}일 성공하면</div>
+        <div class="button-more">
+          <div class="title6">+ 15 포인트</div>
         </div>
-        <div class="frame-112">
-          <div class="cards">
-            <div v-for="mission in missionList" :key="mission.missionNo" :class="mission.inProgress ? 'card-popular-menu2' : 'card-popular-menu'" @click="openModal(mission)">
-              <div class="image">
-                <img class="mission-image" src="@/assets/images/challenge/ChallengeList/carrot-vegetables-autumn-easter-3-d-vector-icon-cartoon-minimal-style.png" />
-              </div>
-              <div class="frame-113">
-                <div v-if="mission.inProgress" class="button-more2">
-                  <div class="title6">참여중</div>
-                </div>
-                <div v-else-if="mission.completedCount > 0" class="button-more3">
-                  <img class="icon-check" src="@/assets/images/challenge/ChallengeList/icon-check1.svg" />
-                  <div class="title7">{{ mission.completedCount }}회</div>
-                </div>
-                <div class="title4">
-                  {{ mission.missionName }}
-                </div>
-              </div>
-              <div class="frame-114">
-                <div class="title5">{{ mission.challengeDuration }}일 성공하면</div>
-                <div class="button-more">
-                  <div class="title6">+ 15 포인트</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="section-footer">
-        <div class="legal-information">
-          <div class="copyright-2024-peterdraw">Copyright © 2024 Peterdraw</div>
-          <div class="links">
-            <div class="privacy-policy">Privacy Policy</div>
-            <div class="term-and-conditions">Term and conditions</div>
-            <div class="contact">Contact</div>
-          </div>
-        </div>
-        <div class="social-media"></div>
       </div>
     </div>
   </div>
 
   <!-- 챌린지 상세 모달 -->
-  <!-- 모달 전체 -->
   <div v-if="showModal" class="modal-overlay" @click.self="closeModal">
     <div class="modal-body">
       <!-- 이미지 -->
       <div class="modal-image">
-        <img class="modal-carrot" src="@/assets/images/challenge/ChallengeList/blur-carrot.png" />
+        <img class="modal-carrot" :src="selectedMission?.imageUrl" :alt="selectedMission?.missionName" />
       </div>
 
       <!-- 텍스트 정보 -->
@@ -132,7 +116,7 @@ onMounted(async () => {
             <div class="modal-title3">+ 15 포인트</div>
           </div>
         </div>
-        <button class="modal-button-more2" :disabled="selectedMission?.inProgress">
+        <button class="modal-button-more2" :disabled="selectedMission?.inProgress" @click="startChallenge(selectedMission?.missionNo)">
           <div class="modal-text">
             <div class="modal-label">
               {{ selectedMission?.inProgress ? "지금 참여 중인 챌린지예요." : "오늘부터 챌린지 시작하기!" }}
