@@ -14,7 +14,6 @@ import MyChallenge from "../components/challenge/MyChallenge.vue";
 import ChallengeCal from "../components/challenge/ChallengeCal.vue";
 import ChallengeMain from "../components/challenge/ChallengeMain.vue";
 
-
 import CommunityView from "@/views/CommunityView.vue";
 import BoardDetailView from "@/views/BoardDetailView.vue";
 
