@@ -25,8 +25,23 @@ function formatDateForDisplay(isoDate) {
 
 // 기본이미지 지정
 import defaultImage from '@/assets/images/global/food_default.png';
-function getImage(meal) {
-  return meal.fileList?.[0]?.attachmentName || defaultImage;
+const currentIndex = ref(0);
+
+function getImageUrl(index) {
+  if (!meal.value?.fileList?.length) return defaultImage;
+  return meal.value.fileList[index]?.attachmentName || defaultImage;
+}
+
+function prevImage() {
+  if (!meal.value?.fileList) return;
+  currentIndex.value =
+    (currentIndex.value - 1 + meal.value.fileList.length) %
+    meal.value.fileList.length;
+}
+
+function nextImage() {
+  if (!meal.value?.fileList) return;
+  currentIndex.value = (currentIndex.value + 1) % meal.value.fileList.length;
 }
 
 // 아침 점심 저녁
@@ -294,7 +309,17 @@ function closeModal() {
               </div>
             </div>
           </div>
-          <div class="image"></div>
+          <div class="image-slider">
+            <button @click="prevImage" class="arrow left">〈</button>
+
+            <img
+              class="preview-image"
+              :src="getImageUrl(currentIndex)"
+              alt="식단 이미지"
+            />
+
+            <button @click="nextImage" class="arrow right">〉</button>
+          </div>
         </div>
         <div class="frame-203">
           <div class="frame-204">
@@ -307,7 +332,7 @@ function closeModal() {
                 <div class="detail-group-15">
                   <div class="detail-frame-142">
                     <div class="detail-title5">칼로리</div>
-                    <div class="detail-title6">{{ meal.energy }} ml</div>
+                    <div class="detail-title6">{{ meal.energy }} kcal</div>
                   </div>
                   <div class="detail-menu-nav3">
                     <canvas
@@ -413,42 +438,46 @@ function closeModal() {
                 </div>
               </div>
             </div>
-            <div class="detail-frame-133">
-              <div class="detail-frame-14">
+            <div class="detail-separator-1"></div>
+            <div class="detail-frame-133-1">
+              <!-- 비타민 -->
+              <div class="detail-frame-14-1">
                 <div class="detail-title8">비타민</div>
-                <div class="detail-frame-137">
-                  <div class="detail-frame-18">
+                <div class="detail-frame-134">
+                  <div class="detail-frame-135">
                     <div class="detail-title7">비타민A</div>
                     <div class="detail-title7">
                       {{ meal.vitaminACarotene }} µg
                     </div>
                   </div>
-                  <div class="detail-frame-18">
+                  <div class="detail-frame-135">
                     <div class="detail-title7">비타민 B1 티아민</div>
                     <div class="detail-title7">{{ meal.vitaminB1 }} mg</div>
                   </div>
-                  <div class="detail-frame-18">
+                  <div class="detail-frame-135">
                     <div class="detail-title7">비타민 B2 리보플라빈</div>
                     <div class="detail-title7">{{ meal.vitaminB2 }} mg</div>
                   </div>
-                  <div class="detail-frame-18">
+                  <div class="detail-frame-135">
                     <div class="detail-title7">비타민 B3 니아신</div>
                     <div class="detail-title7">{{ meal.niacin }} mg</div>
                   </div>
-                  <div class="detail-frame-18">
+                  <div class="detail-frame-135">
                     <div class="detail-title7">엽산</div>
                     <div class="detail-title7">{{ meal.folate }} µg</div>
                   </div>
-                  <div class="detail-frame-18">
+                  <div class="detail-frame-135">
                     <div class="detail-title7">비타민 C</div>
                     <div class="detail-title7">{{ meal.vitaminC }} mg</div>
                   </div>
-                  <div class="detail-frame-18">
+                  <div class="detail-frame-135">
                     <div class="detail-title7">비타민 D</div>
                     <div class="detail-title7">{{ meal.vitaminD }} µg</div>
                   </div>
                 </div>
               </div>
+              <div class="detail-separator"></div>
+              <!-- 콜레스테롤 -->
               <div class="detail-frame-14-1">
                 <div class="detail-title8">콜레스테롤</div>
                 <div class="detail-frame-137">
@@ -458,26 +487,28 @@ function closeModal() {
                   </div>
                 </div>
               </div>
-              <div class="detail-frame-14">
+              <div class="detail-separator"></div>
+              <!-- 무기질 -->
+              <div class="detail-frame-14-1">
                 <div class="detail-title8">무기질</div>
-                <div class="detail-frame-137">
-                  <div class="detail-frame-18">
+                <div class="detail-frame-134">
+                  <div class="detail-frame-135">
                     <div class="detail-title7">나트륨</div>
                     <div class="detail-title7">{{ meal.sodium }} mg</div>
                   </div>
-                  <div class="detail-frame-18">
+                  <div class="detail-frame-135">
                     <div class="detail-title7">칼슘</div>
                     <div class="detail-title7">{{ meal.calcium }} mg</div>
                   </div>
-                  <div class="detail-frame-18">
+                  <div class="detail-frame-135">
                     <div class="detail-title7">철</div>
                     <div class="detail-title7">{{ meal.iron }} mg</div>
                   </div>
-                  <div class="detail-frame-18">
+                  <div class="detail-frame-135">
                     <div class="detail-title7">인</div>
                     <div class="detail-title7">{{ meal.phosphorus }} mg</div>
                   </div>
-                  <div class="detail-frame-18">
+                  <div class="detail-frame-135">
                     <div class="detail-title7">칼륨</div>
                     <div class="detail-title7">{{ meal.potassium }} mg</div>
                   </div>
