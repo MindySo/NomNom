@@ -10,15 +10,42 @@
         <div class="form">
           <!-- Email -->
           <div :class="['input', { 'input-focused': isEmailFocused || email }]">
-            <input type="email" v-model="email" @focus="isEmailFocused = true" @blur="isEmailFocused = false" class="form-input" required />
-            <label class="floating-label" :class="{ active: isEmailFocused || email }">이메일</label>
+            <input
+              type="email"
+              v-model="email"
+              @focus="isEmailFocused = true"
+              @blur="isEmailFocused = false"
+              class="form-input"
+              required
+            />
+            <label
+              class="floating-label"
+              :class="{ active: isEmailFocused || email }"
+              >이메일</label
+            >
           </div>
           <div v-if="emailError" class="error-message">{{ emailError }}</div>
 
           <!-- Password -->
-          <div :class="['input2', { 'input-focused': isPasswordFocused || password }]">
-            <input type="password" v-model="password" @focus="isPasswordFocused = true" @blur="isPasswordFocused = false" class="form-input" required />
-            <label class="floating-label" :class="{ active: isPasswordFocused || password }">비밀번호</label>
+          <div
+            :class="[
+              'input2',
+              { 'input-focused': isPasswordFocused || password },
+            ]"
+          >
+            <input
+              type="password"
+              v-model="password"
+              @focus="isPasswordFocused = true"
+              @blur="isPasswordFocused = false"
+              class="form-input"
+              required
+            />
+            <label
+              class="floating-label"
+              :class="{ active: isPasswordFocused || password }"
+              >비밀번호</label
+            >
             <img class="eye-off" src="@/assets/images/auth/eye-off0.svg" />
           </div>
 
@@ -32,11 +59,7 @@
           </div>
           <div v-if="loginError" class="error-message">{{ loginError }}</div>
 
-          <div class="or">
-            <img class="vector-1" src="@/assets/images/auth/vector-10.svg" />
-            <div class="div9">또는</div>
-            <img class="vector-2" src="@/assets/images/auth/vector-20.svg" />
-          </div>
+          <div class="div9">또는</div>
 
           <div class="button2" @click="handleGoogleLogin">
             <div class="google">Google로 시작하기</div>
@@ -56,21 +79,21 @@
 </template>
 
 <script setup>
-import { ref, watch } from "vue";
-import axios from "axios";
-import { useRouter } from "vue-router";
-import { useAuthStore } from "@/stores/authStore";
+import { ref, watch } from 'vue';
+import axios from 'axios';
+import { useRouter } from 'vue-router';
+import { useAuthStore } from '@/stores/authStore';
 
 const router = useRouter();
 
 const authStore = useAuthStore();
 
-const email = ref("");
-const password = ref("");
+const email = ref('');
+const password = ref('');
 const isEmailFocused = ref(false);
 const isPasswordFocused = ref(false);
-const emailError = ref("");
-const loginError = ref("");
+const emailError = ref('');
+const loginError = ref('');
 
 // 이메일 유효성 검사
 const validateEmail = (value) => {
@@ -81,52 +104,54 @@ const validateEmail = (value) => {
 // 이메일 입력 변화 감지하여 에러 처리
 watch(email, (newVal) => {
   if (!newVal || validateEmail(newVal)) {
-    emailError.value = "";
+    emailError.value = '';
   } else {
-    emailError.value = "올바른 이메일 형식을 입력해주세요.";
+    emailError.value = '올바른 이메일 형식을 입력해주세요.';
   }
 });
 
 // 로그인 요청
 const handleLogin = async () => {
-  loginError.value = "";
-  emailError.value = "";
+  loginError.value = '';
+  emailError.value = '';
 
   if (!validateEmail(email.value)) {
-    emailError.value = "올바른 이메일 형식을 입력해주세요.";
+    emailError.value = '올바른 이메일 형식을 입력해주세요.';
     return;
   }
 
   try {
-    const response = await axios.post("http://localhost:8080/api/auth/login", {
+    const response = await axios.post('http://localhost:8080/api/auth/login', {
       email: email.value,
       password: password.value,
     });
+    console.log(sessionStorage.getItem('accessToken'));
     const token = response.data.token;
     const userNo = response.data.userNo;
-    sessionStorage.setItem("accessToken", token);
+    sessionStorage.setItem('accessToken', token);
     authStore.setLogin(token, userNo); // pinia authStore에 토큰과 유저넘버 저장
-    router.push("/main");
+    router.push('/main');
   } catch (error) {
-    loginError.value = "로그인에 실패했습니다. 이메일과 비밀번호를 확인해주세요.";
+    loginError.value =
+      '로그인에 실패했습니다. 이메일과 비밀번호를 확인해주세요.';
   }
 };
 
 // 구글 로그인 버튼 클릭 시 처리
 const handleGoogleLogin = () => {
   // Only triggered when Google login button is clicked
-  window.location.href = "http://localhost:8080/oauth2/authorization/google";
+  window.location.href = 'http://localhost:8080/oauth2/authorization/google';
 };
 
 // 회원가입 이동
 const goToSignup = () => {
-  router.push("/signup"); // '/signup' 페이지가 존재해야 함
+  router.push('/signup'); // '/signup' 페이지가 존재해야 함
 };
 </script>
 
 <style scoped>
-@import "@/assets/css/vars.css";
-@import "@/assets/css/auth/Login.css";
+@import '@/assets/css/vars.css';
+@import '@/assets/css/auth/Login.css';
 
 .text .div3.center {
   text-align: center;

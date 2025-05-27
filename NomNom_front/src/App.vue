@@ -1,13 +1,13 @@
 <script setup>
-import { useRoute } from "vue-router";
-import HeaderNavbar from "@/components/common/HeaderNavbar.vue";
+import { useRoute } from 'vue-router';
+import HeaderNavbar from '@/components/common/HeaderNavbar.vue';
 
 const route = useRoute();
 </script>
 
 <template>
   <header>
-    <!-- <HeaderNavbar /> -->
+    <HeaderNavbar />
   </header>
 
   <RouterView />
