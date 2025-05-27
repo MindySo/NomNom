@@ -2,18 +2,9 @@
   <div class="div">
     <div class="left-column">
       <div class="top">
-        <div class="header">
-          <div class="logo">
-            <div class="symbol">
-              <div class="bowl"></div>
-              <div class="bowl2"></div>
-            </div>
-            <div class="nutrigo">
-              <span>
-                <span class="nutrigo-span">NomNom</span>
-                <span class="nutrigo-span2"><br />냠냠코치</span>
-              </span>
-            </div>
+        <div class="logo">
+          <div class="symbol">
+
           </div>
         </div>
       </div>
