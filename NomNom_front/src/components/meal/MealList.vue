@@ -5,6 +5,7 @@ import { useRouter } from "vue-router";
 
 import WeeklyReport from "@/components/meal/WeeklyReport.vue";
 import MonthlyReport from "@/components/meal/MonthlyReport.vue";
+import MealDetailModal from "@/components/meal/MealDetailModal.vue";
 import RegisterMealModal from "@/components/meal/RegisterMealModal.vue";
 import RegisterWaterModal from "@/components/meal/RegisterWaterModal.vue";
 
@@ -146,7 +147,6 @@ async function requestDayReport() {
 
 // chart.js //////////////////////////////////////////////////////////////////////
 import { Chart, DoughnutController, BarController, ArcElement, BarElement, CategoryScale, LinearScale, Tooltip, Legend } from "chart.js";
-import MealDetailModal from "./MealDetailModal.vue";
 
 Chart.register(DoughnutController, BarController, ArcElement, BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
@@ -159,11 +159,17 @@ const dailyFatChart = ref(null);
 // 식단 추가 모달 /////////////////////////////////
 const showMealModal = ref(false);
 const showWaterModal = ref(false);
+const showDetailModal = ref(false);
+const selectedMealNo = ref(null);
 function openMealModal() {
   showMealModal.value = true;
 }
 function openWaterModal() {
   showWaterModal.value = true;
+}
+function openDetailModal() {
+  selectedMealNo.value = mealNo;
+  showDetailModal.value = true;
 }
 </script>
 
@@ -235,7 +241,7 @@ function openWaterModal() {
                   </div>
 
                   <!-- 식단 리스트 -->
-                  <div v-for="(meal, index) in reportStore.meals" :key="meal.mealNo" class="card-list-all-menu2" @click="openMealDetailModal">
+                  <div v-for="(meal, index) in reportStore.meals" :key="meal.mealNo" class="card-list-all-menu2" @click="openDetailModal">
                     <div class="image">
                       <img class="place-image-here" :src="meal.fileList[0] ? meal.fileList[0].attachmentName : defaultImage" />
                     </div>
@@ -515,5 +521,5 @@ function openWaterModal() {
   <RegisterWaterModal :show="showWaterModal" @close="showWaterModal = false" @waterRegistered="onWaterOrMealRegistered" />
 
   <!-- 상세보기 모달 -->
-  <MealDetailModal :show="showMealDetailModal" @close="showMealDetailModal = false" />
+  <MealDetailModal :show="showDetailModal" :meal-no="selectedMealNo" @close="showDetailModal = false" />
 </template>
