@@ -167,7 +167,7 @@
 	
 	
 	<!-- 물 섭취 목록 조회(enum='WATER')(사용자별/일자) -->
-	<select id="selectWaterListByUserAndRegDate" parameterType="MealRequest" resultType="MealResponse">
+	<select id="selectWaterListByUserAndRegDate" parameterType="MealRequest" resultType="Water">
 		SELECT 
 		m.meal_no as mealNo,
 		meal_title as mealTitle,

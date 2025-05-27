@@ -317,7 +317,7 @@
 }
 /* Figma Color Variables of your File */
 :root,
-[data-colors-mode='mode-1'] {
+[data-colors-mode="mode-1"] {
   /* mode-1 */
   --water: #9cd9ff;
 }

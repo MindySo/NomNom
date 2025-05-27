@@ -8,7 +8,7 @@ public class Challenge {
     private Integer missionId;
     private LocalDate challengeStartDate;
     private Integer challengeCurrentStreak;
-    private String challengeStatus;
+    private ChallengeStatusEnum challengeStatus;
 
     
     public Challenge() {
@@ -16,7 +16,7 @@ public class Challenge {
 	
     
     public Challenge(Integer challengeNo, Integer userId, Integer missionId, LocalDate challengeStartDate,
-			Integer challengeCurrentStreak, String challengeStatus) {
+			Integer challengeCurrentStreak, ChallengeStatusEnum challengeStatus) {
 		this.challengeNo = challengeNo;
 		this.userId = userId;
 		this.missionId = missionId;
@@ -56,10 +56,10 @@ public class Challenge {
 	public void setChallengeCurrentStreak(Integer challengeCurrentStreak) {
 		this.challengeCurrentStreak = challengeCurrentStreak;
 	}
-	public String getChallengeStatus() {
+	public ChallengeStatusEnum getChallengeStatus() {
 		return challengeStatus;
 	}
-	public void setChallengeStatus(String challengeStatus) {
+	public void setChallengeStatus(ChallengeStatusEnum challengeStatus) {
 		this.challengeStatus = challengeStatus;
 	}
 	@Override
