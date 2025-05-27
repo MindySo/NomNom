@@ -4,8 +4,8 @@ import java.time.LocalDate;
 
 public class Challenge {
 	private Integer challengeNo;
-    private Integer userId;
-    private Integer missionId;
+    private Integer userNo;
+    private Integer missionNo;
     private LocalDate challengeStartDate;
     private Integer challengeCurrentStreak;
     private ChallengeStatusEnum challengeStatus;
@@ -15,11 +15,11 @@ public class Challenge {
 	}
 
 
-	public Challenge(Integer challengeNo, Integer userId, Integer missionId, LocalDate challengeStartDate,
+	public Challenge(Integer challengeNo, Integer userNo, Integer missionNo, LocalDate challengeStartDate,
 			Integer challengeCurrentStreak, ChallengeStatusEnum challengeStatus) {
 		this.challengeNo = challengeNo;
-		this.userId = userId;
-		this.missionId = missionId;
+		this.userNo = userNo;
+		this.missionNo = missionNo;
 		this.challengeStartDate = challengeStartDate;
 		this.challengeCurrentStreak = challengeCurrentStreak;
 		this.challengeStatus = challengeStatus;
@@ -36,23 +36,23 @@ public class Challenge {
 	}
 
 
-	public Integer getUserId() {
-		return userId;
+	public Integer getUserNo() {
+		return userNo;
 	}
 
 
-	public void setUserId(Integer userId) {
-		this.userId = userId;
+	public void setUserNo(Integer userNo) {
+		this.userNo = userNo;
 	}
 
 
-	public Integer getMissionId() {
-		return missionId;
+	public Integer getMissionNo() {
+		return missionNo;
 	}
 
 
-	public void setMissionId(Integer missionId) {
-		this.missionId = missionId;
+	public void setMissionNo(Integer missionNo) {
+		this.missionNo = missionNo;
 	}
 
 
@@ -88,7 +88,7 @@ public class Challenge {
 
 	@Override
 	public String toString() {
-		return "ChallengeResponse [challengeNo=" + challengeNo + ", userId=" + userId + ", missionId=" + missionId
+		return "ChallengeResponse [challengeNo=" + challengeNo + ", userNo=" + userNo + ", missionNo=" + missionNo
 				+ ", challengeStartDate=" + challengeStartDate + ", challengeCurrentStreak=" + challengeCurrentStreak
 				+ ", challengeStatus=" + challengeStatus + "]";
 	}
