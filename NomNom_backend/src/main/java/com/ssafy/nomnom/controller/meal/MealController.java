@@ -38,7 +38,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/api/meal")
-@CrossOrigin("*")
 @Tag(name = "식단 API", description = "식단 crud")
 public class MealController {
 	private final MealService mealservice;

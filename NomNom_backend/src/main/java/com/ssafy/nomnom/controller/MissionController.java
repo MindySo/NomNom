@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.ssafy.nomnom.model.dto.mission.Challenge;
 import com.ssafy.nomnom.model.dto.mission.ChallengeResponse;
 import com.ssafy.nomnom.model.dto.mission.MissionResponse;
 import com.ssafy.nomnom.model.service.mission.MissionService;
@@ -58,7 +59,10 @@ public class MissionController {
 	
 	@Operation(summary = "챌린지 등록")
 	@PostMapping("/challenge")
-	public ResponseEntity<Void> writeChallenge(ChallengeResponse challenge) {
+	public ResponseEntity<Void> writeChallenge(int userNo, int missionNo) {
+		Challenge challenge = new Challenge();
+		challenge.setUserNo(userNo);
+		challenge.setMissionNo(missionNo);
 		missionService.writeChallenge(challenge);
 		return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}

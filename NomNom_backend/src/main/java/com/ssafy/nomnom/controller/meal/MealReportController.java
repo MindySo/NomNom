@@ -24,7 +24,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/api/meal/report")
-@CrossOrigin("*")
 @Tag(name = "영양 분석 API", description = "일간, 주간 월간 영양소 분석 제공")
 public class MealReportController {
 	

@@ -4,8 +4,8 @@ import java.time.LocalDate;
 
 public class ChallengeResponse {
 	private Integer challengeNo;
-    private Integer userId;
-    private Integer missionId; 
+    private Integer userNo;
+    private Integer missionNo; 
     private String missionName; 
     private LocalDate challengeStartDate;
     private Integer challengeCurrentStreak;
@@ -18,13 +18,13 @@ public class ChallengeResponse {
 	}
 
 
-	public ChallengeResponse(Integer challengeNo, Integer userId, Integer missionId, String missionName,
+	public ChallengeResponse(Integer challengeNo, Integer userNo, Integer missionNo, String missionName,
 			LocalDate challengeStartDate, Integer challengeCurrentStreak, ChallengeStatusEnum challengeStatus,
 			String imageUrl, String missionColor) {
 		super();
 		this.challengeNo = challengeNo;
-		this.userId = userId;
-		this.missionId = missionId;
+		this.userNo = userNo;
+		this.missionNo = missionNo;
 		this.missionName = missionName;
 		this.challengeStartDate = challengeStartDate;
 		this.challengeCurrentStreak = challengeCurrentStreak;
@@ -44,23 +44,23 @@ public class ChallengeResponse {
 	}
 
 
-	public Integer getUserId() {
-		return userId;
+	public Integer getUserNo() {
+		return userNo;
 	}
 
 
-	public void setUserId(Integer userId) {
-		this.userId = userId;
+	public void setUserNo(Integer userNo) {
+		this.userNo = userNo;
 	}
 
 
-	public Integer getMissionId() {
-		return missionId;
+	public Integer getMissionNo() {
+		return missionNo;
 	}
 
 
-	public void setMissionId(Integer missionId) {
-		this.missionId = missionId;
+	public void setMissionNo(Integer missionNo) {
+		this.missionNo = missionNo;
 	}
 
 
@@ -126,7 +126,7 @@ public class ChallengeResponse {
 
 	@Override
 	public String toString() {
-		return "ChallengeResponse [challengeNo=" + challengeNo + ", userId=" + userId + ", missionId=" + missionId
+		return "ChallengeResponse [challengeNo=" + challengeNo + ", userNo=" + userNo + ", missionNo=" + missionNo
 				+ ", missionName=" + missionName + ", challengeStartDate=" + challengeStartDate
 				+ ", challengeCurrentStreak=" + challengeCurrentStreak + ", challengeStatus=" + challengeStatus
 				+ ", imageUrl=" + imageUrl + ", missionColor=" + missionColor + "]";
