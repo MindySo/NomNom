@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.ssafy.nomnom.model.dao.BoardDao;
 import com.ssafy.nomnom.model.dao.CommentDao;
 import com.ssafy.nomnom.model.dto.community.Comment;
+import com.ssafy.nomnom.model.dto.community.CommentResponse;
 
 @Service
 public class CommentServiceImpl implements CommentService {
@@ -42,7 +42,7 @@ public class CommentServiceImpl implements CommentService {
 
 	//게시글에서 댓글 조회 
 	@Override
-	public List<Comment> getCommentsByBoard(int boardNo) {
+	public List<CommentResponse> getCommentsByBoard(int boardNo) {
 		return commentDao.selectCommentsByBoard(boardNo);
 	}
 

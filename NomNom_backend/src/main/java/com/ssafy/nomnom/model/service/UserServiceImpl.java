@@ -1,10 +1,14 @@
 package com.ssafy.nomnom.model.service;
 
+import java.util.List;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ssafy.nomnom.model.dao.AllergyDao;
 import com.ssafy.nomnom.model.dao.UserDao;
+import com.ssafy.nomnom.model.dto.Allergy;
 import com.ssafy.nomnom.model.dto.user.User;
 import com.ssafy.nomnom.model.dto.user.UserRegisterRequest;
 import com.ssafy.nomnom.model.dto.user.UserUpdateRequest;
@@ -14,10 +18,12 @@ public class UserServiceImpl implements UserService {
 
 	private final UserDao userDao;
 	private final PasswordEncoder passwordEncoder;
+	private final AllergyDao allergyDao;
 
-	public UserServiceImpl(UserDao userDao, PasswordEncoder passwordEncoder) {
+	public UserServiceImpl(UserDao userDao, PasswordEncoder passwordEncoder, AllergyDao allergyDao) {
 		this.userDao = userDao;
 		this.passwordEncoder = passwordEncoder;
+		this.allergyDao = allergyDao;
 	}
 
 	// 회원가입
@@ -108,4 +114,9 @@ public class UserServiceImpl implements UserService {
 		return userDao.updateUser(user);
 	}
 
+	// 알러지 조회
+	@Override
+	public List<Allergy> getAllAllergies() {
+		return allergyDao.findAll();
+	}
 }
