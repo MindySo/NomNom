@@ -11,6 +11,8 @@ import { RouterLink, RouterView } from 'vue-router'
         <RouterLink to="/challenge">챌린지</RouterLink>
         <RouterLink to="/community">커뮤니티</RouterLink>
         <RouterLink to="/mypage">마이페이지</RouterLink>
+        <RouterLink to="/login">로그인</RouterLink>
+        <RouterLink to="/signup">회원가입</RouterLink>
       </nav>
     </div>
   </header>

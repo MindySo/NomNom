@@ -15,7 +15,8 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     },
   },
-   server: {
+  server: {
+    cors: true, // ✅ CORS 허용 추가
     proxy: {
       '/api': {
         target: 'http://localhost:8080',
