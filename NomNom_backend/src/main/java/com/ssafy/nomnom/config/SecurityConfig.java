@@ -9,10 +9,16 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.ssafy.nomnom.model.dao.UserDao;
 import com.ssafy.nomnom.model.service.CustomUserDetailsService;
 import static org.springframework.security.config.Customizer.withDefaults;
+
+import java.util.List;
+
 /**
  * Spring Security 설정 클래스 - JWT 인증 설정 - OAuth2 로그인 성공 핸들러 연결
  */
@@ -63,34 +69,36 @@ public class SecurityConfig {
 //		return http.build();
 //	}
 
-	
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-	    http
-	        .httpBasic().disable()
-	        .formLogin().disable()
-	        .csrf().disable()
-	        .cors().and()
-	        .authorizeHttpRequests(auth -> auth
-	            .requestMatchers("/api/user").permitAll() // 회원가입
-	            .requestMatchers("/api/auth/login").permitAll()
-	            .requestMatchers("/api/auth/**", "/login/**", "/oauth2/**").permitAll() // ✅ 로그인 허용
-	            .requestMatchers("/api/boards/**").permitAll()
-	            .requestMatchers("/api/mission/**").permitAll()
-	            .requestMatchers("/api/meal/**").permitAll()
-	            .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**", "/webjars/**").permitAll()
-	            .anyRequest().authenticated()
-	        )
-	        .oauth2Login().successHandler(new OAuth2LoginSuccessHandler(jwtTokenProvider, userDao))
-	        .and()
-	        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-	        .and()
-	        .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider, userDetailsService),
-	                UsernamePasswordAuthenticationFilter.class);
+		http.httpBasic().disable().formLogin().disable().csrf().disable().cors().and()
+				.authorizeHttpRequests(auth -> auth.requestMatchers("/api/user").permitAll() // 회원가입
+						.requestMatchers("/api/auth/login").permitAll()
+						.requestMatchers("/api/auth/**", "/login/**", "/oauth2/**").permitAll() // ✅ 로그인 허용
+						.requestMatchers("/api/boards/**").permitAll().requestMatchers("/api/mission/**").permitAll()
+						.requestMatchers("/api/meal/**").permitAll()
+						.requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**", "/webjars/**")
+						.permitAll().anyRequest().authenticated())
+				.oauth2Login().successHandler(new OAuth2LoginSuccessHandler(jwtTokenProvider, userDao)).and()
+				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+				.addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider, userDetailsService),
+						UsernamePasswordAuthenticationFilter.class);
 
-	    return http.build();
+		return http.build();
 	}
-	
+
+	@Bean
+	public CorsConfigurationSource corsConfigurationSource() {
+		CorsConfiguration config = new CorsConfiguration();
+		config.setAllowedOriginPatterns(List.of("*")); // 배포시 도메인 명시
+		config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+		config.setAllowedHeaders(List.of("*"));
+		config.setAllowCredentials(true); // 쿠키나 인증정보 포함 허용
+
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", config);
+		return source;
+	}
 
 	// ✅ 비밀번호 암호화 설정
 	@Bean
