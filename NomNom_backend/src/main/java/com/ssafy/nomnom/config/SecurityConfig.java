@@ -78,6 +78,7 @@ public class SecurityConfig {
 	            .requestMatchers("/api/boards/**").permitAll()
 	            .requestMatchers("/api/mission/**").permitAll()
 	            .requestMatchers("/api/meal/**").permitAll()
+	            .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**", "/webjars/**").permitAll()
 	            .anyRequest().authenticated()
 	        )
 	        .oauth2Login().successHandler(new OAuth2LoginSuccessHandler(jwtTokenProvider, userDao))
