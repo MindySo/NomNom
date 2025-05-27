@@ -8,6 +8,7 @@
 	<select id="selectAllBoards" resultType="board">
 		SELECT *
 		FROM board
+		ORDER BY board_reg_date DESC
 	</select>
 
 	<!-- 단일 게시글 조회 -->
