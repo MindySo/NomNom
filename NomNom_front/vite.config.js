@@ -13,6 +13,7 @@ export default defineConfig({
     },
   },
   server: {
+    cors: true, // ✅ CORS 허용 추가
     proxy: {
       "/api": {
         target: "http://localhost:8080",
