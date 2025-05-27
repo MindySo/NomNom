@@ -3,6 +3,7 @@ package com.ssafy.nomnom.model.service.community;
 import java.util.List;
 
 import com.ssafy.nomnom.model.dto.community.Comment;
+import com.ssafy.nomnom.model.dto.community.CommentResponse;
 
 public interface CommentService {
 	
@@ -19,5 +20,5 @@ public interface CommentService {
     List<Comment> getCommentsByUser(int userNo);
     
     //게시글에서 댓글 조회 
-    List<Comment> getCommentsByBoard(int boardNo);
+    List<CommentResponse> getCommentsByBoard(int boardNo);
 }

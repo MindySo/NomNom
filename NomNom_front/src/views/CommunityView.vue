@@ -1,5 +1,6 @@
 <template>
   <div class="community-page">
+    <router-view />
     <div class="content-layout">
       <SidebarView />
       <div class="main-content">
@@ -22,7 +23,7 @@
                 {{ post.boardTitle }}
               </router-link>
               <p class="content">{{ post.boardContent }}</p>
-              <div class="meta">작성자: {{ post.userNo }} | {{ post.boardRegDate.slice(0, 10) }}</div>
+              <div class="meta">작성자: {{ post.userId }} | {{ post.boardRegDate.slice(0, 10) }}</div>
             </div>
           </div>
         </div>
@@ -69,7 +70,7 @@ const handleSearch = () => {
   console.log("검색:", searchQuery.value);
 };
 
-const goToWrite = () => router.push("/community/write");
+const goToWrite = () => router.push('/community/write');
 </script>
 
 <style scoped>
