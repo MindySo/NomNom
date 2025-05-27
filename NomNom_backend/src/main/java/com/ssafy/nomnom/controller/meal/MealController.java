@@ -24,6 +24,7 @@ import com.ssafy.nomnom.model.dto.meal.ReportDayResponse;
 import com.ssafy.nomnom.model.dto.meal.ReportMonthlyResponse;
 import com.ssafy.nomnom.model.dto.meal.ReportWeeklyResponse;
 import com.ssafy.nomnom.model.dto.meal.SimpleFoodResponse;
+import com.ssafy.nomnom.model.dto.meal.Water;
 import com.ssafy.nomnom.model.dto.meal.Food;
 import com.ssafy.nomnom.model.dto.meal.Meal;
 import com.ssafy.nomnom.model.dto.meal.MealFood;
@@ -91,14 +92,14 @@ public class MealController {
 
 	@Operation(summary = "식단 및 식단에 포함된 모든 음식 삭제")
 	@DeleteMapping("meal/{mealNo}")
-	public ResponseEntity<Void> deleteMeal(int mealNo) {
+	public ResponseEntity<Void> deleteMeal(@PathVariable int mealNo) {
 		mealservice.removeMeal(mealNo);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 
 	@Operation(summary = "식단에 포함된 음식 삭제")
 	@DeleteMapping("food/{mealFoodNo}")
-	public ResponseEntity<Void> deleteMealFood(int mealFoodNo) {
+	public ResponseEntity<Void> deleteMealFood(@PathVariable int mealFoodNo) {
 		mealservice.removeMeal(mealFoodNo);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
@@ -119,12 +120,12 @@ public class MealController {
 
 	@Operation(summary = "물 기록 조회")
 	@GetMapping("water")
-	public ResponseEntity<List<MealResponse>> getWaterList(@RequestParam int userNo,
+	public ResponseEntity<List<Water>> getWaterList(@RequestParam int userNo,
 			@Parameter(example = "2025-05-14") @RequestParam String mealRegDate) {
 		MealRequest meal = new MealRequest();
 		meal.setUserNo(userNo);
 		meal.setMealRegDate(LocalDate.parse(mealRegDate));
-		List<MealResponse> waterList = mealservice.getWaterListByUserAndRegDate(meal);
+		List<Water> waterList = mealservice.getWaterListByUserAndRegDate(meal);
 
 		return ResponseEntity.ok(waterList);
 	}
