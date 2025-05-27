@@ -110,14 +110,19 @@ const router = createRouter({
       ],
     },
     {
-      path: "/community",
-      name: "community",
-      component: CommunityView,
+      path: '/community',
+      name: 'community',
+      component: CommunityView
     },
     {
-      path: "/community/detail/:id",
-      name: "postDetail",
-      component: BoardDetailView,
+      path: '/community/write',
+      name: 'BoardWrite',
+      component: () => import('@/views/BoardWriteView.vue')
+    },
+    {
+      path: '/community/detail/:id',
+      name: 'postDetail',
+      component: () => import('@/views/BoardDetailView.vue')
     },
     {
       path: "/mypage",
