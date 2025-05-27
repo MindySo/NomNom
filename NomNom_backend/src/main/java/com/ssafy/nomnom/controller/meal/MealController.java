@@ -7,7 +7,6 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,9 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ssafy.nomnom.model.dto.meal.MealResponse;
-import com.ssafy.nomnom.model.dto.meal.ReportDayResponse;
-import com.ssafy.nomnom.model.dto.meal.ReportMonthlyResponse;
-import com.ssafy.nomnom.model.dto.meal.ReportWeeklyResponse;
 import com.ssafy.nomnom.model.dto.meal.SimpleFoodResponse;
 import com.ssafy.nomnom.model.dto.meal.Water;
 import com.ssafy.nomnom.model.dto.meal.Food;

@@ -33,7 +33,7 @@ function renderChart(canvas, config) {
   // id가 없으면 내부적으로 관리할 수 없으므로 무작위 id 부여 (선택적)
   if (!ctx.id) {
     ctx.id = `chart-${Math.random().toString(36).substr(2, 9)}`;
-    console.warn(`⚠️ canvas에 id가 없어 자동 부여됨: ${ctx.id}`);
+    // console.warn(`⚠️ canvas에 id가 없어 자동 부여됨: ${ctx.id}`);
   }
 
   // 기존 차트가 있으면 파괴

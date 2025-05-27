@@ -358,6 +358,7 @@
   flex: 1;
   position: relative;
   overflow: hidden;
+  cursor: pointer;
 }
 .label3 {
   color: var(--gray-20, #8a8c90);

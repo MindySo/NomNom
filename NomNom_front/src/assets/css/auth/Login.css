@@ -102,14 +102,14 @@
 }
 
 .nutrigo-span {
-  font-family: "Poppins-SemiBold", sans-serif;
+  font-family: 'Poppins-SemiBold', sans-serif;
   font-size: 15px;
   line-height: 110%;
   font-weight: 600;
 }
 
 .nutrigo-span2 {
-  font-family: "Poppins-SemiBold", sans-serif;
+  font-family: 'Poppins-SemiBold', sans-serif;
   font-size: 20px;
   line-height: 110%;
   font-weight: 600;
@@ -141,7 +141,7 @@
 .div2 {
   color: #232323;
   text-align: center;
-  font-family: "Poppins-SemiBold", sans-serif;
+  font-family: 'Poppins-SemiBold', sans-serif;
   font-size: 35px;
   line-height: 106%;
   font-weight: 600;
@@ -151,12 +151,12 @@
 .div3 {
   color: #969696;
   text-align: left;
-  font-family: "Poppins-Regular", sans-serif;
+  font-family: 'Poppins-Regular', sans-serif;
   font-size: 18px;
   line-height: 150%;
   font-weight: 400;
   position: relative;
-  width: 300px;
+  width: fit-content;
 }
 
 .form {
@@ -189,7 +189,7 @@
 .minji-gmail-com {
   color: #232323;
   text-align: left;
-  font-family: "Poppins-Regular", sans-serif;
+  font-family: 'Poppins-Regular', sans-serif;
   font-size: 18px;
   line-height: 150%;
   font-weight: 400;
@@ -202,7 +202,7 @@
 .div4 {
   color: #232323;
   text-align: left;
-  font-family: "Inter-Light", sans-serif;
+  font-family: 'Inter-Light', sans-serif;
   font-size: 18px;
   line-height: 150%;
   font-weight: 300;
@@ -226,7 +226,7 @@
 .div5 {
   color: var(--green-dark, #73a107);
   text-align: left;
-  font-family: "Poppins-Medium", sans-serif;
+  font-family: 'Poppins-Medium', sans-serif;
   font-size: 14px;
   line-height: 150%;
   font-weight: 500;
@@ -252,7 +252,7 @@
 .div6 {
   color: #9a9a9a;
   text-align: left;
-  font-family: "Poppins-Regular", sans-serif;
+  font-family: 'Poppins-Regular', sans-serif;
   font-size: 18px;
   line-height: 150%;
   font-weight: 400;
@@ -289,7 +289,7 @@
 .div7 {
   color: #232323;
   text-align: left;
-  font-family: "Poppins-Medium", sans-serif;
+  font-family: 'Poppins-Medium', sans-serif;
   font-size: 16px;
   line-height: 150%;
   font-weight: 500;
@@ -324,7 +324,7 @@
 .div8 {
   color: #ffffff;
   text-align: left;
-  font-family: "Poppins-SemiBold", sans-serif;
+  font-family: 'Poppins-SemiBold', sans-serif;
   font-size: 18px;
   line-height: 120%;
   letter-spacing: -0.01em;
@@ -352,12 +352,13 @@
 
 .div9 {
   color: #6e6e6e;
-  text-align: left;
-  font-family: "Poppins-Medium", sans-serif;
+  text-align: center;
+  font-family: 'Poppins-Medium', sans-serif;
   font-size: 16px;
   line-height: 150%;
   font-weight: 500;
   position: relative;
+  width: 100%;
 }
 
 .vector-2 {
@@ -389,7 +390,7 @@
 .google {
   color: #232323;
   text-align: left;
-  font-family: "Poppins-SemiBold", sans-serif;
+  font-family: 'Poppins-SemiBold', sans-serif;
   font-size: 18px;
   line-height: 120%;
   letter-spacing: -0.01em;
@@ -428,7 +429,7 @@
 .nom-nom {
   color: #6c6c6c;
   text-align: center;
-  font-family: "Poppins-Regular", sans-serif;
+  font-family: 'Poppins-Regular', sans-serif;
   font-size: 18px;
   line-height: 150%;
   font-weight: 400;
@@ -438,7 +439,7 @@
 .div10 {
   color: var(--green-dark, #73a107);
   text-align: center;
-  font-family: "Poppins-SemiBold", sans-serif;
+  font-family: 'Poppins-SemiBold', sans-serif;
   font-size: 18px;
   line-height: 150%;
   font-weight: 600;
