@@ -65,35 +65,33 @@ public class SecurityConfig {
 
 	
 	@Bean
-	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-	    http
-	        .httpBasic().disable()
-	        .formLogin().disable()
-	        .csrf().disable()
-	        .cors().and()
-	        .authorizeHttpRequests(auth -> auth
-	            .requestMatchers("/api/user").permitAll() // 회원가입
-	            .requestMatchers("/api/auth/login").permitAll()
-	            .requestMatchers("/api/auth/**", "/login/**", "/oauth2/**").permitAll() // ✅ 로그인 허용
-	            .requestMatchers("/api/boards/**").permitAll()
-	            .anyRequest().authenticated()
-	        )
-	        .oauth2Login().successHandler(new OAuth2LoginSuccessHandler(jwtTokenProvider, userDao))
-	        .and()
-	        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-	        .and()
-	        .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider, userDetailsService),
-	                UsernamePasswordAuthenticationFilter.class);
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+            .httpBasic().disable()
+            .formLogin().disable()
+            .csrf().disable()
+            .cors().and()
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/api/user").permitAll() // 회원가입
+                .requestMatchers("/api/auth/login").permitAll()
+                .requestMatchers("/api/auth/**", "/login/**", "/oauth2/**").permitAll() // ✅ 로그인 허용
+                .requestMatchers("/api/boards/**").permitAll()
+                .requestMatchers("/api/mission/**").permitAll()
+                .requestMatchers("/api/meal/**").permitAll()
+                .requestMatchers("/api/comments/**").permitAll()
+                .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**", "/webjars/**").permitAll()
+                .anyRequest().authenticated()
+            )
+//            .oauth2Login().successHandler(new OAuth2LoginSuccessHandler(jwtTokenProvider, userDao))
+            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            .and()
+            .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider, userDetailsService),
+                    UsernamePasswordAuthenticationFilter.class);
 
-	    return http.build();
-	}
+        return http.build();
+    }
 	
 
-	
-	
-	
-	
-	
 	// ✅ 비밀번호 암호화 설정
 	@Bean
 	public PasswordEncoder passwordEncoder() {

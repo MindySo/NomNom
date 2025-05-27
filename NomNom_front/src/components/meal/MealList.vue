@@ -179,67 +179,6 @@ function openWaterModal() {
 <template>
   <div id="list">
     <div class="div">
-      <div class="navbar">
-        <div class="header">
-          <div class="logo">
-            <div class="symbol">
-              <div class="bowl"></div>
-              <div class="bowl2"></div>
-            </div>
-            <div class="nutrigo">
-              <span>
-                <span class="nutrigo-span">NomNom</span>
-                <span class="nutrigo-span2">
-                  <br />
-                  냠냠코치
-                </span>
-              </span>
-            </div>
-          </div>
-        </div>
-        <div class="menu-nav">
-          <div class="button-nav">
-            s
-            <img class="icon-nav-calendar-dots" src="@/assets/images/meal/mealList/icon-nav-calendar-dots0.svg" />
-            <div class="text">
-              <div class="label">식단 기록</div>
-            </div>
-          </div>
-          <div class="button-nav2">
-            <img class="icon-nav-bowl-food" src="@/assets/images/meal/mealList/icon-nav-bowl-food0.svg" />
-            <div class="text2">
-              <div class="label2">즐겨찾기</div>
-            </div>
-            <div class="icon">
-              <img class="icon-caret-down" src="@/assets/images/meal/mealList/icon-caret-down0.svg" />
-            </div>
-          </div>
-          <div class="button-nav2">
-            <img class="icon-nav-notebook" src="@/assets/images/meal/mealList/icon-nav-notebook0.svg" />
-            <div class="text2">
-              <div class="label2">커뮤니티</div>
-            </div>
-          </div>
-          <div class="button-nav2">
-            <img class="icon-nav-chart-line-up" src="@/assets/images/meal/mealList/icon-nav-chart-line-up0.svg" />
-            <div class="text2">
-              <div class="label2">챌린지</div>
-            </div>
-          </div>
-          <div class="button-nav2">
-            <img class="icon-nav-heartbeat" src="@/assets/images/meal/mealList/icon-nav-heartbeat0.svg" />
-            <div class="text2">
-              <div class="label2">마이페이지</div>
-            </div>
-          </div>
-          <div class="button-nav3">
-            <img class="icon-nav-sign-out" src="@/assets/images/meal/mealList/icon-nav-sign-out0.svg" />
-            <div class="text3">
-              <div class="label2">로그아웃</div>
-            </div>
-          </div>
-        </div>
-      </div>
       <div class="content">
         <div class="header2">
           <div class="title">나의 식단 기록</div>
