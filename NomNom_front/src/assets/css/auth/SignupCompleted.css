@@ -25,6 +25,7 @@
   align-self: stretch;
   flex: 1;
   position: relative;
+  margin-top: 80px;
 }
 
 .top {
@@ -105,6 +106,7 @@
 
 .content {
   padding: 0px 64px;
+  margin-top: -300px;
   display: flex;
   flex-direction: column;
   gap: 32px;
