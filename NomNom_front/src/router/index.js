@@ -32,8 +32,8 @@ const router = createRouter({
     },
     {
       path: "/main",
-      name: "main",
-      component: MainView,
+      name: "challengeView",
+      component: ChallengeMain,
     },
     {
       path: "/sidebar",
@@ -110,19 +110,19 @@ const router = createRouter({
       ],
     },
     {
-      path: '/community',
-      name: 'community',
-      component: CommunityView
+      path: "/community",
+      name: "community",
+      component: CommunityView,
     },
     {
-      path: '/community/write',
-      name: 'BoardWrite',
-      component: () => import('@/views/BoardWriteView.vue')
+      path: "/community/write",
+      name: "BoardWrite",
+      component: () => import("@/views/BoardWriteView.vue"),
     },
     {
-      path: '/community/detail/:id',
-      name: 'postDetail',
-      component: () => import('@/views/BoardDetailView.vue')
+      path: "/community/detail/:id",
+      name: "postDetail",
+      component: () => import("@/views/BoardDetailView.vue"),
     },
     {
       path: "/mypage",
