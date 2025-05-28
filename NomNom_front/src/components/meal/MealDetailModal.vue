@@ -1,7 +1,6 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount, watch, nextTick } from "vue";
 import axios from "axios";
-
 const props = defineProps({
   show: Boolean,
   mealNo: Number,
