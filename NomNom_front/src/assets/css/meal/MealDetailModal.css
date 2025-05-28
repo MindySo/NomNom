@@ -1374,6 +1374,7 @@
   color: var(--gray-30, #52545b);
   text-align: left;
   font-family: var(--title-14px-regular-font-family, "Poppins-Regular", sans-serif);
+
   font-size: var(--title-14px-regular-font-size, 12px);
   line-height: var(--title-14px-regular-line-height, 125%);
   font-weight: var(--title-14px-regular-font-weight, 400);
