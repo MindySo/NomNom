@@ -17,11 +17,12 @@ import ChallengeMain from "../components/challenge/ChallengeMain.vue";
 import CommunityView from "@/views/CommunityView.vue";
 import BoardDetailView from "@/views/BoardDetailView.vue";
 
-import MypageView from "../views/ChallengeView.vue";
-import MypageList from "../components/mypage/MypageList.vue";
-import MypageChallenge from "../components/mypage/MypageChallenge.vue";
-import MypagePointlog from "../components/mypage/MypagePointlog.vue";
-import MypageUserinfo from "../components/mypage/MypageUserinfo.vue";
+import MypageView from "../views/MypageView.vue";
+import UserInfoView from "../views/UserInfoView.vue";
+import UserPostsView from "../views/UserPostsView.vue";
+import UserCommentsView from "../views/UserCommentsView.vue";
+import UserChallengesView from "../views/UserChallengesView.vue";
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -128,28 +129,26 @@ const router = createRouter({
       path: "/mypage",
       name: "mypage",
       component: MypageView,
-      children: [
-        {
-          path: "",
-          name: "mypageList",
-          component: MypageList,
-        },
-        {
-          path: "",
-          name: "mypageChallenge",
-          component: MypageChallenge,
-        },
-        {
-          path: "detail/",
-          name: "mypagePointlog",
-          component: MypagePointlog,
-        },
-        {
-          path: "detail/",
-          name: "mypageUserinfo",
-          component: MypageUserinfo,
-        },
-      ],
+    },
+    {
+      path: "/mypage/userinfo",
+      name: "UserInfo",
+      component: UserInfoView,
+    },
+    {
+      path: "/mypage/posts",
+      name: "UserPosts",
+      component: UserPostsView,
+    },
+    {
+      path: "/mypage/comments",
+      name: "UserComments",
+      component: UserCommentsView,
+    },
+    {
+      path: "/mypage/challenges",
+      name: "UserChallenges",
+      component: UserChallengesView,
     },
   ],
 });

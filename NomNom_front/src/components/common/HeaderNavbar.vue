@@ -59,7 +59,13 @@
           </div>
         </div>
       </div>
-      <div v-else>
+      <div v-else class="auth-buttons">
+        <div class="button-nav4" @click="router.push('/signup')">
+          <img class="icon-nav" src="@/assets/images/global/icon-nav-sign-out0.svg" />
+          <div class="text2">
+            <span class="label3">회원가입</span>
+          </div>
+        </div>
         <div class="button-nav4" @click="router.push('/login')">
           <img class="icon-nav" src="@/assets/images/global/icon-nav-sign-out0.svg" />
           <div class="text2">
@@ -100,4 +106,10 @@ function handleLogout() {
 <style scoped>
 @import "@/assets/css/common/Navbar.css";
 @import "@/assets/css/vars.css";
+
+.auth-buttons {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
 </style>
