@@ -42,7 +42,7 @@ const boardType = ref('FREE')
 const boardContent = ref('')
 const storedUser = sessionStorage.getItem('user')
 const parsedUser = storedUser ? JSON.parse(storedUser) : null
-const userNickname = parsedUser?.nickname || '로그인한 사용자'
+const userNickname = parsedUser?.userId || '로그인한 사용자'
 const router = useRouter()
 
 const submitPost = async () => {
